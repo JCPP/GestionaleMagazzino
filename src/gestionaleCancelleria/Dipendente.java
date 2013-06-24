@@ -1,6 +1,5 @@
 package gestionaleCancelleria;
 
-import java.sql.ResultSet;
 
 /**
  * 
@@ -9,11 +8,12 @@ import java.sql.ResultSet;
  */
 
 public class Dipendente {
-	private int id_Dipendente;
+	private int idDipendente;
 	private String nome;
 	private String cognome;
 	private String tipo;
 	private String password;
+	private String password2;
 	private String email;
 	
 	
@@ -26,25 +26,28 @@ public class Dipendente {
 	 * @param email L'email del dipendente
 	 */
 	public Dipendente(int id_Dipendente, String nome, String cognome,
-			String tipo, String password, String email) {
+			String tipo, String password,String password2, String email) {
 		super();
-		this.id_Dipendente = id_Dipendente;
+		this.idDipendente = id_Dipendente;
 		this.nome = nome;
 		this.cognome = cognome;
 		this.password = password;
+		this.password2 = password2;
 		this.tipo = tipo;
 		this.email = email;
 	}
-
+	public Dipendente(){
+		super();
+	}
 	/**
 	 * Metodi Get e Set
 	 */
 
 	public int getId_Dipendente() {
-		return id_Dipendente;
+		return idDipendente;
 	}
 	public void setId_Dipendente(int id_Dipendente) {
-		this.id_Dipendente = id_Dipendente;
+		this.idDipendente = id_Dipendente;
 	}
 	public String getNome() {
 		return nome;
@@ -68,11 +71,17 @@ public class Dipendente {
 	public String getPassword() {
 		return password;
 	}
-
+	
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
+	
+	public String getPassword2() {
+		return password2;
+	}
+	public void setPassword2(String password2) {
+		this.password2 = password2;
+	}
 	public String getEmail() {
 		return email;
 	}
@@ -86,19 +95,11 @@ public class Dipendente {
 	 */
 	public void addMeDB(){
 		String query = "INSERT INTO magazzino.dipendente (idDipendente,nome,cognome,email,password,tipo)"+
-						"VALUES ("+id_Dipendente+","+nome+","+cognome+","+email+","+password+","+tipo+")";
+						"VALUES ("+idDipendente+","+nome+","+cognome+","+email+","+password+","+tipo+")";
 		Connettore conn = new Connettore();
 		conn.caricadriver();
 		conn.collegati();
 		conn.eseguiQuery(query);
 	}
-	
-	
-	
-
-	
-	
-	
-	
-	
+		
 }

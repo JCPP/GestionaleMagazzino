@@ -5,7 +5,7 @@ package gestionaleCancelleria;
  * Questa classe descrive il fondo di investimenti
  */
 public class Fondo {
-	private int Id_Fondo;
+	private int idFondo;
 	private String nome;
 	private double importo;
 	
@@ -16,7 +16,7 @@ public class Fondo {
 	 */
 	public Fondo(int id_Fondo, String nome, double importo) {
 		super();
-		Id_Fondo = id_Fondo;
+		idFondo = id_Fondo;
 		this.nome = nome;
 		this.importo = importo;
 	}
@@ -27,11 +27,11 @@ public class Fondo {
 	 * Metodi Get e Set
 	 */
 	public int getId_Fondo() {
-		return Id_Fondo;
+		return idFondo;
 	}
 
 	public void setId_Fondo(int id_Fondo) {
-		Id_Fondo = id_Fondo;
+		idFondo = id_Fondo;
 	}
 
 	public String getNome() {
