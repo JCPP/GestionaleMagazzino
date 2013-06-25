@@ -1,5 +1,9 @@
 package gestionaleCancelleria;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 
 public class Querist {
 	
@@ -102,6 +106,117 @@ public void inserisciNotifica(int idNotifica, int idDipendente, int idDipendente
 	conn.caricadriver();
 	conn.collegati();
 	conn.eseguiQuery(query);
+}
+
+/**
+ * Questo metodo restituisce i nomi dei fondi presenti nel database aventi un fondo disponibile maggiore di 0
+ * @return Il ritorno è un arraylist di stringhe contenenti i risultati, in caso di errore ritorna l'arraylist con il messaggio di errore
+ */
+public ArrayList<String> visualizzaFondi (){
+	Connettore conn = new Connettore();
+	String query = "SELECT F.Nome" +
+				   "FROM magazzino.fondo F" +
+				   "HAVING F.fondoDisponibile > 0";
+	conn.caricadriver();
+	conn.collegati();
+	ResultSet rs = conn.eseguiQuery(query);
+	ArrayList<String> risultato = new ArrayList<String>();
+	
+	try {
+		while(rs.next()){
+			risultato.add(rs.getString("nome"));
+		}
+	} catch (SQLException e) {
+		risultato.add(e.getMessage());
+		return risultato;
+	}
+	return risultato; 
+}
+
+/**
+ * Questo metodo restituisce tutti i prodotti in database
+ * @return ritorna un arraylist di prodotti, in caso di errore un null
+ */
+public ArrayList<Prodotto> visualizzaProdotto(){
+	ArrayList<Prodotto> risultato = new ArrayList<Prodotto>();
+	Connettore conn = new Connettore();
+	String query = "SELECT = *" +
+				   "FROM magazzino.prodotto P";
+	conn.caricadriver();
+	conn.collegati();
+	ResultSet rs = conn.eseguiQuery(query);
+	
+	try {
+		Prodotto pr;
+		while(rs.next()){
+			pr = new Prodotto(rs.getInt("idProdotto"),rs.getString("nome"), rs.getInt("qta"), rs.getFloat("prezzoUnita"));
+			risultato.add(pr);
+		}
+	} catch (SQLException e) {
+		Prodotto pr = null;
+		risultato.add(pr);
+		return risultato;
+	}
+	return risultato; 
+}
+
+/**
+ * Il metodo verifica le occorrenze dell'email fornita, per essere valida le occorrenze non devono essere presenti
+ * @param email l'email da confrontare
+ * @return ritorna una boolean coerente con la validita della email inserita
+ */
+public boolean validateEmail (String email){
+	Connettore conn = new Connettore();
+	boolean valida = false;
+	String query = "SELECT COUNT(D.email) AS occorrenze" +
+				   "FROM magazzino.dipendente D" +
+				   "WHERE D.email = "+email;
+	conn.caricadriver();
+	conn.collegati();
+	ResultSet rs = conn.eseguiQuery(query);
+	int risultato = 0;
+
+	try {
+		while(rs.next()){
+			risultato = rs.getInt("occorrenze");
+			if(risultato == 0){
+				valida = true;
+			} 		
+		}
+	} catch (SQLException e) {
+		valida = false;
+	}
+	return valida;
+}
+
+/**
+ * Questo metodo verifica la validita della password associata ad un email.
+ * @param email l'email da confrontare in combinazione con la password
+ * @param password la password da confrontare in combinazione con l'email
+ * @return true o false in base alla validità della password associata all'email
+ */
+public boolean validatePassword (String email, String password){
+	Connettore conn = new Connettore();
+	boolean valida = false;
+	String query = "SELECT COUNT(D.email) AS occorrenze" +
+				   "FROM magazzino.dipendente D" +
+				   "WHERE D.email = "+email+" AND D.password = "+ password;
+	conn.caricadriver();
+	conn.collegati();
+	ResultSet rs = conn.eseguiQuery(query);
+	int risultato = 0;
+
+	try {
+		while(rs.next()){
+			risultato = rs.getInt("occorrenze");
+			if(risultato == 1){
+				valida = true;
+			} 		
+		}
+	} catch (SQLException e) {
+		valida = false;
+	}
+	return valida;
 }
 
 

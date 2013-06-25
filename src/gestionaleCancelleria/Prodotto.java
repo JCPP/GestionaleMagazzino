@@ -8,7 +8,7 @@ package gestionaleCancelleria;
 public class Prodotto {
 	private int idProdotto;
 	private String nome;
-	private String qta;
+	private int qta;
 	private float prezzo;
 	
 	
@@ -18,7 +18,8 @@ public class Prodotto {
 	 * @param quantità Quantità del prodotto
 	 * @param prezzo Prezzo del prodotto unitario
 	 */
-	public Prodotto(int id_Prodotto, String nome, String quantità, float prezzo) {
+	
+	public Prodotto(int id_Prodotto, String nome, int quantità, float prezzo) {
 		super();
 		idProdotto = id_Prodotto;
 		this.nome = nome;
@@ -28,6 +29,12 @@ public class Prodotto {
 
 
 	
+	public Prodotto() {
+		super();
+	}
+
+
+
 	/**
 	 * Metodi Get e Set
 	 */
@@ -51,12 +58,12 @@ public class Prodotto {
 	}
 
 
-	public String getQuantità() {
+	public int getQuantità() {
 		return qta;
 	}
 
 
-	public void setQuantità(String quantità) {
+	public void setQuantità(int quantità) {
 		this.qta = quantità;
 	}
 
