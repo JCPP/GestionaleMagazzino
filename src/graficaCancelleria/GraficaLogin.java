@@ -1,4 +1,5 @@
-package gestionaleCancelleria;
+package graficaCancelleria;
+
 
 import javax.swing.*;
 

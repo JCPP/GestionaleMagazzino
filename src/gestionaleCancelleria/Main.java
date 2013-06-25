@@ -1,14 +1,17 @@
 package gestionaleCancelleria;
 
+import graficaCancelleria.GraficaQuantita;
+import graficaCancelleria.*;
+
 import javax.swing.JOptionPane;
 
 public class Main {
-	private static GraficaLogin gr;
+	private static GraficaQuantita gr;
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		gr = new GraficaLogin();
+		gr = new GraficaQuantita();
 		Dipendente dip = new Dipendente();
 		Controllore contro = new Controllore();
 		/*String pass = JOptionPane.showInputDialog("Prima password");
