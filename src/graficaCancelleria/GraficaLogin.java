@@ -147,6 +147,7 @@ public class GraficaLogin extends JFrame implements ActionListener {
 		{
 			pulisciErrori();
 			controlloCampi();
+			//passaggio di parametri da confrontare con il DB
 		}
 		if(s.equals("Chiudi"))
 		{

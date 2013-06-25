@@ -192,6 +192,7 @@ public class GraficaRegistrazione extends JFrame implements ActionListener {
 		{
 			pulisciErrori();
 			controllaCampi();
+			//passaggio di parametri da confrontare con il DB
 		}
 		if(s.equals("Reset"))
 		{
