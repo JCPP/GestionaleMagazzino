@@ -3,11 +3,12 @@ package gestionaleCancelleria;
 import javax.swing.JOptionPane;
 
 public class Main {
-
+	private static GraficaLogin gr;
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		gr = new GraficaLogin();
 		Dipendente dip = new Dipendente();
 		Controllore contro = new Controllore();
 		/*String pass = JOptionPane.showInputDialog("Prima password");
