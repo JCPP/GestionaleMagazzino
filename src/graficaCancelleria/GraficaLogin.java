@@ -9,6 +9,7 @@ import java.awt.*;
 
 public class GraficaLogin extends JFrame implements ActionListener {
 	
+	private GraficaProdotti grafica_Prodotti;
 	private GraficaRegistrazione grafica_Registrazione;
 	private JFrame finestra_Login;
 	private Dimension dimensione_Finestra;
@@ -145,6 +146,8 @@ public class GraficaLogin extends JFrame implements ActionListener {
 		{
 			pulisciErrori();
 			controlloCampi();
+			grafica_Prodotti = new GraficaProdotti();
+			finestra_Login.dispose();
 			//passaggio di parametri da confrontare con il DB
 		}
 		if(s.equals("Chiudi"))
