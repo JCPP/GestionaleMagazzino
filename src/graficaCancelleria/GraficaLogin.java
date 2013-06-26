@@ -37,30 +37,28 @@ public class GraficaLogin extends JFrame implements ActionListener {
 	public GraficaLogin()
 	{
 		init();
-		//dati_Constraints.weighty = 1.0;
 		dati_Constraints.gridx = 2;
 		dati_Constraints.gridy = 0;
 		pannello_Dati.add(label_Email,dati_Constraints);
 		dati_Constraints.fill = GridBagConstraints.HORIZONTAL;
-		//dati_Constraints.weighty = 0.0;
 		dati_Constraints.gridx = 2;
 		dati_Constraints.gridy = 1;
-		pannello_Dati.add(label_Errore_Email,dati_Constraints);
+		pannello_Dati.add(text_Email,dati_Constraints);
 		dati_Constraints.fill = GridBagConstraints.NONE;
 		dati_Constraints.gridx = 2;
 		dati_Constraints.gridy = 2;
-		pannello_Dati.add(text_Email,dati_Constraints);
+		pannello_Dati.add(label_Errore_Email,dati_Constraints);
 		dati_Constraints.gridx = 2;
 		dati_Constraints.gridy = 4;
 		pannello_Dati.add(label_Password,dati_Constraints);
 		dati_Constraints.fill = GridBagConstraints.HORIZONTAL;
 		dati_Constraints.gridx = 2;
 		dati_Constraints.gridy = 5;
-		pannello_Dati.add(label_Errore_Password,dati_Constraints);
+		pannello_Dati.add(pass_Password,dati_Constraints);
 		dati_Constraints.fill = GridBagConstraints.NONE;
 		dati_Constraints.gridx = 2;
 		dati_Constraints.gridy = 6;
-		pannello_Dati.add(pass_Password,dati_Constraints);
+		pannello_Dati.add(label_Errore_Password,dati_Constraints);
 		
 		pannello_Bottoni.add(bottone_Connetti);
 		pannello_Bottoni.add(bottone_Annulla);

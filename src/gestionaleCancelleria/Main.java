@@ -1,6 +1,5 @@
 package gestionaleCancelleria;
 
-import graficaCancelleria.GraficaQuantita;
 import graficaCancelleria.*;
 
 import javax.swing.JOptionPane;

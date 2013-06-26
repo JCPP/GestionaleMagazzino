@@ -30,10 +30,10 @@ public class GraficaQuantita extends JFrame implements ActionListener{
 		pannello_Dati.add(label_Quantita,dati_Constraints);
 		dati_Constraints.gridx = 2;
 		dati_Constraints.gridy = 1;
-		pannello_Dati.add(label_Errore_Quantita,dati_Constraints);
+		pannello_Dati.add(text_Quantita,dati_Constraints);
 		dati_Constraints.gridx = 2;
 		dati_Constraints.gridy = 2;
-		pannello_Dati.add(text_Quantita,dati_Constraints);
+		pannello_Dati.add(label_Errore_Quantita,dati_Constraints);
 		
 		pannello_Bottoni.add(bottone_Inserisci);
 		pannello_Bottoni.add(bottone_Annulla);
