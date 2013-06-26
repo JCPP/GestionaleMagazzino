@@ -11,6 +11,8 @@ public class Main {
 		gr = new GraficaLogin();
 		Dipendente dip = new Dipendente();
 		Controllore contro = new Controllore();
+		Querist que = new Querist();
+		que.inserisciDipendente("Matteo", "Calò", "mattew0", "emmeci92gmail.com", "responsabile");
 	}
 
 }

@@ -21,8 +21,8 @@ public Querist(){
  */
 public void inserisciDipendente(String nome, String cognome, String pass, String email, String tipo){
 	Connettore conn = new Connettore();
-	String query = "INSERT INTO TABLE magazzino.dipendente(,nome,cognome,email,password,tipo)"+
-			"(,"+nome+","+cognome+","+pass+","+email+","+tipo+")";
+	String query = "INSERT INTO magazzino.dipendente (nome,cognome,email,password,tipo) VALUES"+
+				   "("+nome+","+cognome+","+pass+","+email+","+tipo+")";
 	conn.caricadriver();
 	conn.collegati();
 	conn.eseguiQuery(query);
@@ -37,7 +37,7 @@ public void inserisciDipendente(String nome, String cognome, String pass, String
  */
 public void inserisciProdotto(String nome, int qta, float prezzoUnita){
 	Connettore conn = new Connettore();
-	String query = "INSERT INTO TABLE magazzino.prodotto(,nome,qta,prezzoUnita)"+
+	String query = "INSERT INTO magazzino.prodotto(,nome,qta,prezzoUnita)"+
 			"(,"+nome+","+qta+","+prezzoUnita+")";
 	conn.caricadriver();
 	conn.collegati();
@@ -51,7 +51,7 @@ public void inserisciProdotto(String nome, int qta, float prezzoUnita){
  */
 public void inserisciFondo(String nome, float fondoDisponibile){
 	Connettore conn = new Connettore();
-	String query = "INSERT INTO TABLE magazzino.fondo(,nome,fondoDisponibile)"+
+	String query = "INSERT INTO magazzino.fondo(,nome,fondoDisponibile)"+
 			"(,"+nome+","+fondoDisponibile+")";
 	conn.caricadriver();
 	conn.collegati();
@@ -68,7 +68,7 @@ public void inserisciFondo(String nome, float fondoDisponibile){
  */
 public void inserisciAcquisto(int idDipendente, int idProdotto, int idFondo, int qta){
 	Connettore conn = new Connettore();
-	String query = "INSERT INTO TABLE magazzino.acquisto(,idDipendente,idProdotto,idFondo,qta,)"+
+	String query = "INSERT INTO magazzino.acquisto(,idDipendente,idProdotto,idFondo,qta,)"+
 			"(,"+idDipendente+","+idProdotto+","+idFondo+","+qta+",)";
 	conn.caricadriver();
 	conn.collegati();
@@ -84,7 +84,7 @@ public void inserisciAcquisto(int idDipendente, int idProdotto, int idFondo, int
  */
 public void inserisciAggiornamento(int idDipendente, int idProdotto, int qta){
 	Connettore conn = new Connettore();
-	String query = "INSERT INTO TABLE magazzino.aggiornamento(,idDipendente,idProdotto,qta,)"+
+	String query = "INSERT INTO magazzino.aggiornamento(,idDipendente,idProdotto,qta,)"+
 			"(,"+idDipendente+","+idProdotto+","+qta+",)";
 	conn.caricadriver();
 	conn.collegati();
@@ -101,7 +101,7 @@ public void inserisciAggiornamento(int idDipendente, int idProdotto, int qta){
  */
 public void inserisciNotifica(int idNotifica, int idDipendente, int idDipendenteNotificato, String notifica){
 	Connettore conn = new Connettore();
-	String query = "INSERT INTO TABLE magazzino.notifica(,idDipendente,idDipendenteNotificato,notifica,)"+
+	String query = "INSERT INTO magazzino.notifica(,idDipendente,idDipendenteNotificato,notifica,)"+
 			"(,"+idDipendente+","+idDipendenteNotificato+","+notifica+",)";
 	conn.caricadriver();
 	conn.collegati();
