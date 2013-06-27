@@ -2,9 +2,7 @@ package gestionaleCancelleria;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class Connettore {
 	/**
@@ -13,12 +11,12 @@ public class Connettore {
 	 * che andrete a creare potranno usufruire delle sue potenzialità.
 	 */
 	public static Connection conn;
-	
-	
 	public Connettore() {
 		super();
 	}
 
+	
+	
 	/**
 	 * Ora dobbiamo caricare il driver JDBC strumento utilissimo in quanto 
 	 * traduce le operazioni java in sql e si connette con il database.
@@ -44,33 +42,5 @@ public class Connettore {
 		}
 	}
 
-	/**
-	 * @param query rappresenta la query che gli passiamo
-	 * @return ResultSet, l'insieme di record risultati della query al database
-	 */
-	public void eseguiQueryUpdate(String query){
-		try{
-			Statement stat = conn.createStatement();
-			stat.executeUpdate(query);
-			
-			conn.close();
-			stat.close();
-		}catch(SQLException e){
-			System.out.println("Errore no. " + e.getErrorCode() + " : " + e.getMessage());
-		}
-	}
-	/**
-	 * @param query rappresenta la query che gli passiamo
-	 * @return ResultSet, l'insieme di record risultati della query al database
-	 */
-	public ResultSet eseguiQuery(String query){
-		ResultSet rs = null;
-		try{
-			Statement stat = conn.createStatement();
-			rs = stat.executeQuery(query);
-		}catch(SQLException e){
-			System.out.println("Errore no. " + e.getErrorCode() + " : " + e.getMessage());
-		}
-		return rs;
-	}
 }
+
