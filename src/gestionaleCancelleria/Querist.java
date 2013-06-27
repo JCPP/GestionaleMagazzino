@@ -22,10 +22,10 @@ public Querist(){
 public void inserisciDipendente(String nome, String cognome, String pass, String email, String tipo){
 	Connettore conn = new Connettore();
 	String query = "INSERT INTO Dipendente (nome,cognome,email,password,tipo) VALUES"+
-				   "("+nome+","+cognome+","+pass+","+email+","+tipo+")";
+				   "('"+nome+"','"+cognome+"','"+email+"','"+pass+"','"+tipo+"')";
 	conn.caricadriver();
 	conn.collegati();
-	conn.eseguiQuery(query);
+	conn.eseguiQueryUpdate(query);
 
 }
 
@@ -41,8 +41,8 @@ public void inserisciProdotto(String nome, int qta, float prezzoUnita){
 					"('"+nome+"',"+qta+","+prezzoUnita+")";
 	conn.caricadriver();
 	conn.collegati();
-	conn.eseguiQuery(query);
-}
+	conn.eseguiQueryUpdate(query);
+	}
 
 /**
  * 
@@ -51,12 +51,12 @@ public void inserisciProdotto(String nome, int qta, float prezzoUnita){
  */
 public void inserisciFondo(String nome, float fondoDisponibile){
 	Connettore conn = new Connettore();
-	String query = "INSERT INTO magazzino.fondo(,nome,fondoDisponibile)"+
-			"(,"+nome+","+fondoDisponibile+")";
+	String query = "INSERT INTO Fondo(nome,fondoDisponibile) VALUES"+
+			"('"+nome+"',"+fondoDisponibile+")";
 	conn.caricadriver();
 	conn.collegati();
-	conn.eseguiQuery(query);
-}
+	conn.eseguiQueryUpdate(query);
+	}
 
 /**
  * La query non vede inserita la data in quanto in fase di progettazione 
@@ -68,11 +68,11 @@ public void inserisciFondo(String nome, float fondoDisponibile){
  */
 public void inserisciAcquisto(int idDipendente, int idProdotto, int idFondo, int qta){
 	Connettore conn = new Connettore();
-	String query = "INSERT INTO magazzino.acquisto(,idDipendente,idProdotto,idFondo,qta,)"+
-			"(,"+idDipendente+","+idProdotto+","+idFondo+","+qta+",)";
+	String query = "INSERT INTO Acquisto(idDipendente,idProdotto,idFondo,qta) VALUES"+
+			"("+idDipendente+","+idProdotto+","+idFondo+","+qta+")";
 	conn.caricadriver();
 	conn.collegati();
-	conn.eseguiQuery(query);
+	conn.eseguiQueryUpdate(query);
 }
 
 /**
@@ -84,11 +84,11 @@ public void inserisciAcquisto(int idDipendente, int idProdotto, int idFondo, int
  */
 public void inserisciAggiornamento(int idDipendente, int idProdotto, int qta){
 	Connettore conn = new Connettore();
-	String query = "INSERT INTO magazzino.aggiornamento(,idDipendente,idProdotto,qta,)"+
-			"(,"+idDipendente+","+idProdotto+","+qta+",)";
+	String query = "INSERT INTO Aggiornamento(idDipendente,idProdotto,qta) VALUES"+
+			"("+idDipendente+","+idProdotto+","+qta+")";
 	conn.caricadriver();
 	conn.collegati();
-	conn.eseguiQuery(query);
+	conn.eseguiQueryUpdate(query);
 }
 
 /**
@@ -99,13 +99,13 @@ public void inserisciAggiornamento(int idDipendente, int idProdotto, int qta){
  * @param idDipendenteNotificato id del dipendente notificato
  * @param notifica il testo della notifica
  */
-public void inserisciNotifica(int idNotifica, int idDipendente, int idDipendenteNotificato, String notifica){
+public void inserisciNotifica(int idDipendente, int idDipendenteNotificato, String notifica){
 	Connettore conn = new Connettore();
-	String query = "INSERT INTO magazzino.notifica(,idDipendente,idDipendenteNotificato,notifica,)"+
-			"(,"+idDipendente+","+idDipendenteNotificato+","+notifica+",)";
+	String query = "INSERT INTO Notifica(idDipendente,idDipendenteNotificato,notifica) VALUES"+
+			"("+idDipendente+","+idDipendenteNotificato+",'"+notifica+"')";
 	conn.caricadriver();
 	conn.collegati();
-	conn.eseguiQuery(query);
+	conn.eseguiQueryUpdate(query);
 }
 
 /**
@@ -137,15 +137,13 @@ public ArrayList<String> visualizzaFondi (){
  * Questo metodo restituisce tutti i prodotti in database
  * @return ritorna un arraylist di prodotti, in caso di errore un null
  */
-public ArrayList<Prodotto> visualizzaProdotto(){
+public ArrayList<Prodotto> visualizzaProdotti(){
 	ArrayList<Prodotto> risultato = new ArrayList<Prodotto>();
 	Connettore conn = new Connettore();
-	String query = "SELECT = *" +
-				   "FROM magazzino.prodotto P";
+	String query = "SELECT * FROM Prodotto";
 	conn.caricadriver();
 	conn.collegati();
 	ResultSet rs = conn.eseguiQuery(query);
-	
 	try {
 		Prodotto pr;
 		while(rs.next()){
@@ -168,9 +166,9 @@ public ArrayList<Prodotto> visualizzaProdotto(){
 public boolean validateEmail (String email){
 	Connettore conn = new Connettore();
 	boolean valida = false;
-	String query = "SELECT COUNT(D.email) AS occorrenze" +
-				   "FROM magazzino.dipendente D" +
-				   "WHERE D.email = "+email;
+	String query = "SELECT COUNT(D.email) AS occorrenze " +
+				   "FROM Dipendente AS D " +
+				   "WHERE D.email = '"+email+"'";
 	conn.caricadriver();
 	conn.collegati();
 	ResultSet rs = conn.eseguiQuery(query);
@@ -198,11 +196,12 @@ public boolean validateEmail (String email){
 public boolean validatePassword (String email, String password){
 	Connettore conn = new Connettore();
 	boolean valida = false;
-	String query = "SELECT COUNT(D.email) AS occorrenze" +
-				   "FROM magazzino.dipendente D" +
-				   "WHERE D.email = "+email+" AND D.password = "+ password;
+	String query = "SELECT COUNT(D.email) AS occorrenze " +
+				   "FROM Dipendente D " +
+				   "WHERE D.email = '"+email+"' AND D.password = '"+ password +"'";
 	conn.caricadriver();
 	conn.collegati();
+	System.out.println(query);
 	ResultSet rs = conn.eseguiQuery(query);
 	int risultato = 0;
 

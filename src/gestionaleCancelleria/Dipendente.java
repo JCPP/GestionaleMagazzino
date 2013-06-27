@@ -95,7 +95,7 @@ public class Dipendente {
 	 */
 	public void addMeDB(){
 		String query = "INSERT INTO magazzino.dipendente (idDipendente,nome,cognome,email,password,tipo)"+
-						"VALUES ("+idDipendente+","+nome+","+cognome+","+email+","+password+","+tipo+")";
+						"VALUES ("+idDipendente+",'"+nome+"','"+cognome+"','"+email+"','"+password+"','"+tipo+"')";
 		Connettore conn = new Connettore();
 		conn.caricadriver();
 		conn.collegati();

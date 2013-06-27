@@ -48,22 +48,29 @@ public class Connettore {
 	 * @param query rappresenta la query che gli passiamo
 	 * @return ResultSet, l'insieme di record risultati della query al database
 	 */
-	public ResultSet eseguiQuery(String query){
-		ResultSet rs = null;
+	public void eseguiQueryUpdate(String query){
 		try{
 			Statement stat = conn.createStatement();
-			rs = stat.executeQuery(query);
+			stat.executeUpdate(query);
 			
 			conn.close();
-			rs.close();
 			stat.close();
 		}catch(SQLException e){
 			System.out.println("Errore no. " + e.getErrorCode() + " : " + e.getMessage());
 		}
-		return rs;
 	}
 	/**
 	 * @param query rappresenta la query che gli passiamo
 	 * @return ResultSet, l'insieme di record risultati della query al database
 	 */
+	public ResultSet eseguiQuery(String query){
+		ResultSet rs = null;
+		try{
+			Statement stat = conn.createStatement();
+			rs = stat.executeQuery(query);
+		}catch(SQLException e){
+			System.out.println("Errore no. " + e.getErrorCode() + " : " + e.getMessage());
+		}
+		return rs;
+	}
 }
