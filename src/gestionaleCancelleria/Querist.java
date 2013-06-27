@@ -25,7 +25,9 @@ public void eseguiQueryUpdate(String query){
 	try{
 		connettore.caricadriver();
 		connettore.collegati();
+		System.out.println("Sono qui: "+query);
 		Statement stat = conn.createStatement();
+		System.out.println("Sono buono:" +query);
 		stat.executeUpdate(query);
 
 		conn.close();

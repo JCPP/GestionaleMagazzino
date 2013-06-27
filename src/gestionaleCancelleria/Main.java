@@ -3,6 +3,8 @@ package gestionaleCancelleria;
 import java.util.concurrent.ExecutionException;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
+
+import modelsCancelleria.Dipendente;
 import graficaCancelleria.*;
 
 public class Main {
@@ -10,18 +12,14 @@ public class Main {
 	private static GraficaRegistrazione gr;
 	private static GraficaProdotti gp;
 	private static GraficaLogin gl;
-	private static Controllore controllore;
-	private static Querist que;
+	private static modelsCancelleria.Dipendente dip;
 
 	public static void main(String[] args) 
 	{
 		gl = new GraficaLogin();
 		gp = new GraficaProdotti();
 		gr = new GraficaRegistrazione();
-		que = new Querist();
-		controllore = new Controllore();
 		gl.init();
-		System.out.println(que.validateResponsabile("mattew", "emmeci92@gmail.com"));
 		SwingUtilities.invokeLater(new Runnable()
         {
              
@@ -32,7 +30,8 @@ public class Main {
                 	
                 	protected Boolean doInBackground() throws Exception 
                 	{
-                		
+                		//dip.cancellaDipendente("mattew");
+                		Dipendente.inserisciDipendente("Matteo", "Calò", "mattew", "emmeci92@gmail.com","responsabile" );
                 		return true;
                 	};
   			    

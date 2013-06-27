@@ -20,6 +20,7 @@ public class Dipendente {
 		que = new Querist();
 		String query = "INSERT INTO Dipendente (nome,cognome,email,password,tipo) VALUES"+
 				"('"+nome+"','"+cognome+"','"+email+"','"+pass+"','"+tipo+"')";
+		//System.out.println(query);
 		que.eseguiQueryUpdate(query);
 
 	}
@@ -104,5 +105,17 @@ public class Dipendente {
 		return valida;
 	}
 
-	
+	/**
+	 * Questo metodo cancella un utente in base all'email
+	 * @param email email dell'utente da cancellare
+	 */
+	static public void cancellaDipendente(String email){
+		String query = "DELETE " +
+				       "FROM Dipendente " +
+				       "WHERE Dipendente.email = '"+email+"'";
+		System.out.println(query);
+		que.eseguiQueryUpdate(query);
+	}
+
+
 }

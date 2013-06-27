@@ -15,8 +15,8 @@ public class Dipendente {
 	private String password;
 	private String password2;
 	private String email;
-	
-	
+
+
 	/**
 	 * Il costruttore della classe
 	 * @param id_Dipendente Identificativo in DB del dipendente
@@ -71,11 +71,11 @@ public class Dipendente {
 	public String getPassword() {
 		return password;
 	}
-	
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 	public String getPassword2() {
 		return password2;
 	}
@@ -88,18 +88,6 @@ public class Dipendente {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	/**
-	 * Questo metodo aggiunge il Dipendente al Database,
-	 * da usare a seguito di un form con relativi controlli preposti
-	 */
-	public void addMeDB(){
-		String query = "INSERT INTO magazzino.dipendente (idDipendente,nome,cognome,email,password,tipo)"+
-						"VALUES ("+idDipendente+",'"+nome+"','"+cognome+"','"+email+"','"+password+"','"+tipo+"')";
-		Connettore conn = new Connettore();
-		conn.caricadriver();
-		conn.collegati();
-		conn.eseguiQuery(query);
-	}
-		
 }
+
+
