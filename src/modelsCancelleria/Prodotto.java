@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import gestionaleCancelleria.Querist;
 
 public class Prodotto {
-	Querist que;
+	static Querist que;
 	
 	/**
 	 * 
@@ -15,7 +15,7 @@ public class Prodotto {
 	 * @param qta quantità del prodotto
 	 * @param prezzoUnita prezzo unitario del prodotto
 	 */
-	public void inserisciProdotto(String nome, int qta, float prezzoUnita){
+	static public void inserisciProdotto(String nome, int qta, float prezzoUnita){
 		String query = "INSERT INTO Prodotto(nome,qta,prezzoUnita) VALUES"+
 						"('"+nome+"',"+qta+","+prezzoUnita+")";
 		que.eseguiQueryUpdate(query);
@@ -25,7 +25,7 @@ public class Prodotto {
 	 * Questo metodo restituisce tutti i prodotti in database
 	 * @return ritorna un arraylist di prodotti, in caso di errore un null
 	 */
-	public ArrayList<gestionaleCancelleria.Prodotto> visualizzaProdotti(){
+	static public ArrayList<gestionaleCancelleria.Prodotto> visualizzaProdotti(){
 		ArrayList<gestionaleCancelleria.Prodotto> risultato = new ArrayList<gestionaleCancelleria.Prodotto>();
 		String query = "SELECT * FROM Prodotto";
 		ResultSet rs = que.eseguiQuery(query);

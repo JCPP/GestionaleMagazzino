@@ -10,12 +10,18 @@ public class Main {
 	private static GraficaRegistrazione gr;
 	private static GraficaProdotti gp;
 	private static GraficaLogin gl;
+	private static Controllore controllore;
+	private static Querist que;
+
 	public static void main(String[] args) 
 	{
 		gl = new GraficaLogin();
 		gp = new GraficaProdotti();
 		gr = new GraficaRegistrazione();
+		que = new Querist();
+		controllore = new Controllore();
 		gl.init();
+		System.out.println(que.validateResponsabile("mattew", "emmeci92@gmail.com"));
 		SwingUtilities.invokeLater(new Runnable()
         {
              
@@ -60,6 +66,8 @@ public class Main {
 		{
 		//casi login
 			case "Connetti":
+				
+				
 				gl.disposeF();
 				gp.init();
 				break;

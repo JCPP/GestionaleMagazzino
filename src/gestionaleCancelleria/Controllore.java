@@ -1,44 +1,38 @@
 package gestionaleCancelleria;
 
-
-
 public class Controllore {
-	private Dipendente dipend;
-	private Prodotto prod;
-	private Fondo fondo;
-	private int qtaRichiesta;
 	
 	public Controllore() {
 		super();
 	}
-
 	
-	public Dipendente getDipend() {
-		return dipend;
+	/**
+	 * Metodo di convalida email in fase di login
+	 * @param email email da controllare nel database, se non è presente o se è presente solo una volta
+	 * @return validità dell'email
+	 */
+	public boolean isEmail(String email){
+		boolean valida = false;
+		valida = modelsCancelleria.Dipendente.validateEmail(email);
+		
+		return valida;
 	}
-
-	public void setDipend(Dipendente dipend) {
-		this.dipend = dipend;
+	
+	/**
+	 * Questo metodo controlla la password associata all'email fornita in fase di login
+	 * @param email email da convalidare in fase di login
+	 * @param password password da convalidare in fase di login associata all'email
+	 * @return validità della password inserita
+	 */
+	public boolean isPassword(String email, String password){
+		boolean valida = false;
+		valida = modelsCancelleria.Dipendente.validatePassword(email, password);
+		
+		return valida;
 	}
-
-	public Prodotto getProd() {
-		return prod;
-	}
-
-	public void setProd(Prodotto prod) {
-		this.prod = prod;
-	}
-
-	public Fondo getFondo() {
-		return fondo;
-	}
-
-	public void setFondo(Fondo fondo) {
-		this.fondo = fondo;
-	}
-
 	
 	/** 
+	 * Controlla campo vuoto, lunghezza e uguaglianza con la seconda password in fase di registrazione
 	 * @return il numero dell'errore, in modo d poterlo gestire singolarmente
 	 * @return 1 se la password è vuota
 	 * @return 2 se la password è maggiore di 12
@@ -58,7 +52,7 @@ public class Controllore {
 	}
 	
 	/**
-	 * 
+	 * Controlla la validità sintattica della email
 	 * @param email l'email da prendere in esame
 	 * @return true o false in base alla validità della formattazione
 	 */

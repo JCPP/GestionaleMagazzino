@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import gestionaleCancelleria.Querist;
 
 public class Notifica {
-	Querist que;
+	static Querist que;
 	
 	/**
 	 * La query non vede inserita la data in quanto in fase di progettazione 
@@ -17,7 +17,7 @@ public class Notifica {
 	 * @param idDipendenteNotificato id del dipendente notificato
 	 * @param notifica il testo della notifica
 	 */
-	public void inserisciNotifica(int idDipendente, int idDipendenteNotificato, String notifica){
+	static public void inserisciNotifica(int idDipendente, int idDipendenteNotificato, String notifica){
 		String query = "INSERT INTO Notifica(idDipendente,idDipendenteNotificato,notifica) VALUES"+
 				"("+idDipendente+","+idDipendenteNotificato+",'"+notifica+"')";
 		que.eseguiQueryUpdate(query);

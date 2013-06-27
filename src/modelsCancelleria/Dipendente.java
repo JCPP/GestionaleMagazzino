@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import gestionaleCancelleria.Querist;
 
 public class Dipendente {
-	Querist que;
+	static Querist que;
 
 	/**
 	 * 
@@ -16,7 +16,7 @@ public class Dipendente {
 	 * @param email email del dipendente
 	 * @param tipo tipo del dipendente
 	 */
-	public void inserisciDipendente(String nome, String cognome, String pass, String email, String tipo){
+	static public void inserisciDipendente(String nome, String cognome, String pass, String email, String tipo){
 		que = new Querist();
 		String query = "INSERT INTO Dipendente (nome,cognome,email,password,tipo) VALUES"+
 				"('"+nome+"','"+cognome+"','"+email+"','"+pass+"','"+tipo+"')";
@@ -29,7 +29,7 @@ public class Dipendente {
 	 * @param email l'email da confrontare
 	 * @return ritorna una boolean coerente con la validita della email inserita
 	 */
-	public boolean validateEmail (String email){
+	static public boolean validateEmail (String email){
 		boolean valida = false;
 		String query = "SELECT COUNT(D.email) AS occorrenze " +
 					   "FROM Dipendente AS D " +
@@ -56,7 +56,7 @@ public class Dipendente {
 	 * @param password la password da confrontare in combinazione con l'email
 	 * @return true o false in base alla validità della password associata all'email
 	 */
-	public boolean validatePassword (String email, String password){
+	static public boolean validatePassword (String email, String password){
 		boolean valida = false;
 		String query = "SELECT COUNT(D.email) AS occorrenze " +
 					   "FROM Dipendente D " +
@@ -83,7 +83,7 @@ public class Dipendente {
 	 * @param password password del responsabile
 	 * @return ritorna la validità del ruolo associata all'utente
 	 */
-	public boolean validateResponsabile (String email, String password){
+	static public boolean validateResponsabile (String email, String password){
 		boolean valida = false;
 		String query = "SELECT D.Tipo " +
 				   	   "FROM Dipendente D " +

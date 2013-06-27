@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import gestionaleCancelleria.Querist;
 
 public class Aggiornamento {
-	Querist que;
+	static Querist que;
 	
 	/**
 	 * La query non vede inserita la data in quanto in fase di progettazione 
@@ -16,7 +16,7 @@ public class Aggiornamento {
 	 * @param idProdotto id del prodotto
 	 * @param qta quantità aggiunta
 	 */
-	public void inserisciAggiornamento(int idDipendente, int idProdotto, int qta){
+	static public void inserisciAggiornamento(int idDipendente, int idProdotto, int qta){
 		String query = "INSERT INTO Aggiornamento(idDipendente,idProdotto,qta) VALUES"+
 				"("+idDipendente+","+idProdotto+","+qta+")";
 		que.eseguiQueryUpdate(query);
