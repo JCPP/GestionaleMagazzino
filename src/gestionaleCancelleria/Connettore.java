@@ -62,5 +62,8 @@ public class Connettore {
 		}
 		return rs;
 	}
-
+	/**
+	 * @param query rappresenta la query che gli passiamo
+	 * @return ResultSet, l'insieme di record risultati della query al database
+	 */
 }

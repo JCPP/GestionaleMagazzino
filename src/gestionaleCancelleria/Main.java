@@ -14,7 +14,7 @@ public class Main {
 		Dipendente dip = new Dipendente();
 		Controllore contro = new Controllore();
 		Querist que = new Querist();
-		que.inserisciDipendente("Matteo", "Calò", "mattew0", "emmeci92gmail.com", "responsabile");
+		que.inserisciProdotto("Lettore Floppy Disk", 5, (float) 10.10);
 	}
 
 }

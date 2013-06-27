@@ -21,7 +21,7 @@ public Querist(){
  */
 public void inserisciDipendente(String nome, String cognome, String pass, String email, String tipo){
 	Connettore conn = new Connettore();
-	String query = "INSERT INTO magazzino.dipendente (nome,cognome,email,password,tipo) VALUES"+
+	String query = "INSERT INTO Dipendente (nome,cognome,email,password,tipo) VALUES"+
 				   "("+nome+","+cognome+","+pass+","+email+","+tipo+")";
 	conn.caricadriver();
 	conn.collegati();
@@ -37,8 +37,8 @@ public void inserisciDipendente(String nome, String cognome, String pass, String
  */
 public void inserisciProdotto(String nome, int qta, float prezzoUnita){
 	Connettore conn = new Connettore();
-	String query = "INSERT INTO magazzino.prodotto(,nome,qta,prezzoUnita)"+
-			"(,"+nome+","+qta+","+prezzoUnita+")";
+	String query = "INSERT INTO Prodotto(nome,qta,prezzoUnita) VALUES"+
+					"('"+nome+"',"+qta+","+prezzoUnita+")";
 	conn.caricadriver();
 	conn.collegati();
 	conn.eseguiQuery(query);

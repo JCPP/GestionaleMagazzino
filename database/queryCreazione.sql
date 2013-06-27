@@ -5,18 +5,6 @@ CREATE TABLE "Dipendente" ("idDipendente" INTEGER PRIMARY KEY  NOT NULL ,
                            "password" VARCHAR NOT NULL , 
                            "tipo" VARCHAR NOT NULL )
 
-
-
-CREATE TABLE "Notifica" ("idNotifica" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL ,
-                         "idDipendente" INTEGER NOT NULL , 
-                         "idDipendenteNotificato" INTEGER NOT NULL , 
-                         "notifica" TEXT NOT NULL , 
-                         "dataNotifica" DATETIME NOT NULL  DEFAULT CURRENT_TIMESTAMP,
-FOREIGN KEY(idDipendente) 
-  REFERENCES Dipendente(idDipendente) 
-    ON DELETE NO ACTION 
-    ON UPDATE NO ACTION )
-
 CREATE TABLE "Prodotto" ("idProdotto" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                          "nome" VARCHAR NOT NULL UNIQUE,
                          "qta" INTEGER NOT NULL,
