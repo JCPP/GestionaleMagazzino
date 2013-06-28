@@ -32,6 +32,7 @@ public class Dipendente {
 	 * @return ritorna una boolean coerente con la validita della email inserita
 	 */
 	static public boolean validateEmail (String email){
+		que = new Querist();
 		boolean valida = false;
 		String query = "SELECT COUNT(D.email) AS occorrenze " +
 					   "FROM Dipendente AS D " +
@@ -42,7 +43,7 @@ public class Dipendente {
 		try {
 			while(rs.next()){
 				risultato = rs.getInt("occorrenze");
-				if(risultato == 0){
+				if(risultato == 1){
 					valida = true;
 				} 		
 			}

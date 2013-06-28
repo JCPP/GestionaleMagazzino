@@ -193,8 +193,8 @@ public class GraficaRegistrazione extends JFrame{
 	public void controllaCampi()
 	{
 		String e;
-		char[] p;
-		char[] p2;
+		String p;
+		String p2;
 		String n;
 		String c;
 		e = getEmail();
@@ -209,14 +209,14 @@ public class GraficaRegistrazione extends JFrame{
 		return text_Email.getText();
 	}
 	
-	public char[] getPassword()
+	public String getPassword()
 	{
-		return pass_Password.getPassword();
+		return pass_Password.getText();
 	}
 	
-	public char[] getPassword2()
+	public String getPassword2()
 	{
-		return pass_Password2.getPassword();
+		return pass_Password2.getText();
 	}
 	
 	public String getNome()

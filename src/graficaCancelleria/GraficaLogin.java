@@ -147,10 +147,9 @@ public class GraficaLogin extends JFrame {
 	public void controlloCampi()
 	{
 		String i;
-		char p[];
-		p = new char[12];
-		i=getEmail();
-		p=getPassword();
+		String p;
+		i= getEmail();
+		p= getPassword();
 	}
 
 	public String getEmail()
@@ -158,9 +157,9 @@ public class GraficaLogin extends JFrame {
 		return text_Email.getText();
 	}
 
-	public char[] getPassword()
+	public String getPassword()
 	{
-		return pass_Password.getPassword();
+		return pass_Password.getText();
 	}
 	
 	public void setErroreEmail(String s)
