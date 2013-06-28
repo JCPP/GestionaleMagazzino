@@ -16,6 +16,7 @@ public class Prodotto {
 	 * @param prezzoUnita prezzo unitario del prodotto
 	 */
 	static public void inserisciProdotto(String nome, int qta, float prezzoUnita){
+		que = new Querist();
 		String query = "INSERT INTO Prodotto(nome,qta,prezzoUnita) VALUES"+
 						"('"+nome+"',"+qta+","+prezzoUnita+")";
 		que.eseguiQueryUpdate(query);
@@ -26,6 +27,7 @@ public class Prodotto {
 	 * @return ritorna un arraylist di prodotti, in caso di errore un null
 	 */
 	static public ArrayList<gestionaleCancelleria.Prodotto> visualizzaProdotti(){
+		que = new Querist();
 		ArrayList<gestionaleCancelleria.Prodotto> risultato = new ArrayList<gestionaleCancelleria.Prodotto>();
 		String query = "SELECT * FROM Prodotto";
 		ResultSet rs = que.eseguiQuery(query);

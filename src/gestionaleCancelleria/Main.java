@@ -31,7 +31,7 @@ public class Main {
                 	protected Boolean doInBackground() throws Exception 
                 	{
                 		//dip.cancellaDipendente("mattew");
-                		Dipendente.inserisciDipendente("Matteo", "Calò", "mattew", "emmeci92@gmail.com","responsabile" );
+                		Dipendente.cancellaDipendente("emmeci92@gmail.com");
                 		return true;
                 	};
   			    

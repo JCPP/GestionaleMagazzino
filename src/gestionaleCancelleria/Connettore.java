@@ -3,6 +3,7 @@ package gestionaleCancelleria;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class Connettore {
 	/**
@@ -11,6 +12,7 @@ public class Connettore {
 	 * che andrete a creare potranno usufruire delle sue potenzialità.
 	 */
 	public static Connection conn;
+	public static Statement stat;
 	public Connettore() {
 		super();
 	}
@@ -34,7 +36,10 @@ public class Connettore {
 	 * Metodo che istaura la connessione al database già creato
 	 */
 	public void collegati(){
-		try { conn = DriverManager.getConnection("jdbc:sqlite:./database/magazzino.sqlite"); }
+		try { conn = DriverManager.getConnection("jdbc:sqlite:./database/magazzino.sqlite");
+			  stat = conn.createStatement();
+
+		}
 		catch(SQLException e) {
 			System.out.println(e.getMessage());
 			System.out.println("Collegamento non riuscito");

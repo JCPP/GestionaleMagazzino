@@ -18,6 +18,7 @@ public class Notifica {
 	 * @param notifica il testo della notifica
 	 */
 	static public void inserisciNotifica(int idDipendente, int idDipendenteNotificato, String notifica){
+		que = new Querist();
 		String query = "INSERT INTO Notifica(idDipendente,idDipendenteNotificato,notifica) VALUES"+
 				"("+idDipendente+","+idDipendenteNotificato+",'"+notifica+"')";
 		que.eseguiQueryUpdate(query);

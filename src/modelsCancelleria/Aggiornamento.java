@@ -17,6 +17,7 @@ public class Aggiornamento {
 	 * @param qta quantità aggiunta
 	 */
 	static public void inserisciAggiornamento(int idDipendente, int idProdotto, int qta){
+		que = new Querist();
 		String query = "INSERT INTO Aggiornamento(idDipendente,idProdotto,qta) VALUES"+
 				"("+idDipendente+","+idProdotto+","+qta+")";
 		que.eseguiQueryUpdate(query);

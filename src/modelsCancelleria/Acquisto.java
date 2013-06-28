@@ -18,6 +18,7 @@ public class Acquisto {
 	 * @param qta quantità del prodotto comprata
 	 */
 	static public void inserisciAcquisto(int idDipendente, int idProdotto, int idFondo, int qta){
+		que = new Querist();
 		String query = "INSERT INTO Acquisto(idDipendente,idProdotto,idFondo,qta) VALUES"+
 				"("+idDipendente+","+idProdotto+","+idFondo+","+qta+")";
 		que.eseguiQueryUpdate(query);

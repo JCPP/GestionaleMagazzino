@@ -16,6 +16,7 @@ public class Fondo {
 	 * @param fondoDisponibile l'importo ancora disponibile per il fondo
 	 */
 	static public void inserisciFondo(String nome, float fondoDisponibile){
+		que = new Querist();
 		String query = "INSERT INTO Fondo(nome,fondoDisponibile) VALUES"+
 				"('"+nome+"',"+fondoDisponibile+")";
 		que.eseguiQueryUpdate(query);
@@ -26,6 +27,7 @@ public class Fondo {
 	 * @return Il ritorno è un arraylist di stringhe contenenti i risultati, in caso di errore ritorna l'arraylist con il messaggio di errore
 	 */
 	static public ArrayList<String> visualizzaFondi (){
+		que = new Querist();
 		String query = "SELECT F.Nome" +
 					   "FROM magazzino.fondo F" +
 					   "HAVING F.fondoDisponibile > 0";

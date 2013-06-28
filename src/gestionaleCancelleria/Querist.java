@@ -3,7 +3,6 @@ package gestionaleCancelleria;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.sql.Connection;
 
 
@@ -25,13 +24,10 @@ public void eseguiQueryUpdate(String query){
 	try{
 		connettore.caricadriver();
 		connettore.collegati();
-		System.out.println("Sono qui: "+query);
-		Statement stat = conn.createStatement();
-		System.out.println("Sono buono:" +query);
-		stat.executeUpdate(query);
+		Connettore.stat.executeUpdate(query);
 
 		conn.close();
-		stat.close();
+		Connettore.stat.close();
 	}catch(SQLException e){
 		System.out.println("Errore no. " + e.getErrorCode() + " : " + e.getMessage());
 	}

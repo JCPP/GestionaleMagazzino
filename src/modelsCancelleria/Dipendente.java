@@ -59,6 +59,7 @@ public class Dipendente {
 	 */
 	static public boolean validatePassword (String email, String password){
 		boolean valida = false;
+		que = new Querist();
 		String query = "SELECT COUNT(D.email) AS occorrenze " +
 					   "FROM Dipendente D " +
 					   "WHERE D.email = '"+email+"' AND D.password = '"+ password +"'";
@@ -86,6 +87,7 @@ public class Dipendente {
 	 */
 	static public boolean validateResponsabile (String email, String password){
 		boolean valida = false;
+		que = new Querist();
 		String query = "SELECT D.Tipo " +
 				   	   "FROM Dipendente D " +
 				   	   "WHERE D.email = '"+email+"' AND D.password = '"+ password +"' AND D.Tipo = 'responsabile'";
@@ -110,6 +112,7 @@ public class Dipendente {
 	 * @param email email dell'utente da cancellare
 	 */
 	static public void cancellaDipendente(String email){
+		que = new Querist();
 		String query = "DELETE " +
 				       "FROM Dipendente " +
 				       "WHERE Dipendente.email = '"+email+"'";
