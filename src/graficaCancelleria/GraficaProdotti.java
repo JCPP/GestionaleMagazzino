@@ -34,7 +34,7 @@ public class GraficaProdotti extends JFrame  {
 			//public TableCellRenderer getCellRenderer( int row, int column ) {
           //    return new MyCellRender();
           //}
-			Object rowData[][] = {};
+			Object rowData[][] = {{"01","nome","2","3",Boolean.FALSE}};
 					
 			String columnNames[] = { "ID","Nome","Quantita","Prezzo", "Boolean" };
 
