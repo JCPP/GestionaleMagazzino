@@ -188,6 +188,8 @@ public class GraficaLogin extends JFrame {
 	{
 		finestra_Login.dispose();
 	}
+	
+	
 }
 	
 

@@ -13,15 +13,15 @@ import javax.swing.table.TableModel;
 import java.awt.event.*;
 import java.awt.*;
 
-public class GraficaProdotti extends JFrame  {
+public class GraficaCarrello extends JFrame  {
 	
-	private JPanel pannello_Prodotti;
-	private JTable tabella_Prodotti;
+	private JPanel pannello_Carrello;
+	private JTable tabella_Carrello;
 	private JTableHeader tabella_Colonne;
-	private JScrollPane scroll_Prodotti;
+	private JScrollPane scroll_Carrello;
 	private Boolean bottone;
 	
-	public GraficaProdotti()
+	public GraficaCarrello()
 	{
 	}
 	
@@ -32,8 +32,8 @@ public class GraficaProdotti extends JFrame  {
 		AbstractTableModel model = new AbstractTableModel()
 		  {
 			//public TableCellRenderer getCellRenderer( int row, int column ) {
-          //    return new MyCellRender();
-          //}
+            //    return new MyCellRender();
+            //}
 			Object rowData[][] = {};
 					
 			String columnNames[] = { "ID","Nome","Quantita","Prezzo", "Boolean" };
@@ -67,39 +67,40 @@ public class GraficaProdotti extends JFrame  {
 			}
 		};
 		
-		tabella_Prodotti = new JTable(model);
-		tabella_Prodotti.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		tabella_Prodotti.setAutoCreateRowSorter(true);
-	    tabella_Prodotti.setRowHeight( 20 );
-	    tabella_Prodotti.addMouseListener(new MyListener());
+		tabella_Carrello = new JTable(model);
+		tabella_Carrello.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tabella_Carrello.setAutoCreateRowSorter(true);
+	    tabella_Carrello.setRowHeight( 20 );
+	    tabella_Carrello.addMouseListener(new MyListener());
 		
-		tabella_Colonne = tabella_Prodotti.getTableHeader();
+		tabella_Colonne = tabella_Carrello.getTableHeader();
 		tabella_Colonne.setReorderingAllowed(false);
 		
-		scroll_Prodotti = new JScrollPane(tabella_Prodotti);
+		scroll_Carrello = new JScrollPane(tabella_Carrello);
 		
 		MyListener m = new MyListener();
 		m.setTable(this.getTable());
 		
-		pannello_Prodotti = new JPanel();
-		pannello_Prodotti.setBackground(Color.white);
+		pannello_Carrello = new JPanel();
+		pannello_Carrello.setBackground(Color.white);
 		
-		pannello_Prodotti.add(scroll_Prodotti);
+		pannello_Carrello.add(scroll_Carrello);
 		
 	}
 
 	public JTable getTable()
 	{
-		return this.tabella_Prodotti;
+		return this.tabella_Carrello;
 	}
 	
 	public void setTable(JTable tabella)
 	{
-		this.tabella_Prodotti = tabella;
+		this.tabella_Carrello = tabella;
 	}
+	
 	public JPanel getPannello()
 	{
-		return pannello_Prodotti;
+		return pannello_Carrello;
 	}
 	
 
