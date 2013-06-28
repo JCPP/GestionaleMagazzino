@@ -13,7 +13,6 @@ public class Dipendente {
 	private String cognome;
 	private String tipo;
 	private String password;
-	private String password2;
 	private String email;
 
 
@@ -26,13 +25,12 @@ public class Dipendente {
 	 * @param email L'email del dipendente
 	 */
 	public Dipendente(int id_Dipendente, String nome, String cognome,
-			String tipo, String password,String password2, String email) {
+			 String email, String password, String tipo) {
 		super();
 		this.idDipendente = id_Dipendente;
 		this.nome = nome;
 		this.cognome = cognome;
 		this.password = password;
-		this.password2 = password2;
 		this.tipo = tipo;
 		this.email = email;
 	}
@@ -76,12 +74,6 @@ public class Dipendente {
 		this.password = password;
 	}
 
-	public String getPassword2() {
-		return password2;
-	}
-	public void setPassword2(String password2) {
-		this.password2 = password2;
-	}
 	public String getEmail() {
 		return email;
 	}

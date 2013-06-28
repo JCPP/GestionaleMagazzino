@@ -23,6 +23,19 @@ public class Prodotto {
 		}
 
 	/**
+	 * Questo metodo cancella un prodotto in base al nome
+	 * @param nome nome del prodotto da cancellare
+	 */
+	static public void cancellaProdotto(String nome){
+		que = new Querist();
+		String query = "DELETE " +
+				       "FROM Prodotto " +
+				       "WHERE Prodotto.nome = '"+nome+"'";
+		System.out.println(query);
+		que.eseguiQueryUpdate(query);
+	}
+
+	/**
 	 * Questo metodo restituisce tutti i prodotti in database
 	 * @return ritorna un arraylist di prodotti, in caso di errore un null
 	 */
@@ -45,18 +58,51 @@ public class Prodotto {
 	}
 	
 	/**
-	 * Questo metodo cancella un prodotto in base al nome
-	 * @param nome nome del prodotto da cancellare
+	 * Questo metodo modifica la quantità del prodotto nel database
+	 * @param nome il nome del prodotto di cui si vuole modificare la quantità
+	 * @param qta quantità da aggiungere
 	 */
-	static public void cancellaProdotto(String nome){
+	static public void modificaQuantitaProdotto (String nome, int qta){
 		que = new Querist();
-		String query = "DELETE " +
-				       "FROM Prodotto " +
-				       "WHERE Prodotto.nome = '"+nome+"'";
+		int vecchiaQta = 0;
+		String query = "SELECT P.qta AS vecchiaQta " +
+				"FROM Prodotto P " +
+				"WHERE P.nome = '"+nome+"'";
 		System.out.println(query);
-		que.eseguiQueryUpdate(query);
+		ResultSet rs = que.eseguiQuery(query);
+		try {
+			vecchiaQta = rs.getInt("vecchiaQta");
+		} catch (SQLException e) {
+			System.out.println(e.getMessage()); 
+		}
+		int nuovaQta = vecchiaQta + qta;
+		
+		String query1 = "UPDATE Prodotto " +
+				"SET qta = "+nuovaQta+" " +
+				"WHERE nome = '"+nome+"'";
+		System.out.println(query1);
+		que.eseguiQueryUpdate(query1);
 	}
-	
-	
 
+	/*static public void modificaPrezzoProdotto (String nome, float prezzo){
+		que = new Querist();
+		float vecchioPrezzo = 0;
+		String query = "SELECT P.prezzoUnita AS vecchioPrezzo " +
+				"FROM Prodotto P " +
+				"WHERE P.nome = '"+nome+"'";
+		System.out.println(query);
+		ResultSet rs = que.eseguiQuery(query);
+		try {
+			vecchioPrezzo = rs.getFloat("vecchioPrezzo");
+		} catch (SQLException e) {
+			System.out.println(e.getMessage()); 
+		}
+		float nuovoPrezzo = vecchioPrezzo + prezzo;
+		
+		String query1 = "UPDATE Prodotto " +
+				"SET prezzoUnita = "+nuovoPrezzo+" " +
+				"WHERE nome = '"+nome+"'";
+		System.out.println(query1);
+		que.eseguiQueryUpdate(query1);
+	}*/
 }

@@ -2,6 +2,7 @@ package modelsCancelleria;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import gestionaleCancelleria.Querist;
 
@@ -120,5 +121,26 @@ public class Dipendente {
 		que.eseguiQueryUpdate(query);
 	}
 
+	/**
+	 * Questo metodo restituisce tutti i prodotti in database
+	 * @return ritorna un arraylist di prodotti, in caso di errore un null
+	 */
+	static public ArrayList<gestionaleCancelleria.Dipendente> visualizzaDipendenti(){
+		que = new Querist();
+		ArrayList<gestionaleCancelleria.Dipendente> risultato = new ArrayList<gestionaleCancelleria.Dipendente>();
+		String query = "SELECT * FROM Dipendente";
+		ResultSet rs = que.eseguiQuery(query);
+		try {
+			while(rs.next()){
+				gestionaleCancelleria.Dipendente dip = new gestionaleCancelleria.Dipendente(rs.getInt("idDipendente"),rs.getString("nome"), rs.getString("cognome"), rs.getString("email"), rs.getString("password"), rs.getString("tipo"));
+				risultato.add(dip); 		
+			}
+		} catch (SQLException e) {
+			gestionaleCancelleria.Dipendente dip = null;
+			risultato.add(dip);
+			return risultato;
+		}
+		return risultato; 
+	}
 
 }

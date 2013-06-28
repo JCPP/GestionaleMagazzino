@@ -22,11 +22,7 @@ public Querist(){
 public void eseguiQueryUpdate(String query){
 	connettore = new Connettore();
 	try{
-		connettore.caricadriver();
-		connettore.collegati();
 		Connettore.stat.executeUpdate(query);
-
-		conn.close();
 		Connettore.stat.close();
 	}catch(SQLException e){
 		System.out.println("Errore no. " + e.getErrorCode() + " : " + e.getMessage());
@@ -38,12 +34,8 @@ public void eseguiQueryUpdate(String query){
  */
 public ResultSet eseguiQuery(String query){
 	ResultSet rs = null;
-	connettore = new Connettore();
 	try{
-		connettore.caricadriver();
-		connettore.collegati();
-		Statement stat = conn.createStatement();
-		rs = stat.executeQuery(query);
+		rs = Connettore.stat.executeQuery(query);
 	}catch(SQLException e){
 		System.out.println("Errore no. " + e.getErrorCode() + " : " + e.getMessage());
 	}

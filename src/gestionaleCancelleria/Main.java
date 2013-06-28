@@ -1,9 +1,11 @@
 package gestionaleCancelleria;
 
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
-import modelsCancelleria.*;
+import modelsCancelleria.Prodotto;
+import modelsCancelleria.Dipendente;
 import graficaCancelleria.*;
 
 public class Main {
@@ -14,8 +16,7 @@ public class Main {
 	private static GraficaAccount ga;
 	private static GraficaDipendente gd;
 	private static VisualizzaProdotto vp;
-	private static modelsCancelleria.Dipendente dip;
-	private static modelsCancelleria.Prodotto prodotto;
+	private static Connettore conn;
 
 	public static void main(String[] args) 
 	{
@@ -29,16 +30,17 @@ public class Main {
     			gr = new GraficaRegistrazione();
     			gd = new GraficaDipendente();
     			ga = new GraficaAccount();
-    			dip = new modelsCancelleria.Dipendente();
     			vp = new VisualizzaProdotto();
+    			conn = new Connettore();
             	gl.init();
                 SwingWorker<Boolean, Void> worker = new SwingWorker<Boolean, Void>()
                 {
                 	
                 	protected Boolean doInBackground() throws Exception 
                 	{
-                		//dip.cancellaDipendente("mattew");
-                		//Prodotto.cancellaProdotto("HD");
+                		conn.caricadriver();
+                		conn.collegati();
+                		Prodotto.modificaPrezzoProdotto("Lettore Floppy Disk", (float) 13.00);
                 		return true;
                 	};
   			    
