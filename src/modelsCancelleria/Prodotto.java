@@ -43,5 +43,20 @@ public class Prodotto {
 		}
 		return risultato; 
 	}
+	
+	/**
+	 * Questo metodo cancella un prodotto in base al nome
+	 * @param nome nome del prodotto da cancellare
+	 */
+	static public void cancellaProdotto(String nome){
+		que = new Querist();
+		String query = "DELETE " +
+				       "FROM Prodotto " +
+				       "WHERE Prodotto.nome = '"+nome+"'";
+		System.out.println(query);
+		que.eseguiQueryUpdate(query);
+	}
+	
+	
 
 }

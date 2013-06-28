@@ -5,6 +5,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 
 import modelsCancelleria.Dipendente;
+import modelsCancelleria.Prodotto;
 import graficaCancelleria.*;
 
 public class Main {
@@ -13,6 +14,7 @@ public class Main {
 	private static GraficaProdotti gp;
 	private static GraficaLogin gl;
 	private static modelsCancelleria.Dipendente dip;
+	private static modelsCancelleria.Prodotto prodotto;
 
 	public static void main(String[] args) 
 	{
@@ -31,7 +33,7 @@ public class Main {
                 	protected Boolean doInBackground() throws Exception 
                 	{
                 		//dip.cancellaDipendente("mattew");
-                		Dipendente.cancellaDipendente("emmeci92@gmail.com");
+                		Prodotto.cancellaProdotto("HD");
                 		return true;
                 	};
   			    
