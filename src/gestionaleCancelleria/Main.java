@@ -177,6 +177,11 @@ public class Main {
 			case "Exit":
 				gd.disposeF();
 				break;
+			//casi carrello
+			case "Modifica Prodotto":
+				mp.buttonChangeState();
+				mp.setModificable();
+				break;
 			default:
 				break;
 		}
