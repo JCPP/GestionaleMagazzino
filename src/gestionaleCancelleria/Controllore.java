@@ -1,35 +1,10 @@
 package gestionaleCancelleria;
 
+import modelsCancelleria.Dipendente;
+
 public class Controllore {
 	
-	public Controllore() {
-		super();
-	}
 	
-	/**
-	 * Metodo di convalida email in fase di login
-	 * @param email email da controllare nel database, se non è presente o se è presente solo una volta
-	 * @return validità dell'email
-	 */
-	public boolean isEmail(String email){
-		boolean valida = false;
-		valida = modelsCancelleria.Dipendente.validateEmail(email);
-		
-		return valida;
-	}
-	
-	/**
-	 * Questo metodo controlla la password associata all'email fornita in fase di login
-	 * @param email email da convalidare in fase di login
-	 * @param password password da convalidare in fase di login associata all'email
-	 * @return validità della password inserita
-	 */
-	public boolean isPassword(String email, String password){
-		boolean valida = false;
-		valida = modelsCancelleria.Dipendente.validatePassword(email, password);
-		
-		return valida;
-	}
 	
 	/** 
 	 * Controlla campo vuoto, lunghezza e uguaglianza con la seconda password in fase di registrazione
@@ -56,7 +31,7 @@ public class Controllore {
 	 * @param email l'email da prendere in esame
 	 * @return true o false in base alla validità della formattazione
 	 */
-	public boolean validateEmail(String email){
+	public boolean validateSintassiEmail(String email){
 		EmailValidator ev = new EmailValidator();
 		boolean emailValida = ev.validate(email);
 		

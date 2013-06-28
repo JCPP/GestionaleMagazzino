@@ -84,25 +84,13 @@ public class Prodotto {
 		que.eseguiQueryUpdate(query1);
 	}
 
-	/*static public void modificaPrezzoProdotto (String nome, float prezzo){
+	static public void modificaPrezzoProdotto (String nome, float prezzo){
 		que = new Querist();
-		float vecchioPrezzo = 0;
-		String query = "SELECT P.prezzoUnita AS vecchioPrezzo " +
-				"FROM Prodotto P " +
-				"WHERE P.nome = '"+nome+"'";
-		System.out.println(query);
-		ResultSet rs = que.eseguiQuery(query);
-		try {
-			vecchioPrezzo = rs.getFloat("vecchioPrezzo");
-		} catch (SQLException e) {
-			System.out.println(e.getMessage()); 
-		}
-		float nuovoPrezzo = vecchioPrezzo + prezzo;
 		
 		String query1 = "UPDATE Prodotto " +
-				"SET prezzoUnita = "+nuovoPrezzo+" " +
+				"SET prezzoUnita = "+prezzo+" " +
 				"WHERE nome = '"+nome+"'";
 		System.out.println(query1);
 		que.eseguiQueryUpdate(query1);
-	}*/
+	}
 }

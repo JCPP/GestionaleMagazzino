@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import gestionaleCancelleria.EmailValidator;
 import gestionaleCancelleria.Querist;
 
 public class Dipendente {
@@ -34,6 +35,7 @@ public class Dipendente {
 	static public boolean validateEmail (String email){
 		que = new Querist();
 		boolean valida = false;
+		
 		String query = "SELECT COUNT(D.email) AS occorrenze " +
 					   "FROM Dipendente AS D " +
 					   "WHERE D.email = '"+email+"'";
@@ -41,11 +43,9 @@ public class Dipendente {
 		int risultato = 0;
 
 		try {
-			while(rs.next()){
 				risultato = rs.getInt("occorrenze");
 				if(risultato == 1){
-					valida = true;
-				} 		
+					valida = true;	
 			}
 		} catch (SQLException e) {
 			valida = false;
