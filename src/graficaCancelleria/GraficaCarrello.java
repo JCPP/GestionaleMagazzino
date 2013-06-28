@@ -34,7 +34,9 @@ public class GraficaCarrello extends JFrame  {
 			//public TableCellRenderer getCellRenderer( int row, int column ) {
             //    return new MyCellRender();
             //}
-			Object rowData[][] = {};
+			Object rowData[][] = {
+					{"02","ciao","4","4",Boolean.FALSE}
+			};
 					
 			String columnNames[] = { "ID","Nome","Quantita","Prezzo", "Boolean" };
 

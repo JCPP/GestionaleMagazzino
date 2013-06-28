@@ -19,6 +19,8 @@ public class Main {
 	private static GraficaDipendente gd;
 	private static VisualizzaProdotto vp;
 	private static Connettore conn;
+	private static ModificaProdotto mp;
+	private static int a;
 
 	public static void main(String[] args) 
 	{
@@ -33,7 +35,9 @@ public class Main {
     			gd = new GraficaDipendente();
     			ga = new GraficaAccount();
     			vp = new VisualizzaProdotto();
+    			mp = new ModificaProdotto();
     			conn = new Connettore();
+    			a = 1;
             	gl.init();
 
                 SwingWorker<Boolean, Void> worker = new SwingWorker<Boolean, Void>()
@@ -81,17 +85,25 @@ public class Main {
 			gd.disposeF();
 			gd.init();
 		}
-		if(evento.endsWith("4"))
+		if(evento.endsWith("4") && a == 1)
 		{
 			evento.getChars(0, (evento.length())-1, c, 0);
 			System.out.println(c);
 			vp.init();
 			gd.setDisable();
 		}
+		if(evento.endsWith("4") && a == 2)
+		{
+			evento.getChars(0, (evento.length())-1, c, 0);
+			System.out.println(c);
+			mp.init();
+			gd.setDisable();
+		}
 		switch(evento)
 		{
 		//casi login
 			case "Connetti":
+				a = 1;
 				gl.pulisciErrori();
 				String email = gl.getEmail();
 				String password = gl.getPassword();
@@ -151,9 +163,11 @@ public class Main {
 				gd.setPannelloSelezionato("account");
 				break;
 			case "Catalogo":
+				a = 1;
 				gd.setPannelloSelezionato("prodotti");
 				break;
 			case "Carrello":
+				a = 2;
 				gd.setPannelloSelezionato("carrello");
 				break;
 			case "Logout":
