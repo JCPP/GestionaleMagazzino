@@ -45,4 +45,16 @@ public class Notifica {
 		}
 		return risultato; 
 	}
+	
+	/**
+	 * Questo metodo cancella una notifica dal database
+	 * @param idNotifica identificativo della notifica
+	 */
+	static public void cancellaNotifica(int idNotifica){
+		que = new Querist();
+		String query = "DELETE FROM Notifica WHERE idNotifica = "+idNotifica;
+		System.out.println(query);
+		que.eseguiQueryUpdate(query);
+	}
+
 }
