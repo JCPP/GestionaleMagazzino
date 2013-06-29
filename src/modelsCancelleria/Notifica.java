@@ -23,4 +23,26 @@ public class Notifica {
 				"("+idDipendente+","+idDipendenteNotificato+",'"+notifica+"')";
 		que.eseguiQueryUpdate(query);
 	}
+	
+	/**
+	 * Questo metodo restituisce tutti le notifiche attive in database
+	 * @return ritorna un arraylist di notifiche, in caso di errore un null
+	 */
+	static public ArrayList<gestionaleCancelleria.Notifica> visualizzaNotifiche(){
+		que = new Querist();
+		ArrayList<gestionaleCancelleria.Notifica> risultato = new ArrayList<gestionaleCancelleria.Notifica>();
+		String query = "SELECT * FROM Notifica";
+		ResultSet rs = que.eseguiQuery(query);
+		try {
+			while(rs.next()){
+				gestionaleCancelleria.Notifica notifica = new gestionaleCancelleria.Notifica(rs.getInt("idNotifica"),rs.getInt("idDipendente"), rs.getInt("idDipendenteNotificato"), rs.getString("notifica"), rs.getString("dataNotifica"));
+				risultato.add(notifica);
+			}
+		} catch (SQLException e) {
+			gestionaleCancelleria.Notifica notifica = null;
+			risultato.add(notifica);
+			return risultato;
+		}
+		return risultato; 
+	}
 }
