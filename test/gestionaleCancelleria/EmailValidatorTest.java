@@ -5,6 +5,11 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Test per la classe EmailValidator.
+ * @author <a href="https://github.com/DavidePastore">Davide Pastore</a>
+ *
+ */
 public class EmailValidatorTest {
 	
 	private EmailValidator emailValidator;
