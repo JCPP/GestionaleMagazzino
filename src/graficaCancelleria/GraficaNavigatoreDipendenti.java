@@ -1,5 +1,7 @@
 package graficaCancelleria;
-
+/**
+ * Classe che crea un menu di navigazione per i dipendenti
+ */
 import gestionaleCancelleria.MyListener;
 
 import java.awt.Color;
@@ -17,12 +19,16 @@ public class GraficaNavigatoreDipendenti extends JFrame {
 	private JButton Button_Carrello;
 	private JButton Button_Logout;
 	private JButton Button_Chiudi;
-	
+	/**
+	 * Costruttore della classe
+	 */
 	public GraficaNavigatoreDipendenti()
 	{
 		
 	}
-	
+	/**
+	 * Inizializzazione delle componenti grafiche
+	 */
 	public void init()
 	{
 		pannello_Opzioni = new JPanel();

@@ -1,6 +1,12 @@
 package graficaCancelleria;
+/**
+ * Questa classe si occupa di gestire la grafica per un dipendente
+ * fornendogli un menu di navigazione
+ */
+import gestionaleCancelleria.MyListener;
 
 import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
 
 import java.awt.event.*;
 import java.awt.*;
@@ -19,12 +25,16 @@ public class GraficaDipendente extends JFrame {
 	private JPanel pannello_Selezionato;
 	private JPanel pannello_Navigazione;
 	private Graphics offscreen;
-	
+	/**
+	 * Costruttore della classe
+	 */
 	public GraficaDipendente()
 	{
 		
 	}
-	
+	/**
+	 * inizializzazione delle componenti grafiche e visualizzazione della finestra
+	 */
 	public void init()
 	{
 		grafica_Account = new GraficaAccount();
@@ -60,7 +70,7 @@ public class GraficaDipendente extends JFrame {
 		finestra_Dipendente.setSize(600,500);
 		finestra_Dipendente.setLocation(x,y);
 		finestra_Dipendente.setBackground(Color.white);
-		finestra_Dipendente.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		finestra_Dipendente.addWindowListener(new MyListener());
 		finestra_Dipendente.setVisible(true);
 	}
 	
@@ -72,18 +82,17 @@ public class GraficaDipendente extends JFrame {
 	///////////////////////////////////////////////////////////////////
 	public void setPannelloSelezionato(String s)
 	{
-		if(s.equals("prodotti"))
-		{
-			pannello_Selezionato.remove(grafica_Prodotti.getPannello());
-			grafica_Prodotti.init();
-			pannello_Selezionato.add(grafica_Prodotti.getPannello(),"prodotti");
-		}
 		layout_Pannello.show(pannello_Selezionato, s);
 	}
 	
-	public void setDisable()
+	public void setState(boolean b)
 	{
-		finestra_Dipendente.setEnabled(false);
+		finestra_Dipendente.setEnabled(b);
 	}
-		
+	
+	public AbstractTableModel getModel()
+	{
+		return grafica_Prodotti.getModel();
+	}
+	
 }

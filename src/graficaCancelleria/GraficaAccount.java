@@ -1,5 +1,7 @@
 package graficaCancelleria;
-
+/**
+ * Classe che si occupa di visualizzare i dati di un dipendente
+ */
 import javax.swing.*;
 import java.awt.*;
 
@@ -17,11 +19,16 @@ public class GraficaAccount {
 	private JTextField text_Tipo;
 	private JTextField text_Email;
 	
+	/**
+	 * Costruttore della classe
+	 */
 	public GraficaAccount()
 	{
 		
 	}
-	
+	/**
+	 * Inizializzazione delle componenti grafiche
+	 */
 	public void init()
 	{
 		pannello_Account = new JPanel();

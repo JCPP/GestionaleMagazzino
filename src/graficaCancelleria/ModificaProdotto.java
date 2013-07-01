@@ -1,5 +1,8 @@
 package graficaCancelleria;
-
+/**
+ * Classe che crea una finestra grafica per consetire all'utente di modificare un
+ * prodotto prenotato
+ */
 import gestionaleCancelleria.MyListener;
 
 import javax.swing.*;
@@ -28,15 +31,20 @@ public class ModificaProdotto extends JFrame {
 	private JComboBox combo_Fondi;
 	private JButton bottone_Modifica;
 	private JButton bottone_Chiudi;
-	
+	private JButton bottone_Rimuovi;
+	/**
+	 * Costruttore della classe
+	 */
 	public ModificaProdotto()
 	{
 		
 	}
-	
+	/**
+	 * Inizializzazione delle componenti grafiche
+	 */
 	public void init()
 	{
-		finestra_Prodotto = new JFrame("Prodotto");
+		finestra_Prodotto = new JFrame("Modifica Prodotto");
 		finestra_Prodotto.setSize(300,400);
 		
 		dimensione = getToolkit().getScreenSize().getSize();
@@ -76,6 +84,9 @@ public class ModificaProdotto extends JFrame {
 		bottone_Chiudi = new JButton("Chiudi");
 		bottone_Chiudi.setActionCommand("Chiudi Prodotto");
 		bottone_Chiudi.addActionListener(new MyListener());
+		bottone_Rimuovi = new JButton("Cancella Ordine");
+		bottone_Rimuovi.setActionCommand("Rimuovi Prodotto");
+		bottone_Rimuovi.addActionListener(new MyListener());
 		
 		dati_Constraints.fill = dati_Constraints.HORIZONTAL;
 		dati_Constraints.weightx = 1.0;
@@ -114,6 +125,9 @@ public class ModificaProdotto extends JFrame {
 		opzioni_Constraints.gridx = 0;
 		opzioni_Constraints.gridy = 1;
 		pannello_Opzioni.add(bottone_Chiudi,opzioni_Constraints);
+		opzioni_Constraints.gridx = 0;
+		opzioni_Constraints.gridy = 2;
+		pannello_Opzioni.add(bottone_Rimuovi,opzioni_Constraints);
 		
 		pannello_Prodotto.add(pannello_Dati);
 		pannello_Prodotto.add("South",pannello_Opzioni);

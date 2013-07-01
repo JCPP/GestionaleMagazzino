@@ -1,66 +1,68 @@
 package gestionaleCancelleria;
 
-import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
-
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 
-import modelsCancelleria.Prodotto;
-import modelsCancelleria.Dipendente;
-import graficaCancelleria.*;
-
 public class Main {
-	//private static Querist query;
-	private static GraficaRegistrazione gr;
-	private static GraficaProdotti gp;
-	private static GraficaLogin gl;
-	private static GraficaAccount ga;
-	private static GraficaDipendente gd;
-	private static VisualizzaProdotto vp;
+	
 	private static Connettore conn;
-	private static ModificaProdotto mp;
 	private static int a;
+	private static Controllore controllo;
 
 	public static void main(String[] args) 
 	{
+		/**
+		 * Metodo per gestire il multithreading nelle finestre swing
+		 */
 		SwingUtilities.invokeLater(new Runnable()
         {
-             
+             /**
+              * thread principale
+              */
             public void run() 
             {
-            	gl = new GraficaLogin();
-    			gp = new GraficaProdotti();
-    			gr = new GraficaRegistrazione();
-    			gd = new GraficaDipendente();
-    			ga = new GraficaAccount();
-    			vp = new VisualizzaProdotto();
-    			mp = new ModificaProdotto();
+            	
     			conn = new Connettore();
     			a = 1;
-            	gl.init();
-
+    			conn.caricadriver();
+        		conn.collegati();
+        		controllo = new Controllore();
+        		/**
+        		 * Overridding del metodo worker,qui vengono eseguiti i thread secondari
+        		 */
                 SwingWorker<Boolean, Void> worker = new SwingWorker<Boolean, Void>()
                 {
-                	
+                	/**
+                	 * thread che vengono eseguiti in background;
+                	 * istruzioni o funzioni che richiedono elaborazioni complesse e di grandi dimensioni devono essere eseguite in questa funzione (esempio: operazioni con vettori dinami e/o file e/o connessioni internet)
+                	 * (bisogna usare all'interno thread.sleep() per evitare che il programma continui la sua esecuzione prima che tutte le operazioni necessarie siano effettuate
+                	 */
                 	protected Boolean doInBackground() throws Exception 
                 	{
-                		conn.caricadriver();
-                		conn.collegati();
-                		//Prodotto.modificaPrezzoProdotto("Lettore Floppy Disk", (float) 13.00);
+                		
+            			controllo.start();
                 		return true;
                 	};
-  			    
+  			        
+                	/**
+                	 * simile alla funzione doInBackground ma meno performante,potrebbe causare il freeze del programma
+                	 * i risultati elaborati in questa funzione devono poi essere gestiti in un altra (non ricordo il nome xD,comunque provando in passato,non funzionava bene il passaggio di parametri tra queste due funzioni,i risultati non venivano elaborati)
+                	 */
                 	protected void process() 
                 	{
                 	}
+                	/**
+                	 * funzione che viene chiamata alla fine dei cicli presenti in doInBackground (in questo caso,appena il programma parte in quanto non ci sono cicli di controllo di vita del programma (da ottimizzare))
+                	 * in genere in questa funzione si fa il rilascio di tutte le risorse o il salvataggio di dati prima che il programma venga terminato
+                	 */
                 	protected void done() 
                 	{
   	              		
                 		boolean status;
                 		try {
+                			
                 			status = get();
-
                 		} catch (InterruptedException e) {
                 		} catch (ExecutionException e) {
                 		}catch(NullPointerException awt){
@@ -69,118 +71,124 @@ public class Main {
                 	}
   				   
                 };
+                /**
+                 * worker.execute() fa partire il metodo worker presente in run()
+                 * puo essere richiamato per far rieseguire il metodo worker e le funzioni al suo interno
+                 */
   		worker.execute();
 		}
       });
 	}
 	
-	@SuppressWarnings("deprecation")
+	/**
+	 *  metodo per la gestione degli eventi
+	 *  l'attributo a viene utilizzato per controllare quale delle due tabelle l'utente sta attualmente visualizzando(catalogo,controllo)
+	 * @param evento
+	 */
 	public void start(String evento)
 	{
 		System.out.println(evento);
-		char[] c = new char[1000];
-		int x;
-		if(evento.equals("202"))
+		// controlli legati al WindowListener
+		/**
+		 * aggiorna la visuale del carrello dopo che un oggetto è stato selezionato (da ottimizzare)
+		 */
+		if(evento.equals("Carrello Dipendente"))
 		{
-			gd.disposeF();
-			gd.init();
+			controllo.updateCarrello();
 		}
+		/**
+		 * aggiorna la visuale del catalogo dopo che un oggetto è stato selezionato (da ottimizzare)
+		 */
+		if(evento.equals("Catalogo Dipendente"))
+		{
+			controllo.updateCatalogo();
+		}
+		/**
+		 * chiude la finestra graficaDipendente (windowListener non funzionava....)
+		 */
+		if(evento.equals("dispose Dipendente"))
+		{
+			controllo.disposeDipendente();
+		}
+		
+		//controlli legati alle tabelle
+		/**
+		 *  il vettore c serve a contenere la stringa che indica la riga scelta dalla tabella
+		 */
+		char[] c = new char[1000];
+		/**
+		 * se a == 1 siamo nel catalogo
+		 * invia la riga selezionata al controllore che mostra il prodotto corrispondente
+		 */
 		if(evento.endsWith("4") && a == 1)
 		{
 			evento.getChars(0, (evento.length())-1, c, 0);
 			System.out.println(c);
-			vp.init();
-			gd.setDisable();
+			int x = 0;
+			for(int i = 0; i < (evento.length()-1);i++)
+			{
+				x = (int) c[i];
+			}
+			controllo.showProdotto(x);
+			
 		}
-		if(evento.endsWith("4") && a == 2)
+		/**
+		 * se a == 0 siamo nel carrello
+		 * invia la riga selezionata al controllo che mostra l'ordine corrispondente
+		 */
+		if(evento.endsWith("4") && a == 0)
 		{
 			evento.getChars(0, (evento.length())-1, c, 0);
 			System.out.println(c);
-			mp.init();
-			gd.setDisable();
+			int x = 0;
+			for(int i = 0; i < (evento.length()-1);i++)
+			{
+				x = (int) c[i];
+			}
+			controllo.showOrdinato(x);
 		}
+		
+		//Controlli legati agli eventi dei bottoni
 		switch(evento)
 		{
 		//casi login
 			case "Connetti":
 				a = 1;
-				gl.pulisciErrori();
-				String email = gl.getEmail();
-				String password = gl.getPassword();
-				boolean b = Dipendente.validateEmail(email);
-				boolean b1 = Dipendente.validatePassword(email, password);
-				if(b1)
-				{
-					gd.init();
-					gl.disposeF();
-				}
-				else
-				{
-					if(!b && !b1)
-					{
-						gl.setErroreEmail("Email errata");
-						gl.setErrorePass("Password errata");
-					}
-					if(!b)
-					{
-						gl.setErroreEmail("Email errata");
-					}
-					else
-					{
-						gl.setErrorePass("Password errata");
-					}
-				}
+				controllo.isConnected();
 				break;
 			case "Chiudi":
-				gl.disposeF();
+				controllo.disconnect();
 				break;
 			case "Registrati":
-				gl.disposeF();
-				gr.init();
+				controllo.registering();
 				break;
 		//casi registrazione
-			case "Invio":
-				gr.pulisciErrori();
-				String Remail = gr.getEmail();
-				String Rpassword = gr.getPassword();
-				String password2 = gr.getPassword2();
-				String nome = gr.getNome();
-				String cognome = gr.getCognome(); 
-				
-				modelsCancelleria.Dipendente.inserisciDipendente(nome, cognome, Rpassword, Remail, "false");
+			case "Indietro":
+				controllo.logging();
 				break;
 			case "Reset":
-				gr.pulisciErrori();
-				gr.pulisci();
+				controllo.resetRegistrazione();
 				break;
-			case "Indietro":
-				gr.pulisciErrori();
-				gr.disposeF();
-				gl.init();
+			case "Invio":
+				controllo.registered();
 				break;
-		//casi barra navigazione
+			//casi dipendente
 			case "Account":
-				gd.setPannelloSelezionato("account");
+				controllo.showAccount();
 				break;
 			case "Catalogo":
 				a = 1;
-				gd.setPannelloSelezionato("prodotti");
+				controllo.showCatalogo();
 				break;
 			case "Carrello":
-				a = 2;
-				gd.setPannelloSelezionato("carrello");
+				a = 0;
+				controllo.showCarrello();
 				break;
 			case "Logout":
-				gl.init();
-				gd.disposeF();
+				controllo.doLogout();
 				break;
 			case "Exit":
-				gd.disposeF();
-				break;
-			//casi carrello
-			case "Modifica Prodotto":
-				mp.buttonChangeState();
-				mp.setModificable();
+				controllo.disposeDipendente();
 				break;
 			default:
 				break;

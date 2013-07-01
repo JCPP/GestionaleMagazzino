@@ -1,5 +1,8 @@
 package graficaCancelleria;
-
+/**
+ * Classe che si occupa di visualizzare una finestra grafica per l'inserimento dei dati
+ * di accesso,il controllo degli stessi,e da la possibilita all'utente di potersi registrare
+ */
 
 import gestionaleCancelleria.MyListener;
 
@@ -136,20 +139,6 @@ public class GraficaLogin extends JFrame {
 		
 		
 		
-	}
-	/**
-	 * Funzione dell'interfaccia ActionListener per la gestione degli eventi
-	 */
-
-	/**
-	 * Funzione che legge l'Email e la password inserite dall'utente
-	 */
-	public void controlloCampi()
-	{
-		String i;
-		String p;
-		i= getEmail();
-		p= getPassword();
 	}
 
 	public String getEmail()

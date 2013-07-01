@@ -1,5 +1,8 @@
 package graficaCancelleria;
-
+/**
+ * Questa classe si occupa di visualizzare il carrello spesa di un dipendente
+ */
+import gestionaleCancelleria.Controllore;
 import gestionaleCancelleria.MyListener;
 
 import javax.swing.*;
@@ -19,56 +22,23 @@ public class GraficaCarrello extends JFrame  {
 	private JTable tabella_Carrello;
 	private JTableHeader tabella_Colonne;
 	private JScrollPane scroll_Carrello;
-	private Boolean bottone;
-	
+	private Controllore controllore;
+	private AbstractTableModel model;
+	/**
+	 * Costruttore della classe
+	 */
 	public GraficaCarrello()
 	{
 	}
-	
+	/**
+	 * Inizializzazione delle componenti grafiche
+	 */
 	public void init()
 	{
 		//bottone = new Boolean(false);
-	
-		AbstractTableModel model = new AbstractTableModel()
-		  {
-			//public TableCellRenderer getCellRenderer( int row, int column ) {
-            //    return new MyCellRender();
-            //}
-			Object rowData[][] = {
-					{"02","ciao","4","4",Boolean.FALSE}
-			};
-					
-			String columnNames[] = { "ID","Nome","Quantita","Prezzo", "Boolean" };
-
-			public int getColumnCount() {
-				return columnNames.length;
-			}
-
-			public String getColumnName(int column) {
-				return columnNames[column];
-			}
-
-			public int getRowCount() {
-				return rowData.length;
-			}
-
-			public Object getValueAt(int row, int column) {
-				 return rowData[row][column];
-			}
-
-			public Class getColumnClass(int column) {
-				 return (getValueAt(0, column).getClass());
-			}
-
-			public void setValueAt(Object value, int row, int column) {
-				 rowData[row][column] = value;
-			}
-
-			public boolean isCellEditable(int row, int column) {
-				 return (column != 0);
-			}
-		};
-		
+		controllore = new Controllore();
+		controllore.initCarrello();
+		model = controllore.getCarrrello();
 		tabella_Carrello = new JTable(model);
 		tabella_Carrello.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tabella_Carrello.setAutoCreateRowSorter(true);

@@ -1,5 +1,11 @@
 package gestionaleCancelleria;
-
+/**
+ * La classe MyLystener si occupa di catturare tutti gli eventi generati dalle 
+ * componenti grafiche (e dal programma in generale)
+ * E consigliabile avere un solo listener in quanto si evitano problemi col multithread
+ * Inoltre gli eventi vengono poi inviati e gestiti dalla main,sempre per lo stesso problema
+ * del multithread
+ */
 import gestionaleCancelleria.Main;
 import graficaCancelleria.*;
 
@@ -21,6 +27,7 @@ public class MyListener implements ActionListener,MouseListener,WindowListener{
 	{
 		table = tabella;
 	}
+
 	public MyListener()
 	{
 
@@ -73,33 +80,40 @@ public class MyListener implements ActionListener,MouseListener,WindowListener{
 	@Override
 	public void windowClosed(WindowEvent evt) {
 		// TODO Auto-generated method stub
-		String s = (""+evt.getID());
-		m.start(s);
+
 	}
 	@Override
-	public void windowClosing(WindowEvent arg0) {
+	public void windowClosing(WindowEvent evt) {
 		// TODO Auto-generated method stub
-		
+		String s = evt.getSource().toString();
+		if(s.contains("Lista Prodotti"))
+		{
+			m.start("dispose Dipendente");
+		}
+		if(s.contains("Modifica Prodotto"))
+		{
+			m.start("Carrello Dipendente");
+		}
+		if(s.contains("Visualizza Prodotto"))
+		{
+			m.start("Catalogo Dipendente");
+		}
 	}
 	@Override
-	public void windowDeactivated(WindowEvent arg0) {
+	public void windowDeactivated(WindowEvent evt) {
 		// TODO Auto-generated method stub
-		
 	}
 	@Override
-	public void windowDeiconified(WindowEvent arg0) {
+	public void windowDeiconified(WindowEvent evt) {
 		// TODO Auto-generated method stub
-		
 	}
 	@Override
-	public void windowIconified(WindowEvent arg0) {
+	public void windowIconified(WindowEvent evt) {
 		// TODO Auto-generated method stub
-		
 	}
 	@Override
-	public void windowOpened(WindowEvent arg0) {
+	public void windowOpened(WindowEvent evt) {
 		// TODO Auto-generated method stub
-		
 	}
 
 }

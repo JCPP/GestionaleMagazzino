@@ -1,5 +1,8 @@
 package graficaCancelleria;
-
+/**
+ * Classe che visualizza i prodotti di un magazzino in una lista,i dati sono reperiti da un database
+ */
+import gestionaleCancelleria.Controllore;
 import gestionaleCancelleria.MyListener;
 
 import javax.swing.*;
@@ -17,69 +20,32 @@ public class GraficaProdotti extends JFrame  {
 	
 	private JPanel pannello_Prodotti;
 	private JTable tabella_Prodotti;
-	private JTableHeader tabella_Colonne;
 	private JScrollPane scroll_Prodotti;
-	private Boolean bottone;
-	
+	private AbstractTableModel model;
+	private Controllore controllore;
+	/**
+	 * Costruttore della classe
+	 */
 	public GraficaProdotti()
 	{
 	}
-	
+	/**
+	 * metodo per inizializzare le varie componenti grafiche
+	 * vengono caricati i dati dal database in una tabella (da ottimizzare?)
+	 */
 	public void init()
 	{
-		//bottone = new Boolean(false);
-	
-		AbstractTableModel model = new AbstractTableModel()
-		  {
-			//public TableCellRenderer getCellRenderer( int row, int column ) {
-          //    return new MyCellRender();
-          //}
-			Object rowData[][] = {{"01","nome","2","3",Boolean.FALSE}};
-					
-			String columnNames[] = { "ID","Nome","Quantita","Prezzo", "Boolean" };
-
-			public int getColumnCount() {
-				return columnNames.length;
-			}
-
-			public String getColumnName(int column) {
-				return columnNames[column];
-			}
-
-			public int getRowCount() {
-				return rowData.length;
-			}
-
-			public Object getValueAt(int row, int column) {
-				 return rowData[row][column];
-			}
-
-			public Class getColumnClass(int column) {
-				 return (getValueAt(0, column).getClass());
-			}
-
-			public void setValueAt(Object value, int row, int column) {
-				 rowData[row][column] = value;
-			}
-
-			public boolean isCellEditable(int row, int column) {
-				 return (column != 0);
-			}
-		};
 		
+		controllore = new Controllore();
+		controllore.initCatalogo();
+		model = controllore.getCatalogo();
 		tabella_Prodotti = new JTable(model);
 		tabella_Prodotti.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tabella_Prodotti.setAutoCreateRowSorter(true);
 	    tabella_Prodotti.setRowHeight( 20 );
 	    tabella_Prodotti.addMouseListener(new MyListener());
 		
-		tabella_Colonne = tabella_Prodotti.getTableHeader();
-		tabella_Colonne.setReorderingAllowed(false);
-		
 		scroll_Prodotti = new JScrollPane(tabella_Prodotti);
-		
-		MyListener m = new MyListener();
-		m.setTable(this.getTable());
 		
 		pannello_Prodotti = new JPanel();
 		pannello_Prodotti.setBackground(Color.white);
@@ -93,13 +59,18 @@ public class GraficaProdotti extends JFrame  {
 		return this.tabella_Prodotti;
 	}
 	
-	public void setTable(JTable tabella)
+	public void setTable(AbstractTableModel modello)
 	{
-		this.tabella_Prodotti = tabella;
+		this.tabella_Prodotti = new JTable(modello);	
 	}
 	public JPanel getPannello()
 	{
 		return pannello_Prodotti;
+	}
+	
+	public AbstractTableModel getModel()
+	{
+		return this.model;
 	}
 	
 

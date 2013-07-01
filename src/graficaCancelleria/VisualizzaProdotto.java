@@ -1,5 +1,7 @@
 package graficaCancelleria;
-
+/**
+ * Classe che crea una finestra grafica per consentire all'utente di effettuare un ordine
+ */
 import gestionaleCancelleria.MyListener;
 
 import javax.swing.*;
@@ -31,14 +33,20 @@ public class VisualizzaProdotto extends JFrame{
 	private JButton bottone_Ordina;
 	private JButton bottone_Annulla;
 	
+	/**
+	 * Costruttore della classe
+	 */
 	public VisualizzaProdotto()
 	{
 		
 	}
 	
+	/**
+	 * Inizializzazione delle componenti grafiche e visualizzazione della finestra
+	 */
 	public void init()
 	{
-		finestra_Prodotto = new JFrame("Prodotto");
+		finestra_Prodotto = new JFrame("Visualizza Prodotto");
 		finestra_Prodotto.setSize(300,400);
 		
 		dimensione = getToolkit().getScreenSize().getSize();
