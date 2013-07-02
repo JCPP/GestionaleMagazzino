@@ -1,5 +1,6 @@
 package gestionale.magazzino;
 
+
 import java.util.concurrent.ExecutionException;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;

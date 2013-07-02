@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import gestionale.magazzino.EmailValidator;
 import gestionale.magazzino.Querist;
 
 public class Dipendente {
@@ -63,17 +62,15 @@ public class Dipendente {
 		boolean valida = false;
 		que = new Querist();
 		String query = "SELECT COUNT(D.email) AS occorrenze " +
-					   "FROM Dipendente D " +
-					   "WHERE D.email = '"+email+"' AND D.password = '"+ password +"'";
+				"FROM Dipendente D " +
+				"WHERE D.email = '"+email+"' AND D.password = '"+ password +"'";
 		ResultSet rs = que.eseguiQuery(query);
 		int risultato = 0;
 
 		try {
-			while(rs.next()){
-				risultato = rs.getInt("occorrenze");
-				if(risultato == 1){
-					valida = true;
-				} 		
+			risultato = rs.getInt("occorrenze");
+			if(risultato == 1 && isActive(email)){
+				valida = true;	 		
 			}
 		} catch (SQLException e) {
 			valida = false;
@@ -110,13 +107,26 @@ public class Dipendente {
 	}
 
 	/**
-	 * Questo metodo cancella un utente in base all'email
-	 * @param email email dell'utente da cancellare
+	 * Questo metodo disattiva un utente in base all'email
+	 * @param email email dell'utente da disattivare
 	 */
-	static public void cancellaDipendente(String email){
+	static public void disattivaDipendente(String email){
 		que = new Querist();
 		String query = "UPDATE Dipendente " +
 					   "SET isActive = 'false' " +
+					   "WHERE email = '"+email+"'";
+		System.out.println(query);
+		que.eseguiQueryUpdate(query);
+	}
+	
+	/**
+	 * Questo metodo attiva un utente in base all'email
+	 * @param email email dell'utente da attivare
+	 */
+	static public void attivaDipendente(String email){
+		que = new Querist();
+		String query = "UPDATE Dipendente " +
+					   "SET isActive = 'true' " +
 					   "WHERE email = '"+email+"'";
 		System.out.println(query);
 		que.eseguiQueryUpdate(query);
@@ -144,4 +154,28 @@ public class Dipendente {
 		return risultato; 
 	}
 
+	/**
+	 * 
+	 * @param email email del dipendente di cui verificare l'attivazione o meno
+	 * @return un valore boolean in base all'attivazione dell'utente
+	 */
+	static public boolean isActive(String email){
+		boolean isActive = false;
+		que = new Querist();
+		String query = "SELECT D.isActive " +
+				"FROM Dipendente D " +
+				"WHERE D.email = '"+email+"'";
+		ResultSet rs = que.eseguiQuery(query);
+		System.out.println(query);
+		try {
+			while(rs.next()){
+				if(rs.getString("isActive").equals("true")){
+					isActive = true;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return isActive;
+	}
 }
