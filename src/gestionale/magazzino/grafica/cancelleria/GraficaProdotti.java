@@ -7,13 +7,7 @@ import gestionale.magazzino.MyListener;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableModel;
 
-import java.awt.event.*;
 import java.awt.*;
 
 public class GraficaProdotti extends JFrame  {
@@ -35,7 +29,6 @@ public class GraficaProdotti extends JFrame  {
 	 */
 	public void init()
 	{
-		
 		controllore = new Controllore();
 		controllore.initCatalogo();
 		model = controllore.getCatalogo();
@@ -59,9 +52,9 @@ public class GraficaProdotti extends JFrame  {
 		return this.tabella_Prodotti;
 	}
 	
-	public void setTable(AbstractTableModel modello)
+	public void setTable(JTable tabella)
 	{
-		this.tabella_Prodotti = new JTable(modello);	
+		this.tabella_Prodotti = tabella;	
 	}
 	public JPanel getPannello()
 	{

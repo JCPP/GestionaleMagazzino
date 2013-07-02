@@ -27,20 +27,26 @@ public class MyModel extends AbstractTableModel{
 
 	public MyModel() {
 		// TODO Auto-generated constructor stub
+		super();
 	}
 	
+	@Override
 	public int getColumnCount() {
 		return this.columnNames.length;
+		
 	}
 
+	@Override
 	public String getColumnName(int column) {
 		return this.columnNames[column];
 	}
 
+	@Override
 	public int getRowCount() {
 		return this.rowData.length;
 	}
 
+	@Override
 	public Object getValueAt(int row, int column) {
 		 return this.rowData[row][column];
 	}
@@ -50,14 +56,18 @@ public class MyModel extends AbstractTableModel{
 	 * come le checkbox.
 	 * senza questa funzione infatti si visualizzerebbe solo una stringa
 	 */
+	@Override
 	public Class getColumnClass(int column) {
 		 return (getValueAt(0, column).getClass());
 	}
 
+	@Override
 	public void setValueAt(Object value, int row, int column) {
 		 this.rowData[row][column] = value;
+		 //fireTableCellUpdated(row,column);
 	}
 
+	@Override
 	public boolean isCellEditable(int row, int column) {
 		 return (column != 0);
 	}
@@ -71,6 +81,7 @@ public class MyModel extends AbstractTableModel{
 		for(int i = 0;i < row;i++)
 		{
 			this.setValueAt(Boolean.FALSE, i, 4);
+			
 		}
 	}
 

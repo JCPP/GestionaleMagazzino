@@ -140,12 +140,12 @@ public class VisualizzaProdotto extends JFrame{
 		label_Prezzop.setText(s);
 	}
 	
-	public void setFondi(ArrayList<Fondo> s)
+	public void setFondi(ArrayList<Fondo> fondi)
 	{
 		int i = 0;
-		while(s.isEmpty())
+		while(fondi.isEmpty())
 		{
-			combo_Fondi.addItem(s.remove(i));
+			combo_Fondi.addItem(fondi.remove(i).getNome());
 			combo_Fondi.setActionCommand(""+combo_Fondi.getItemAt(i));
 			i++;
 		}

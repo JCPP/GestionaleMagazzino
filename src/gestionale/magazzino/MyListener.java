@@ -6,8 +6,6 @@ package gestionale.magazzino;
  * Inoltre gli eventi vengono poi inviati e gestiti dalla main,sempre per lo stesso problema
  * del multithread
  */
-import gestionale.magazzino.Main;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -96,6 +94,10 @@ public class MyListener implements ActionListener,MouseListener,WindowListener{
 		if(s.contains("Visualizza Prodotto"))
 		{
 			m.start("Catalogo Dipendente");
+		}
+		if(s.contains("Gestione Magazzino"))
+		{
+			m.start("dispose Responsabile");
 		}
 	}
 	@Override

@@ -8,8 +8,6 @@ import gestionale.magazzino.MyListener;
 
 import javax.swing.*;
 
-import java.awt.event.*;
-import java.awt.image.ImageObserver;
 import java.awt.*;
 
 public class GraficaLogin extends JFrame {

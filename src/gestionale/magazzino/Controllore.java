@@ -1,7 +1,5 @@
 package gestionale.magazzino;
 
-import java.util.ArrayList;
-
 import gestionale.magazzino.grafica.cancelleria.GraficaAccount;
 import gestionale.magazzino.grafica.cancelleria.GraficaCarrello;
 import gestionale.magazzino.grafica.cancelleria.GraficaDipendente;
@@ -11,14 +9,14 @@ import gestionale.magazzino.grafica.cancelleria.GraficaRegistrazione;
 import gestionale.magazzino.grafica.cancelleria.ModificaProdotto;
 import gestionale.magazzino.grafica.cancelleria.MyModel;
 import gestionale.magazzino.grafica.cancelleria.VisualizzaProdotto;
-import gestionale.magazzino.models.Dipendente;
+import gestionale.magazzino.grafica.responsabile.GraficaAccountResponsabile;
+import gestionale.magazzino.grafica.responsabile.GraficaMagazzino;
+import gestionale.magazzino.grafica.responsabile.GraficaResponsabile;
 
-import javax.swing.JFrame;
+import java.util.ArrayList;
+
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
 import javax.swing.table.AbstractTableModel;
-
 
 public class Controllore {
 	
@@ -32,14 +30,17 @@ public class Controllore {
 	 * @return 3 se le password non sono uguali
 	 */
 	public boolean checkPassword(String pass, String pass2){
-		int noErr;
+		int noErr = 0;
 		boolean b = false;
 		if(pass.isEmpty()){
 			noErr = 1;
+			b = false;
 		}else if(pass.length() >12){
 			noErr = 2;
+			b = false;
 		}else if(!pass.equals(pass2)){
 			noErr = 3;
+			b = false;
 		}else if(pass.equals(pass2)){
 			b = true;
 		}
@@ -64,22 +65,32 @@ public class Controllore {
 	
 	private GraficaLogin gl;
 	private GraficaDipendente gd;
-	private static GraficaRegistrazione gr;
-	private static GraficaProdotti gp;
-	private static GraficaAccount ga;
-	private static VisualizzaProdotto vp;
-	private static ModificaProdotto mp;
-	private AbstractTableModel modello;
-	private AbstractTableModel modello2;
-	private static GraficaCarrello gc;
-	private static int Prodotto_selezionato = 0;
-	private static int Ordine_selezionato = 0;
+	private GraficaRegistrazione gr;
+	private GraficaResponsabile gresp;
+	private GraficaProdotti gp;
+	private GraficaAccount ga;
+	private VisualizzaProdotto vp;
+	private ModificaProdotto mp;
+	private MyModel modello;
+	private MyModel modello2;
+	private GraficaCarrello gc;
+	private int Prodotto_selezionato = 0;
+	private int Ordine_selezionato = 0;
+	private ArrayList<Prodotto> prodotti;
+	private ArrayList<Prodotto> carrello;
+	private GraficaAccountResponsabile gar;
+	private GraficaMagazzino gm;
 	/**
 	 * Costruttore controllore
 	 * inizializza tutte le finestre grafiche,senza pero caricarne i componenti
 	 */
 	public Controllore()
 	{
+		modello = new MyModel();
+		modello2 = new MyModel();
+		gar = new GraficaAccountResponsabile();
+		gm = new GraficaMagazzino();
+		gresp = new GraficaResponsabile();
 		gl = new GraficaLogin();
 		gp = new GraficaProdotti();
 		gr = new GraficaRegistrazione();
@@ -108,13 +119,24 @@ public class Controllore {
 		gl.pulisciErrori();
 		String email = gl.getEmail();
 		String password = gl.getPassword();
-		boolean b1 = Dipendente.validateEmail(email);
-		boolean b2 = Dipendente.validatePassword(email, password);
+		boolean b1 = gestionale.magazzino.models.Dipendente.validateEmail(email);
+		boolean b2 = gestionale.magazzino.models.Dipendente.validatePassword(email, password);
+		boolean b3 = gestionale.magazzino.models.Dipendente.validateResponsabile(email, password);
 		if(b2)
 		{
-			JOptionPane.showMessageDialog(gl, "Login Effetuato");
-			gd.init();
-			gl.disposeF();
+			if(b3)
+			{
+				JOptionPane.showMessageDialog(gl, "Login Effetuato");
+				gresp.init();
+				gl.disposeF();
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(gl, "Login Effetuato");
+				gd.init();
+				gl.disposeF();
+			}
+
 		}
 		else
 		{
@@ -271,7 +293,7 @@ public class Controllore {
 		String nome;
 		String cognome;
 		String tipo;
-		gestionale.magazzino.Dipendente dipendente;
+		gestionale.magazzino.models.Dipendente dipendente;
 		gd.setPannelloSelezionato("account");
 	}
 
@@ -280,16 +302,14 @@ public class Controllore {
 	 */
 	public void initCatalogo()
 	{
-		
 		int ID;
 		String nome;
 		int qta;
 		float prezzo;
-		ArrayList<gestionale.magazzino.Prodotto> prodotti = new ArrayList<gestionale.magazzino.Prodotto>();
+		prodotti = new ArrayList<gestionale.magazzino.Prodotto>();
 		prodotti = gestionale.magazzino.models.Prodotto.visualizzaProdotti();
 		String[] colonne = {"ID","nome","prezzo","quantita","acquista"};
-		AbstractTableModel model = new MyModel(prodotti.size(),5,colonne);
-		System.out.println(prodotti.get(0).getId_Prodotto());
+		MyModel model = new MyModel(prodotti.size(),5,colonne);
 		for(int i = 0;i < prodotti.size(); i++)
 		{
 			ID = prodotti.get(i).getId_Prodotto();
@@ -356,9 +376,7 @@ public class Controllore {
 	 */
 	public void updateCatalogo()
 	{
-		//gd.setState(true);
-		gd.disposeF();
-		gd.init();
+		gd.setState(true);
 		gd.setPannelloSelezionato("prodotti");
 	}
 	/**
@@ -375,8 +393,7 @@ public class Controllore {
 	 */
 	public void updateCarrello()
 	{
-		gd.disposeF();
-		gd.init();
+		gd.setState(true);
 		gd.setPannelloSelezionato("carrello");
 	}
 	/**
@@ -385,7 +402,7 @@ public class Controllore {
 	 */
 	public AbstractTableModel getCarrrello()
 	{
-		return modello;
+		return modello2;
 	}
 	/**
 	 * carica dal database i prodotti scelti da un utente
@@ -397,12 +414,11 @@ public class Controllore {
 		String nome;
 		int qta;
 		float prezzo;
-		ArrayList<gestionale.magazzino.Prodotto> prodotti = new ArrayList<gestionale.magazzino.Prodotto>();
-		prodotti = gestionale.magazzino.models.Prodotto.visualizzaProdotti();
+		carrello = new ArrayList<Prodotto>();
+		//prodotti = modelsCancelleria.Prodotto.visualizzaProdotti();
 		String[] colonne = {"ID","nome","prezzo","quantita","acquista"};
-		AbstractTableModel model = new MyModel(prodotti.size(),5,colonne);
-		System.out.println(prodotti.get(0).getId_Prodotto());
-		for(int i = 0;i < prodotti.size(); i++)
+		MyModel model = new MyModel(carrello.size(),5,colonne);
+		for(int i = 0;i < carrello.size(); i++)
 		{
 			ID = prodotti.get(i).getId_Prodotto();
 			nome = prodotti.get(i).getNome();
@@ -414,7 +430,7 @@ public class Controllore {
 			model.setValueAt(prezzo, i, 3);
 			model.setValueAt(Boolean.FALSE, i, 4);
 		}
-		modello = model;
+		modello2 = model;
 	}
 	/**
 	 * disalloca tutte le risorse create all'accesso di un dipendente al sistema
@@ -467,4 +483,42 @@ public class Controllore {
 	}
 	
 	
+	public void logoutResp()
+	{
+		gresp.disposeF();
+		this.disposeResp();
+		gl.init();
+	}
+	
+	public void disposeResp()
+	{
+		
+		gm.dispose();
+		gl.dispose();
+		gp.dispose();
+		gr.dispose();
+		vp.dispose();
+		mp.dispose();
+		gresp.disposeF();
+	}
+	
+	public void showAccountResp()
+	{
+		gresp.setPannelloSelezionato("account");
+	}
+	
+	public void showMagazzino()
+	{
+		gresp.setPannelloSelezionato("magazzino");
+	}
+	
+	public void showNotifiche()
+	{
+		gresp.setPannelloSelezionato("notifiche");
+	}
+	
+	public void showListaDip()
+	{
+		gresp.setPannelloSelezionato("listaDip");
+	}
 }

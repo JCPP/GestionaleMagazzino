@@ -88,7 +88,7 @@ public class ModificaProdotto extends JFrame {
 		bottone_Rimuovi.setActionCommand("Rimuovi Prodotto");
 		bottone_Rimuovi.addActionListener(new MyListener());
 		
-		dati_Constraints.fill = dati_Constraints.HORIZONTAL;
+		dati_Constraints.fill = GridBagConstraints.HORIZONTAL;
 		dati_Constraints.weightx = 1.0;
 		dati_Constraints.weighty = 1.0;
 		dati_Constraints.gridx = 0;
@@ -116,7 +116,7 @@ public class ModificaProdotto extends JFrame {
 		dati_Constraints.gridy = 3;
 		pannello_Dati.add(text_Fondo,dati_Constraints);
 		
-		opzioni_Constraints.fill = dati_Constraints.HORIZONTAL;
+		opzioni_Constraints.fill = GridBagConstraints.HORIZONTAL;
 		opzioni_Constraints.weightx = 1.0;
 		opzioni_Constraints.weighty = 1.0;
 		opzioni_Constraints.gridx = 0;

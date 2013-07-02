@@ -1,4 +1,4 @@
-package gestionale.magazzino.grafica.cancelleria;
+package gestionale.magazzino.grafica.responsabile;
 /**
  * Classe che si occupa di visualizzare i dati di un dipendente
  */
@@ -6,7 +6,7 @@ import javax.swing.*;
 
 import java.awt.*;
 
-public class GraficaAccount {
+public class GraficaAccountResponsabile {
 	
 	private JPanel pannello_Account;
 	private GridBagConstraints dati_Constraints;
@@ -23,7 +23,7 @@ public class GraficaAccount {
 	/**
 	 * Costruttore della classe
 	 */
-	public GraficaAccount()
+	public GraficaAccountResponsabile()
 	{
 		
 	}
@@ -82,12 +82,12 @@ public class GraficaAccount {
 		dati_Constraints.gridx = 2;
 		dati_Constraints.gridy = 7;
 		pannello_Account.add(text_Email,dati_Constraints);
-		
+	
 	}
 	
 	public JPanel getPannello()
 	{
-		return pannello_Account;
+		return this.pannello_Account;
 	}
 	
 	

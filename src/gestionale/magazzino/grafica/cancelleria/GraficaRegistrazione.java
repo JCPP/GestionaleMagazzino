@@ -6,7 +6,7 @@ package gestionale.magazzino.grafica.cancelleria;
 import gestionale.magazzino.MyListener;
 
 import javax.swing.*;
-import java.awt.event.*;
+
 import java.awt.*;
 
 public class GraficaRegistrazione extends JFrame{
@@ -120,7 +120,7 @@ public class GraficaRegistrazione extends JFrame{
 		bottone_Indietro.setActionCommand("Indietro");
 		bottone_Indietro.addActionListener(new MyListener());
 		
-		dati_Constraints.fill = dati_Constraints.HORIZONTAL;
+		dati_Constraints.fill = GridBagConstraints.HORIZONTAL;
 		dati_Constraints.weightx = 1.0;
 		dati_Constraints.gridx = 0;
 		dati_Constraints.gridy = 0;

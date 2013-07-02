@@ -8,7 +8,6 @@ import gestionale.magazzino.MyListener;
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 
-import java.awt.event.*;
 import java.awt.*;
 
 public class GraficaDipendente extends JFrame {
@@ -24,7 +23,6 @@ public class GraficaDipendente extends JFrame {
 	private CardLayout layout_Pannello;
 	private JPanel pannello_Selezionato;
 	private JPanel pannello_Navigazione;
-	private Graphics offscreen;
 	/**
 	 * Costruttore della classe
 	 */
