@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import gestionale.magazzino.Connettore;
 import gestionale.magazzino.Querist;
 
 public class Fondo {
@@ -26,20 +25,22 @@ public class Fondo {
 	 * Questo metodo restituisce i nomi dei fondi presenti nel database aventi un fondo disponibile maggiore di 0
 	 * @return Il ritorno è un arraylist di stringhe contenenti i risultati, in caso di errore ritorna l'arraylist con il messaggio di errore
 	 */
-	static public ArrayList<String> visualizzaFondi (){
+	static public ArrayList<gestionale.magazzino.Fondo> visualizzaFondi (){
 		que = new Querist();
-		String query = "SELECT F.Nome" +
-					   "FROM magazzino.fondo F" +
+		String query = "SELECT F.idFondo, F.Nome , F.fondoDisponibile " +
+					   "FROM Fondo F " +
+					   "GROUP BY (F.nome) " +
 					   "HAVING F.fondoDisponibile > 0";
 		ResultSet rs = que.eseguiQuery(query);
-		ArrayList<String> risultato = new ArrayList<String>();
+		ArrayList<gestionale.magazzino.Fondo> risultato = new ArrayList<gestionale.magazzino.Fondo>();
 		
 		try {
 			while(rs.next()){
-				risultato.add(rs.getString("nome"));
+				gestionale.magazzino.Fondo fnd = new gestionale.magazzino.Fondo(rs.getInt("idFondo"), rs.getString("nome"), rs.getFloat("fondoDisponibile"));
+				risultato.add(fnd);
 			}
 		} catch (SQLException e) {
-			risultato.add(e.getMessage());
+			risultato.add(null);
 			return risultato;
 		}
 		return risultato; 

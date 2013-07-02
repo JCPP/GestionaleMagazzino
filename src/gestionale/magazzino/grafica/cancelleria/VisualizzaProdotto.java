@@ -2,6 +2,7 @@ package gestionale.magazzino.grafica.cancelleria;
 /**
  * Classe che crea una finestra grafica per consentire all'utente di effettuare un ordine
  */
+import gestionale.magazzino.Fondo;
 import gestionale.magazzino.MyListener;
 
 import javax.swing.*;
@@ -139,7 +140,7 @@ public class VisualizzaProdotto extends JFrame{
 		label_Prezzop.setText(s);
 	}
 	
-	public void setFondi(ArrayList<String> s)
+	public void setFondi(ArrayList<Fondo> s)
 	{
 		int i = 0;
 		while(s.isEmpty())

@@ -447,7 +447,7 @@ public class Controllore {
 	public void showProdotto(int p)
 	{
 		vp.init();
-		ArrayList<String> fondi = new ArrayList<String>();
+		ArrayList<Fondo> fondi = new ArrayList<Fondo>();
 		fondi = gestionale.magazzino.models.Fondo.visualizzaFondi();
 		vp.setFondi(fondi);
 		Prodotto_selezionato = p;
