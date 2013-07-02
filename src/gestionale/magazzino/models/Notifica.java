@@ -35,7 +35,11 @@ public class Notifica {
 		ResultSet rs = que.eseguiQuery(query);
 		try {
 			while(rs.next()){
-				gestionale.magazzino.Notifica notifica = new gestionale.magazzino.Notifica(rs.getInt("idNotifica"),rs.getInt("idDipendente"), rs.getInt("idDipendenteNotificato"), rs.getString("notifica"), rs.getString("dataNotifica"));
+				boolean isValidate = false;
+				if(rs.getString("isValidate").equals("true")){
+					isValidate = true;
+				}
+				gestionale.magazzino.Notifica notifica = new gestionale.magazzino.Notifica(rs.getInt("idNotifica"),rs.getInt("idDipendente"), rs.getInt("idDipendenteNotificato"), rs.getString("notifica"), rs.getString("dataNotifica"), isValidate);
 				risultato.add(notifica);
 			}
 		} catch (SQLException e) {
@@ -44,6 +48,32 @@ public class Notifica {
 			return risultato;
 		}
 		return risultato; 
+	}
+
+	/**
+	 * Questo metodo rende valida una notifica invalida
+	 * @param idNotifica
+	 */
+	static public void validateNotifica(int idNotifica){
+		que = new Querist();
+		String query = "UPDATE Notifica " +
+					   "SET isValidate = 'true' " +
+					   "WHERE idNotifica = "+idNotifica;
+		System.out.println(query);
+		que.eseguiQueryUpdate(query);
+	}
+	
+	/**
+	 * Questo metodo rende invalida una notifica valida
+	 * @param idNotifica
+	 */
+	static public void invalidateNotifica(int idNotifica){
+		que = new Querist();
+		String query = "UPDATE Notifica " +
+					   "SET isValidate = 'false' " +
+					   "WHERE idNotifica = "+idNotifica;
+		System.out.println(query);
+		que.eseguiQueryUpdate(query);
 	}
 	
 	/**
@@ -57,4 +87,99 @@ public class Notifica {
 		que.eseguiQueryUpdate(query);
 	}
 
+	/**
+	 * Questo metodo restituisce tutte le notifiche ancora attive
+	 * @return ritorna un arraylist di notifiche ancora valide
+	 */
+	static public ArrayList<gestionale.magazzino.Notifica> visualizzaNotificheValide(){
+		que = new Querist();
+		ArrayList<gestionale.magazzino.Notifica> risultato = new ArrayList<gestionale.magazzino.Notifica>();
+		String query = "SELECT * " +
+					   "FROM Notifica N " +
+					   "WHERE N.isValidate = 'true'";
+		ResultSet rs = que.eseguiQuery(query);
+		try {
+			while(rs.next()){
+				boolean isValidate = false;
+				if(rs.getString("isValidate").equals("true")){
+					isValidate = true;
+				}
+				gestionale.magazzino.Notifica notifica = new gestionale.magazzino.Notifica(rs.getInt("idNotifica"),rs.getInt("idDipendente"), rs.getInt("idDipendenteNotificato"), rs.getString("notifica"), rs.getString("dataNotifica"), isValidate);
+				risultato.add(notifica);
+			}
+		} catch (SQLException e) {
+			gestionale.magazzino.Notifica notifica = null;
+			risultato.add(notifica);
+			return risultato;
+		}
+		return risultato; 
+	}
+
+	/**
+	 * Questo metodo restituisce tutte le notifiche inattive
+	 * @return ritorna un arraylist di notifiche non più valide
+	 */
+	static public ArrayList<gestionale.magazzino.Notifica> visualizzaNotificheInvalide(){
+		que = new Querist();
+		ArrayList<gestionale.magazzino.Notifica> risultato = new ArrayList<gestionale.magazzino.Notifica>();
+		String query = "SELECT * " +
+					   "FROM Notifica N " +
+					   "WHERE N.isValidate = 'false'";
+		ResultSet rs = que.eseguiQuery(query);
+		try {
+			while(rs.next()){
+				boolean isValidate = false;
+				if(rs.getString("isValidate").equals("true")){
+					isValidate = true;
+				}
+				gestionale.magazzino.Notifica notifica = new gestionale.magazzino.Notifica(rs.getInt("idNotifica"),rs.getInt("idDipendente"), rs.getInt("idDipendenteNotificato"), rs.getString("notifica"), rs.getString("dataNotifica"), isValidate);
+				risultato.add(notifica);
+			}
+		} catch (SQLException e) {
+			gestionale.magazzino.Notifica notifica = null;
+			risultato.add(notifica);
+			return risultato;
+		}
+		return risultato; 
+	}
+
+	/**
+	 * Questo metodo restituisce gli IDs di tutte le notifiche inattive
+	 * @return ritorna un arraylist di IDs notifiche non più valide
+	 */
+	static public ArrayList<Integer> getIdNotificheInvalide(){
+		que = new Querist();
+		ArrayList<Integer> risultato = new ArrayList<Integer>();
+		String query = "SELECT N.idNotifica " +
+					   "FROM Notifica N " +
+					   "WHERE N.isValidate = 'false'";
+		ResultSet rs = que.eseguiQuery(query);
+		try {
+			while(rs.next()){
+				risultato.add(rs.getInt("idNotifica"));
+			}
+		} catch (SQLException e) {
+		}
+		return risultato; 
+	}
+	
+	/**
+	 * Questo metodo restituisce gli IDs di tutte le notifiche valide
+	 * @return ritorna un arraylist di IDs notifiche valide
+	 */
+	static public ArrayList<Integer> getIdNotificheValide(){
+		que = new Querist();
+		ArrayList<Integer> risultato = new ArrayList<Integer>();
+		String query = "SELECT N.idNotifica " +
+					   "FROM Notifica N " +
+					   "WHERE N.isValidate = 'true'";
+		ResultSet rs = que.eseguiQuery(query);
+		try {
+			while(rs.next()){
+				risultato.add(rs.getInt("idNotifica"));
+			}
+		} catch (SQLException e) {
+		}
+		return risultato; 
+	}
 }
