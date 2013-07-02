@@ -93,4 +93,21 @@ public class Prodotto {
 		System.out.println(query1);
 		que.eseguiQueryUpdate(query1);
 	}
+	
+	static public gestionale.magazzino.Prodotto visualizzaProdotto(int idProdotto){
+		que = new Querist();
+		String query = "SELECT P.idProdotto, P.nome, P.qta, P.prezzoUnita " +
+				"FROM Prodotto P " +
+				"WHERE P.idProdotto = "+idProdotto;
+		System.out.println(query);
+		ResultSet rs = que.eseguiQuery(query);
+		gestionale.magazzino.Prodotto pr;
+		try {
+			pr = new gestionale.magazzino.Prodotto (rs.getInt("idProdotto"), rs.getString("nome"), rs.getInt("qta"), rs.getFloat("prezzoUnita"));
+		} catch (SQLException e) {
+			pr = null;
+			e.printStackTrace();
+		}
+		return pr;
+	}
 }

@@ -40,7 +40,6 @@ public class Main {
                 	 */
                 	protected Boolean doInBackground() throws Exception 
                 	{
-                		
             			controllo.start();
                 		return true;
                 	};
