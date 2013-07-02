@@ -143,8 +143,12 @@ public class Dipendente {
 		ResultSet rs = que.eseguiQuery(query);
 		try {
 			while(rs.next()){
-				gestionale.magazzino.Dipendente dip = new gestionale.magazzino.Dipendente(rs.getInt("idDipendente"),rs.getString("nome"), rs.getString("cognome"), rs.getString("email"), rs.getString("password"), rs.getString("tipo"));
-				risultato.add(dip); 		
+				boolean isActive = false;
+				if( rs.getString("isActive").equals("true")){
+					isActive = true;
+				}
+				gestionale.magazzino.Dipendente dip = new gestionale.magazzino.Dipendente(rs.getInt("idDipendente"),rs.getString("nome"), rs.getString("cognome"), rs.getString("email"), rs.getString("password"), rs.getString("tipo"), isActive);
+				risultato.add(dip);
 			}
 		} catch (SQLException e) {
 			gestionale.magazzino.Dipendente dip = null;
@@ -178,4 +182,31 @@ public class Dipendente {
 		}
 		return isActive;
 	}
+	
+	/**
+	 * Questo metodo restituisce la descrizione di un dipendente.
+	 * @param idDipendente identificativo del dipendente di cui si vogliono visualizzare i dati
+	 * @return un Dipendente con i dati relativi
+	 */
+	static public gestionale.magazzino.Dipendente visualizzaDipendente(int idDipendente){
+		que = new Querist();
+		String query = "SELECT * " +
+					   "FROM Dipendente D " +
+					   "WHERE D.idDipendente = "+idDipendente;
+		ResultSet rs = que.eseguiQuery(query);
+		System.out.println(query);
+		gestionale.magazzino.Dipendente dip;
+		try{
+			boolean isActive = false;
+			if(rs.getString("isActive").equals("true")){
+				isActive = true;
+			}
+			dip = new gestionale.magazzino.Dipendente(rs.getInt("idDipendente"), rs.getString("nome"), rs.getString("cognome"), rs.getString("email"), rs.getString("password"), rs.getString("tipo"), isActive);
+		}catch(SQLException e){
+			dip = null;
+		}
+		
+		return dip;
+	}
+
 }

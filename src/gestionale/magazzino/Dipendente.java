@@ -14,6 +14,7 @@ public class Dipendente {
 	private String tipo;
 	private String password;
 	private String email;
+	private boolean isActive;
 
 
 	/**
@@ -25,7 +26,7 @@ public class Dipendente {
 	 * @param email L'email del dipendente
 	 */
 	public Dipendente(int id_Dipendente, String nome, String cognome,
-			 String email, String password, String tipo) {
+			 String email, String password, String tipo, boolean isActive) {
 		super();
 		this.idDipendente = id_Dipendente;
 		this.nome = nome;
@@ -33,6 +34,7 @@ public class Dipendente {
 		this.password = password;
 		this.tipo = tipo;
 		this.email = email;
+		this.isActive = isActive;
 	}
 	public Dipendente(){
 		super();
@@ -59,9 +61,6 @@ public class Dipendente {
 	public void setCognome(String cognome) {
 		this.cognome = cognome;
 	}
-	public String getTip() {
-		return tipo;
-	}
 	public void setTipo(String tipo_dipendente) {
 		this.tipo = tipo_dipendente;
 	}
@@ -80,6 +79,37 @@ public class Dipendente {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	/**
+	 * @return the idDipendente
+	 */
+	public int getIdDipendente() {
+		return idDipendente;
+	}
+	/**
+	 * @param idDipendente the idDipendente to set
+	 */
+	public void setIdDipendente(int idDipendente) {
+		this.idDipendente = idDipendente;
+	}
+	/**
+	 * @return the isActive
+	 */
+	public boolean isActive() {
+		return isActive;
+	}
+	/**
+	 * @param isActive the isActive to set
+	 */
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+	/**
+	 * @return the tipo
+	 */
+	public String getTipo() {
+		return tipo;
+	}
+	
 }
 
 
