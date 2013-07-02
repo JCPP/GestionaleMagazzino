@@ -1,6 +1,7 @@
-package gestionaleCancelleria;
+package gestionale.magazzino;
 
 import static org.junit.Assert.*;
+import gestionale.magazzino.EmailValidator;
 
 import org.junit.Before;
 import org.junit.Test;
