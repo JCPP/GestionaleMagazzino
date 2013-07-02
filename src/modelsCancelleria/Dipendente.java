@@ -115,9 +115,9 @@ public class Dipendente {
 	 */
 	static public void cancellaDipendente(String email){
 		que = new Querist();
-		String query = "DELETE " +
-				       "FROM Dipendente " +
-				       "WHERE Dipendente.email = '"+email+"'";
+		String query = "UPDATE Dipendente " +
+					   "SET isActive = 'false' " +
+					   "WHERE email = '"+email+"'";
 		System.out.println(query);
 		que.eseguiQueryUpdate(query);
 	}
