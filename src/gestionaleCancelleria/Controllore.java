@@ -32,7 +32,7 @@ public class Controllore {
 	 * @return 3 se le password non sono uguali
 	 */
 	public boolean checkPassword(String pass, String pass2){
-		int noErr = 0;
+		int noErr;
 		boolean b = false;
 		if(pass.isEmpty()){
 			noErr = 1;
