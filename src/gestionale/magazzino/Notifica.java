@@ -8,14 +8,16 @@ public class Notifica {
 	private int idDipendenteNotificato;
 	private String notifica;
 	private String data;
+	private boolean isValidate;
 
 
-	public Notifica(int idNotifica, int idDipendente, int idDipendenteNotificato, String notifica, String dataNotifica) {
+	public Notifica(int idNotifica, int idDipendente, int idDipendenteNotificato, String notifica, String dataNotifica, boolean isValidate) {
 		this.idNotifica = idNotifica;
 		this.idDipendente = idDipendente;
 		this.idDipendenteNotificato = idDipendenteNotificato;
 		this.notifica = notifica;
 		this.data = dataNotifica;
+		this.isValidate = isValidate;
 	}
 	/**
 	 * @return the idNotifica
@@ -76,6 +78,18 @@ public class Notifica {
 	 */
 	public void setData(String data) {
 		this.data = data;
+	}
+	/**
+	 * @return the isValidate
+	 */
+	public boolean isValidate() {
+		return isValidate;
+	}
+	/**
+	 * @param isValidate the isValidate to set
+	 */
+	public void setValidate(boolean isValidate) {
+		this.isValidate = isValidate;
 	}
 
 
