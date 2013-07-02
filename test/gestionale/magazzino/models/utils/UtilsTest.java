@@ -3,6 +3,7 @@ package gestionale.magazzino.models.utils;
 import static org.junit.Assert.*;
 import gestionale.magazzino.Connettore;
 import gestionale.magazzino.models.Acquisto;
+import gestionale.magazzino.models.utils.Utils;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -28,9 +29,9 @@ public class UtilsTest {
 
 	@Test
 	public void testLastInsertID() {
-		//System.out.printf("%d %d %d %d: ", idDipendente, idProdotto, idFondo, qta);
 		Acquisto.inserisciAcquisto(idDipendente, idProdotto, idFondo, qta); //Inserisco l'acquisto
 		System.out.println("ID: " + Utils.lastInsertID());
+		fail("Metodo non ancora completamente testato.");
 	}
 
 }

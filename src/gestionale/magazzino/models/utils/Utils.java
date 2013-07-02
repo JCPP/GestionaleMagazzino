@@ -1,7 +1,10 @@
 package gestionale.magazzino.models.utils;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import gestionale.magazzino.Querist;
 
@@ -12,20 +15,21 @@ import gestionale.magazzino.Querist;
  */
 public class Utils {
 	
-static Querist que;
+	static Querist que;
 	
 	/**
 	 * Restituisce l'ultimo ID inserito.
 	 * @return Restituisce l'ultimo ID inserito.
 	 */
 	public static int lastInsertID(){
+		int id = 0;
 		que = new Querist();
-		String query = "SELECT last_insert_rowid();";
+		String query = "SELECT last_insert_rowid() as rowid;";
 		ResultSet rs = que.eseguiQuery(query);
-		int id=0;
 		try{
-			id = rs.getInt("ID");
+			id = rs.getInt("rowid");
 		}catch(SQLException e){
+			System.out.println("Eccezione: "+e);
 		}
 		return id;
 	}

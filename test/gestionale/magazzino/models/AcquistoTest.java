@@ -29,6 +29,7 @@ public class AcquistoTest {
 		idProdotto = 2;
 		idFondo = 1;
 		qta = 120;
+		connettore = new Connettore();
 		connettore.caricadriver();
 		connettore.collegati();
 	}
