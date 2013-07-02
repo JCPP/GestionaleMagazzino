@@ -80,4 +80,20 @@ public class Acquisto {
 		}
 		return risultato;
 	}
+	
+	static public gestionale.magazzino.Acquisto visualizzaAcquisto(int idAcquisto){
+		que = new Querist();
+		String query = "SELECT A.idAcquisto, A.idDipendente, A.idProdotto, A.idFondo, A.qta, A.dataAcquisto " +
+				       "FROM Acquisto A " +
+				       "WHERE A.idAcquisto = "+idAcquisto;
+		System.out.println(query);
+		ResultSet rs = que.eseguiQuery(query);
+		gestionale.magazzino.Acquisto acq = null;
+		try{
+			acq = new gestionale.magazzino.Acquisto(rs.getInt("idAcquisto"), rs.getInt("idDipendente"), rs.getInt("idProdotto"), rs.getInt("idFondo"), rs.getInt("qta"), rs.getString("dataAcquisto"));
+		}catch(SQLException e){
+		}
+		return acq;
+		
+	}
 }

@@ -2,8 +2,11 @@ package gestionale.magazzino;
 
 public class Acquisto {
 	private int idAcquisto;
+	private int idDipendente;
 	private String nomeDipendente;
+	private int idProdotto;
 	private String nomeProdotto;
+	private int idFondo;
 	private String nomeFondo;
 	private int qta;
 	private float spesa;
@@ -21,7 +24,15 @@ public class Acquisto {
 		this.dataAcquisto = dataAcquisto;
 	}
 
-
+	public Acquisto(int idAcquisto, int idDipendente, int idProdotto, int idFondo, int qta, String dataAcquisto){
+		this.idAcquisto = idAcquisto;
+		this.idDipendente = idDipendente;
+		this.idProdotto = idProdotto;
+		this.idFondo = idFondo;
+		this.qta = qta;
+		this.dataAcquisto = dataAcquisto;
+	}
+	
 	public Acquisto() {
 		super();
 	}
