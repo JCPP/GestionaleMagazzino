@@ -182,4 +182,50 @@ public class Notifica {
 		}
 		return risultato; 
 	}
+
+	/**
+	 * Questo metodo restituisce gli IDs di tutte le notifiche ricevute da un dato dipendente
+	 * @param idDipendenteNotificato identificativo del dipendente di cui si vogliono sapere le notifiche
+	 * @return restituisce gli IDs delle notifiche.
+	 */
+	static public ArrayList<Integer> getIdNotificheRicevute(int idDipendenteNotificato){
+		ArrayList<Integer> risultato = new ArrayList<Integer>();
+		que = new Querist();
+		String query = "SELECT N.idNotifica " +
+					   "FROM Notifica N " +
+					   "WHERE N.idDipendenteNotificato = "+idDipendenteNotificato;
+		System.out.println(query);
+		ResultSet rs = que.eseguiQuery(query);
+		try {
+			while(rs.next()){
+				risultato.add(rs.getInt(1));
+			}
+		} catch (SQLException e) {
+			risultato = null;
+		}
+		return risultato;
+	}
+
+	/**
+	 * Questo metodo restituisce gli IDs di tutte le notifiche inviate da un dato dipendente
+	 * @param idDipendenteNotificato identificativo del dipendente di cui si vogliono sapere le notifiche
+	 * @return restituisce gli IDs delle notifiche.
+	 */
+	static public ArrayList<Integer> getIdNotificheInviate(int idResponsabile){
+		ArrayList<Integer> risultato = new ArrayList<Integer>();
+		que = new Querist();
+		String query = "SELECT N.idNotifica " +
+					   "FROM Notifica N " +
+					   "WHERE N.idDipendente = "+idResponsabile;
+		System.out.println(query);
+		ResultSet rs = que.eseguiQuery(query);
+		try {
+			while(rs.next()){
+				risultato.add(rs.getInt(1));
+			}
+		} catch (SQLException e) {
+			risultato = null;
+		}
+		return risultato;
+}
 }
