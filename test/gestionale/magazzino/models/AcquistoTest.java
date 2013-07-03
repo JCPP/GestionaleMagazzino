@@ -3,6 +3,7 @@ package gestionale.magazzino.models;
 import static org.junit.Assert.*;
 
 import gestionale.magazzino.Connettore;
+import gestionale.magazzino.models.utils.Utils;
 
 import java.util.ArrayList;
 
@@ -21,6 +22,7 @@ public class AcquistoTest {
 	private int idProdotto;
 	private int idFondo;
 	private int qta;
+	private int idAcquisto;
 	private Connettore connettore;
 	
 	@Before
@@ -37,13 +39,12 @@ public class AcquistoTest {
 	@Test
 	public void testInserisciAcquisto() {
 		Acquisto.inserisciAcquisto(idDipendente, idProdotto, idFondo, qta); //Inserisco l'acquisto
-		//statement.getGeneratedKeys();
+		idAcquisto = Utils.lastInsertID();
+		gestionale.magazzino.Acquisto acquisto = Acquisto.visualizzaAcquisto(idAcquisto);
 		
-		ArrayList<gestionale.magazzino.Acquisto> acquisti = Acquisto.visualizzaAcquistiDipendente(idDipendente); //Leggo l'elenco degli acquisti
-		for(int i = 0; i < acquisti.size(); i++){
-			gestionale.magazzino.Acquisto acquisto = acquisti.get(i);
-			//if(acquisto.getNomeDipendente() == dipendente.getNome() && acquisto.getNomeFondo() && acquisto.getQta() == 120)
-		}
+		//Controllare che gli id siano settati come abbiamo fatto
+		//acquisto.get
+		fail("Not yet implemented");
 	}
 
 	@Test

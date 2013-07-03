@@ -1,12 +1,9 @@
 package gestionale.magazzino.models.utils;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
+import gestionale.magazzino.Querist;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-
-import gestionale.magazzino.Querist;
 
 /**
  * Query di utilità.
