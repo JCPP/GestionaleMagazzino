@@ -53,6 +53,7 @@ CREATE TABLE "Notifica" ("idNotifica" INTEGER PRIMARY KEY ,
                          "idDipendenteNotificato" INTEGER NOT NULL,
                          "notifica" TEXT NOT NULL,
                          "dataNotifica" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                         "isValidate" BOOLEAN NOT NULL DEFAULT 'true',
 
 CONSTRAINT 'fk_notifica_dipendente'                         
 FOREIGN KEY ('idDipendente')
@@ -63,7 +64,7 @@ FOREIGN KEY ('idDipendente')
 CONSTRAINT 'fk_notifica_dipendenteNotificato'
 FOREIGN KEY ('idDipendenteNotificato') 
   REFERENCES 'Dipendente' ('idDipendente') 
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE CASCADE );
 
 CREATE INDEX 'fk_notifica_dipendente' ON 'Notifica' ('idDipendente' ASC);
