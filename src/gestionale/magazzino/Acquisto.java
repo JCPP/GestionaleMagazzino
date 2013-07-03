@@ -149,4 +149,25 @@ public class Acquisto {
 		this.dataAcquisto = dataAcquisto;
 	}
 
+	/**
+	 * @return the idDipendente
+	 */
+	public int getIdDipendente() {
+		return idDipendente;
+	}
+
+	/**
+	 * @return the idProdotto
+	 */
+	public int getIdProdotto() {
+		return idProdotto;
+	}
+
+	/**
+	 * @return the idFondo
+	 */
+	public int getIdFondo() {
+		return idFondo;
+	}
+
 }
