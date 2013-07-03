@@ -10,11 +10,13 @@ import org.junit.Test;
 
 public class UtilsTest {
 	
+	private int idAcquisto;
 	private int idDipendente;
 	private int idProdotto;
 	private int idFondo;
 	private int qta;
 	private Connettore connettore;
+	private gestionale.magazzino.Acquisto acquisto;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -30,8 +32,16 @@ public class UtilsTest {
 	@Test
 	public void testLastInsertID() {
 		Acquisto.inserisciAcquisto(idDipendente, idProdotto, idFondo, qta); //Inserisco l'acquisto
-		System.out.println("ID: " + Utils.lastInsertID());
-		fail("Metodo non ancora completamente testato.");
+		idAcquisto = Utils.lastInsertID();
+		//System.out.println("IDAcquisto: " + idAcquisto);
+		acquisto = Acquisto.visualizzaAcquisto(idAcquisto);
+		assertTrue("lastInsertID() non funziona correttamente", 
+				acquisto.getIdAcquisto() == idAcquisto &&
+				acquisto.getIdDipendente() == idDipendente &&
+				acquisto.getIdProdotto() == idProdotto &&
+				acquisto.getIdFondo() == idFondo &&
+				acquisto.getQta() == qta
+		);
 	}
 
 }
