@@ -1,15 +1,17 @@
 package gestionale.magazzino.models;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.util.ArrayList;
 
 import gestionale.magazzino.Connettore;
 import gestionale.magazzino.models.utils.Utils;
 
-import java.util.ArrayList;
-
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
-import org.sqlite.SQLite;
 
 /**
  * Test per la classe Acquisto.
@@ -18,48 +20,85 @@ import org.sqlite.SQLite;
  */
 public class AcquistoTest {
 	
-	private int idDipendente;
-	private int idProdotto;
-	private int idFondo;
-	private int qta;
+	private static int idDipendente;
+	private static int idProdotto;
+	private static int idFondo;
+	private static int qta;
 	private int idAcquisto;
-	private Connettore connettore;
+	private gestionale.magazzino.Acquisto acquisto;
+	private static ArrayList<gestionale.magazzino.Acquisto> acquisti;
+	private int dimensione;
+	private static Connettore connettore;
 	
-	@Before
-	public void setUp() throws Exception {
+	/**
+	 * Setup del test.
+	 * @throws Exception
+	 */
+	@BeforeClass
+	public static void setUp() throws Exception {
 		idDipendente = 3;
 		idProdotto = 2;
 		idFondo = 1;
 		qta = 120;
+		acquisti = new ArrayList<gestionale.magazzino.Acquisto>();
 		connettore = new Connettore();
 		connettore.caricadriver();
 		connettore.collegati();
 	}
 
+	/**
+	 * Verifica che l'elemento inserito corrisponda con quello letto successivamente.
+	 */
 	@Test
 	public void testInserisciAcquisto() {
 		Acquisto.inserisciAcquisto(idDipendente, idProdotto, idFondo, qta); //Inserisco l'acquisto
 		idAcquisto = Utils.lastInsertID();
-		gestionale.magazzino.Acquisto acquisto = Acquisto.visualizzaAcquisto(idAcquisto);
-		
-		//Controllare che gli id siano settati come abbiamo fatto
-		//acquisto.get
-		fail("Not yet implemented");
+		acquisto = Acquisto.visualizzaAcquisto(idAcquisto);
+		assertTrue("inserisciAcquisto() non funziona correttamente", 
+		acquisto.getIdAcquisto() == idAcquisto &&
+		acquisto.getIdDipendente() == idDipendente &&
+		acquisto.getIdProdotto() == idProdotto &&
+		acquisto.getIdFondo() == idFondo &&
+		acquisto.getQta() == qta
+		);
 	}
 
+	/**
+	 * Verifica che l'elemento inserito venga cancellato.
+	 */
 	@Test
 	public void testCancellaAcquisto() {
-		fail("Not yet implemented");
+		Acquisto.inserisciAcquisto(idDipendente, idProdotto, idFondo, qta); //Inserisco l'acquisto
+		idAcquisto = Utils.lastInsertID();
+		Acquisto.cancellaAcquisto(idAcquisto);
+		assertNull("cancellaAcquisto() non funziona correttamente", Acquisto.visualizzaAcquisto(idAcquisto));
 	}
 
+	/**
+	 * Verifica che la dimensione aumenti di uno quando si aggiunge un acquisto.
+	 */
 	@Test
 	public void testVisualizzaAcquisti() {
-		fail("Not yet implemented");
+		acquisti = Acquisto.visualizzaAcquisti();
+		dimensione = acquisti.size();
+		Acquisto.inserisciAcquisto(idDipendente, idProdotto, idFondo, qta); //Inserisco l'acquisto
+		
+		acquisti = null;
+		acquisti = Acquisto.visualizzaAcquisti();
+		assertEquals("visualizzaAcquisti() non funziona correttamente", dimensione + 1, acquisti.size());
 	}
 
+	/**
+	 * Verifica che la dimensione aumenti di uno quando si aggiunge un acquisto di un determinato dipendente.
+	 */
 	@Test
 	public void testVisualizzaAcquistiDipendente() {
-		fail("Not yet implemented");
+		acquisti = Acquisto.visualizzaAcquistiDipendente(idDipendente);
+		dimensione = acquisti.size();
+		Acquisto.inserisciAcquisto(idDipendente, idProdotto, idFondo, qta); //Inserisco l'acquisto
+		
+		acquisti = Acquisto.visualizzaAcquistiDipendente(idDipendente);
+		assertEquals("visualizzaAcquistiDipendente() non funziona correttamente", dimensione + 1, acquisti.size());
 	}
 
 }
