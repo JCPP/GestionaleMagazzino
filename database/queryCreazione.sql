@@ -75,6 +75,7 @@ CREATE TABLE "Aggiornamento" ("idAggiornamento" INTEGER PRIMARY KEY ,
                               "idProdotto" INTEGER NOT NULL ,
                               "qta" INTEGER NOT NULL,
                               "dataAggiornamento" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                              "isValidate" BOOLEAN NOT NULL DEFAULT 'true',
 
 CONSTRAINT 'fk_aggiornamento_dipendente'                              
   FOREIGN KEY('idDipendente') 

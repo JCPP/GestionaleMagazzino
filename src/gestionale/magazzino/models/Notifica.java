@@ -52,7 +52,7 @@ public class Notifica {
 
 	/**
 	 * Questo metodo rende valida una notifica invalida
-	 * @param idNotifica
+	 * @param idNotifica identificativo della notifica da convalidare
 	 */
 	static public void validateNotifica(int idNotifica){
 		que = new Querist();
@@ -65,7 +65,7 @@ public class Notifica {
 	
 	/**
 	 * Questo metodo rende invalida una notifica valida
-	 * @param idNotifica
+	 * @param idNotifica identificativo della notifica da invalidare
 	 */
 	static public void invalidateNotifica(int idNotifica){
 		que = new Querist();
