@@ -46,4 +46,24 @@ public class Fondo {
 		return risultato; 
 	}
 
+	/**
+	 * Questo metodo restituisce l'ID del fondo voluto
+	 * @param nomeFondo nome del fondo di cui si vuole l'identificatore
+	 * @return l'indice del fondo voluto
+	 */
+	static public int getIdFondo (String nomeFondo){
+		que = new Querist();
+		int id = 0;
+		String query = "SELECT F.idFondo " +
+					   "FROM Fondo F " +
+					   "WHERE F.nome = '"+nomeFondo+"'";
+		System.out.println(query);
+		ResultSet rs = que.eseguiQuery(query);
+		try {
+			id = rs.getInt(1);
+		} catch (SQLException e) {
+			id = -1;
+		}
+		return id;
+	}
 }
