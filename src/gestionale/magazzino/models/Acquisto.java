@@ -71,7 +71,7 @@ public class Acquisto {
 		ArrayList<gestionale.magazzino.Acquisto> risultato = new ArrayList<gestionale.magazzino.Acquisto>();
 		String query = "SELECT A.idAcquisto, D.nome AS dipendente, P.nome AS prodotto, F.nome AS fondo, A.qta,A.qta * P.prezzoUnita AS spesa, A.dataAcquisto " +
 				" FROM Acquisto A, Dipendente D, Prodotto P, Fondo F " +
-				" WHERE A.idDipendente = '"+idDipendente+"' AND " +
+				" WHERE A.idDipendente = D.idDipendente AND A.idDipendente = '"+idDipendente+"' AND " +
 				"A.idProdotto = P.idProdotto AND " +
 				"A.idFondo = F.idFondo ";
 		System.out.println(query);
