@@ -42,7 +42,10 @@ public class Acquisto {
 		que = new Querist();
 		ArrayList<gestionale.magazzino.Acquisto> risultato = new ArrayList<gestionale.magazzino.Acquisto>();
 		String query = "SELECT A.idAcquisto, D.nome AS dipendente, P.nome AS prodotto, F.nome AS fondo, A.qta, A.qta * P.prezzoUnita AS spesa, A.dataAcquisto " +
-					   "FROM Acquisto A, Prodotto P, Fondo F, Dipendente D";
+					   "FROM Acquisto A, Prodotto P, Fondo F, Dipendente D " +
+					   "WHERE A.idDipendente = D.idDipendente AND " +
+					         "A.idProdotto = P.idProdotto AND " +
+					         "A.idFondo = F.idFondo";
 		System.out.println(query);
 		ResultSet rs = que.eseguiQuery(query);
 		try {
@@ -58,6 +61,11 @@ public class Acquisto {
 		return risultato;
 	}
 
+	/**
+	 * Questo metodo visualizza gli acquisti di un dato dipendente
+	 * @param idDipendente identificativo del dipendente di cui si vogliono gli acquisti
+	 * @return un arraylist con tutti gli acquisti
+	 */
 	static public ArrayList<gestionale.magazzino.Acquisto> visualizzaAcquistiDipendente(int idDipendente){
 		que = new Querist();
 		ArrayList<gestionale.magazzino.Acquisto> risultato = new ArrayList<gestionale.magazzino.Acquisto>();
@@ -81,6 +89,11 @@ public class Acquisto {
 		return risultato;
 	}
 	
+	/**
+	 * Questo metodo visualizza un singolo acquisto in base al suo identificativo
+	 * @param idAcquisto identificativo dell'acquisto
+	 * @return un oggetto Acquisto
+	 */
 	static public gestionale.magazzino.Acquisto visualizzaAcquisto(int idAcquisto){
 		que = new Querist();
 		String query = "SELECT A.idAcquisto, A.idDipendente, A.idProdotto, A.idFondo, A.qta, A.dataAcquisto " +
