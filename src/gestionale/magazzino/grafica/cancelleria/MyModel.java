@@ -68,21 +68,38 @@ public class MyModel extends AbstractTableModel{
 	}
 
 	@Override
-	public boolean isCellEditable(int row, int column) {
-		 return (column != 0);
-	}
-	/**
-	 * funzione che dovrebbe fare l'update di un record della tabella
-	 * senza doverla reinizializzare ogni volta
-	 *(non funziona.....)
-	 */
-	public void refresh()
-	{
-		for(int i = 0;i < row;i++)
+	public boolean isCellEditable(int row, int col) {
+		System.out.println("Colonne: "+col);
+		if(col == 4)
 		{
-			this.setValueAt(Boolean.FALSE, i, 4);
-			
+			switch(col)
+			{
+				case 0:
+				case 1:
+				case 2:
+				case 3:
+					return false;
+				default:
+					return true;
+			}			
 		}
+		if(col == 3)
+		{
+			switch (col) {
+        		case 0:
+        		case 1:
+        		case 2:
+        			return false;
+        		default:
+        			return true;
+        			}
+		}
+		
+		return false;
+		
 	}
 
 }
+
+
+

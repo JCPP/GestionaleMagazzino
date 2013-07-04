@@ -175,6 +175,10 @@ public class GraficaDipendenteSlezionato extends JFrame{
 		text_Cognome.setText(c);
 	}
 	
+	public void setEmail(String e)
+	{
+		text_Email.setText(e);
+	}
 	public void setTipo(String t)
 	{
 		text_Tipo.setText(t);
@@ -192,7 +196,10 @@ public class GraficaDipendenteSlezionato extends JFrame{
 	{
 		return text_Nome.getText();
 	}
-	
+	public String getEmail()
+	{
+		return text_Email.getText();
+	}
 	public String getCognome()
 	{
 		return text_Cognome.getText();

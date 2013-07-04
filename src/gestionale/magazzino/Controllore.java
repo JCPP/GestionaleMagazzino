@@ -804,6 +804,7 @@ public class Controllore {
 		int idDipendente;
 		String tipo;
 		String email;
+		String s;
 		boolean isActive;
 		dipendenti = new ArrayList<gestionale.magazzino.Dipendente>();
 		dipendenti = gestionale.magazzino.models.Dipendente.visualizzaDipendenti();
@@ -816,11 +817,12 @@ public class Controllore {
 			email = dipendenti.get(i).getEmail();
 			isActive = dipendenti.get(i).isActive();
 			model.setValueAt(idDipendente, i, 0);
-			model.setValueAt(tipo, i, 1);
+			model.setValueAt(""+tipo, i, 1);
 			model.setValueAt(email, i, 2);
-			model.setValueAt(""+isActive, i, 3);
+			model.setValueAt(isActive, i, 3);
 			model.setValueAt(Boolean.FALSE, i, 4);
 		}
+		
 		modelloDipendenti = model;
 	}
 	
@@ -835,7 +837,7 @@ public class Controllore {
 		modelloDipendenti = (MyModel) gresp.getTableDipendenti().getModel();
 		if(modelloDipendenti.getRowCount() > 0)
 		{
-			modelloDipendenti.setValueAt(Boolean.FALSE, x, 3);
+			modelloDipendenti.setValueAt(Boolean.FALSE, x, 4);
 		}
 		gresp.setPannelloSelezionato("listaDip");
 	}
@@ -856,10 +858,20 @@ public class Controllore {
 		dipSel = new Dipendente(dip.getId_Dipendente(),dip.getNome(),dip.getCognome(),dip.getPassword(),dip.getEmail(),dip.getTipo(),dip.isActive());
 		gdp.init();
 		gdp.setId(""+dipSel.getId_Dipendente());
-		gdp.setNome(dipSel.getNome());
-		gdp.setCognome(dipSel.getCognome());
-		gdp.setTipo(gdp.getTipo());
-		gdp.setStato(""+dipSel.isActive());
+		gdp.setNome(""+dipSel.getNome());
+		gdp.setCognome(""+dipSel.getCognome());
+		gdp.setEmail(""+ dipSel.getEmail());
+		gdp.setTipo(""+dipSel.getTipo().substring(0, 3));
+		String s;
+		if(dipSel.isActive())
+		{
+			s = "Attivo";
+		}
+		else
+		{
+			s = "Disabilitato";
+		}
+		gdp.setStato(s);
 	}
 	
 }
