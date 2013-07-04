@@ -188,6 +188,27 @@ public class Dipendente {
 	 * @param idDipendente identificativo del dipendente di cui si vogliono visualizzare i dati
 	 * @return un Dipendente con i dati relativi
 	 */
+	static public gestionale.magazzino.Dipendente visualizzaDipendente(String email,String password){
+		que = new Querist();
+		String query = "SELECT * " +
+					   "FROM Dipendente D " +
+					   "WHERE D.email = '"+email+"' AND D.password = '"+ password +"'";
+		ResultSet rs = que.eseguiQuery(query);
+		System.out.println(query);
+		gestionale.magazzino.Dipendente dip;
+		try{
+			boolean isActive = false;
+			if(rs.getString("isActive").equals("true")){
+				isActive = true;
+			}
+			dip = new gestionale.magazzino.Dipendente(rs.getInt("idDipendente"), rs.getString("nome"), rs.getString("cognome"), rs.getString("email"), rs.getString("password"), rs.getString("tipo"), isActive);
+		}catch(SQLException e){
+			dip = null;
+		}
+		
+		return dip;
+	}
+	
 	static public gestionale.magazzino.Dipendente visualizzaDipendente(int idDipendente){
 		que = new Querist();
 		String query = "SELECT * " +
@@ -205,7 +226,7 @@ public class Dipendente {
 		}catch(SQLException e){
 			dip = null;
 		}
-		
+
 		return dip;
 	}
 

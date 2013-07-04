@@ -6,7 +6,7 @@ import gestionale.magazzino.Controllore;
 import gestionale.magazzino.MyListener;
 
 import javax.swing.*;
-import javax.swing.table.AbstractTableModel;
+
 
 import java.awt.*;
 
@@ -15,7 +15,7 @@ public class GraficaProdotti extends JFrame  {
 	private JPanel pannello_Prodotti;
 	private JTable tabella_Prodotti;
 	private JScrollPane scroll_Prodotti;
-	private AbstractTableModel model;
+	private MyModel model;
 	private Controllore controllore;
 	/**
 	 * Costruttore della classe
@@ -47,24 +47,15 @@ public class GraficaProdotti extends JFrame  {
 		
 	}
 
-	public JTable getTable()
-	{
-		return this.tabella_Prodotti;
-	}
-	
-	public void setTable(JTable tabella)
-	{
-		this.tabella_Prodotti = tabella;	
-	}
 	public JPanel getPannello()
 	{
 		return pannello_Prodotti;
 	}
 	
-	public AbstractTableModel getModel()
+	public JTable getTable()
 	{
-		return this.model;
+		return tabella_Prodotti;
 	}
 	
-
+	
 }

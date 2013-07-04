@@ -142,6 +142,10 @@ public class ModificaProdotto extends JFrame {
 			
 	}
 	
+	public void disposeF()
+	{
+		finestra_Prodotto.dispose();
+	}
 	public void buttonChangeState()
 	{
 		this.bottone_Modifica.setText("Conferma");

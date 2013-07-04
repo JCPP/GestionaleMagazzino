@@ -10,6 +10,7 @@ public class Main {
 	private static Connettore conn;
 	private static int a;
 	private static Controllore controllo;
+	private static int z;
 
 	public static void main(String[] args) 
 	{
@@ -26,6 +27,7 @@ public class Main {
             	
     			conn = new Connettore();
     			a = 1;
+    			z = 0;
     			conn.caricadriver();
         		conn.collegati();
         		controllo = new Controllore();
@@ -95,14 +97,14 @@ public class Main {
 		 */
 		if(evento.equals("Carrello Dipendente"))
 		{
-			controllo.updateCarrello();
+			controllo.updateCarrello(z);
 		}
 		/**
 		 * aggiorna la visuale del catalogo dopo che un oggetto è stato selezionato (da ottimizzare)
 		 */
 		if(evento.equals("Catalogo Dipendente"))
 		{
-			controllo.updateCatalogo();
+			controllo.updateCatalogo(z);
 		}
 		/**
 		 * chiude la finestra graficaDipendente (windowListener non funzionava....)
@@ -112,24 +114,71 @@ public class Main {
 			controllo.disposeDipendente();
 		}
 		
+		if(evento.equals("Magazzino Responsabile"))
+		{
+			controllo.updateMagazzino(z);
+		}
+		if(evento.equals("dispose Responsabile"))
+		{
+			controllo.disposeResp();
+		}
+		if(evento.equals("Modifica Prodotto"))
+		{
+			controllo.updateMagazzino(z);
+		}
+		if(evento.equals("Notifiche Responsabile"))
+		{
+			controllo.updateNotifiche(z);
+		}
+		if(evento.equals("Lista"))
+		{
+			controllo.updateDipendenti(z);
+		}
 		//controlli legati alle tabelle
 		/**
-		 *  il vettore c serve a contenere la stringa che indica la riga scelta dalla tabella
+		 * se a == 4 siamo nella lista dipendenti
 		 */
-		char[] c = new char[1000];
+		
+		if(evento.endsWith("3") && a == 4)
+		{
+			String s = evento;
+			int x = 0;
+			x = Integer.parseInt(s.substring(0, s.length()-1));
+			z = x;
+			controllo.showDipendente(x);
+		}	
+		/**
+		 * se a == 3 siamo nelle notifiche
+		 */
+		if(evento.endsWith("3") && a == 3)
+		{
+			String s = evento;
+			int x = 0;
+			x = Integer.parseInt(s.substring(0, s.length()-1));
+			z = x;
+			controllo.showNotifica(x);
+		}
+		/**
+		 * se a == 2 siamo nel magazzino
+		 */
+		if(evento.endsWith("4") && a == 2)
+		{
+			String s = evento;
+			int x = 0;
+			x = Integer.parseInt(s.substring(0, s.length()-1));
+			z = x;
+			controllo.showModificaProdotto(x);
+		}
 		/**
 		 * se a == 1 siamo nel catalogo
 		 * invia la riga selezionata al controllore che mostra il prodotto corrispondente
 		 */
 		if(evento.endsWith("4") && a == 1)
 		{
-			evento.getChars(0, (evento.length())-1, c, 0);
-			System.out.println(c);
+			String s = evento;
 			int x = 0;
-			for(int i = 0; i < (evento.length()-1);i++)
-			{
-				x = (int) c[i];
-			}
+			x = Integer.parseInt(s.substring(0, s.length()-1));
+			z = x;
 			controllo.showProdotto(x);
 			
 		}
@@ -139,13 +188,10 @@ public class Main {
 		 */
 		if(evento.endsWith("4") && a == 0)
 		{
-			evento.getChars(0, (evento.length())-1, c, 0);
-			System.out.println(c);
+			String s = evento;
 			int x = 0;
-			for(int i = 0; i < (evento.length()-1);i++)
-			{
-				x = (int) c[i];
-			}
+			x = Integer.parseInt(s.substring(0, s.length()-1));
+			z = x;
 			controllo.showOrdinato(x);
 		}
 		
@@ -154,8 +200,10 @@ public class Main {
 		{
 		//casi login
 			case "Connetti":
-				a = 1;
-				controllo.isConnected();
+				a = controllo.isConnected();
+				break;
+			case "Password":
+				a = controllo.isConnected();
 				break;
 			case "Chiudi":
 				controllo.disconnect();
@@ -191,10 +239,68 @@ public class Main {
 			case "Exit":
 				controllo.disposeDipendente();
 				break;
+				//casi responsabile
+			case "Account Responsabile":
+				controllo.showAccountResp();
+				break;
+			case "Catalogo Responsabile":
+				a = 2;
+				controllo.showMagazzino();
+				break;
+			case "Aggiungi Prodotto":
+				a = 2;
+				controllo.showOption();
+				break;
+			case "Notifiche Responsabile":
+				a = 3;
+				controllo.showNotifiche();
+				break;
+			case "Lista Dipendenti":
+				a = 4;
+				controllo.showListaDip();
+				break;
+			case "Logout Responsabile":
+				controllo.logoutResp();
+				break;
+			case "Exit Responsabile":
+				controllo.disposeResp();
+				break;
+			//casi ordina prodotto
+			case "Ordina":
+				controllo.controlloOrdine(z);
+				break;
+			case "Annulla":
+				controllo.gotoCatalogo(z);
+				break;
+			//casi magazzino
+			case "Inserisci Prodotto":
+				controllo.inserisciProdotto();
+				break;
+			case "Annulla Inserimento":
+				controllo.gotoMagazzino(0);
+				break;
+			case "Modifica Prodotto Responsabile":
+				controllo.modificaProdottoResponsabile();
+				break;
+			case "Rimuovi Prodotto Responsabile":
+				controllo.rimuoviProdottoResponsabile();
+				break;
+			case "Annulla Modifica Responsabile":
+				controllo.gotoMagazzino2();
+				break;
+			//casi notifiche
+			case "Elimina Notifiche":
+				controllo.eliminaNotifica();
+				break;
+			case "Indietro Notifiche":
+				controllo.gotoNotifiche(z);
+				break;
 			default:
 				break;
+
 		}
 	}
+	
 }
 
 

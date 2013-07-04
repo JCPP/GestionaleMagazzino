@@ -19,6 +19,9 @@ public class Notifica {
 		this.data = dataNotifica;
 		this.isValidate = isValidate;
 	}
+	public Notifica() {
+		// TODO Auto-generated constructor stub
+	}
 	/**
 	 * @return the idNotifica
 	 */

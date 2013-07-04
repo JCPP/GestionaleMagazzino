@@ -10,12 +10,20 @@ import gestionale.magazzino.grafica.cancelleria.ModificaProdotto;
 import gestionale.magazzino.grafica.cancelleria.MyModel;
 import gestionale.magazzino.grafica.cancelleria.VisualizzaProdotto;
 import gestionale.magazzino.grafica.responsabile.GraficaAccountResponsabile;
+import gestionale.magazzino.grafica.responsabile.GraficaDipendenteSlezionato;
+import gestionale.magazzino.grafica.responsabile.GraficaInsProdotto;
 import gestionale.magazzino.grafica.responsabile.GraficaMagazzino;
+import gestionale.magazzino.grafica.responsabile.GraficaModificaProdotto;
+import gestionale.magazzino.grafica.responsabile.GraficaNotificaSelezionata;
 import gestionale.magazzino.grafica.responsabile.GraficaResponsabile;
 
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
 public class Controllore {
@@ -71,23 +79,40 @@ public class Controllore {
 	private GraficaAccount ga;
 	private VisualizzaProdotto vp;
 	private ModificaProdotto mp;
-	private MyModel modello;
-	private MyModel modello2;
+	private MyModel modelloCatalogo;
+	private MyModel modelloCarrello;
+	private MyModel modelloNotifiche;
+	private MyModel modelloDipendenti;
 	private GraficaCarrello gc;
-	private int Prodotto_selezionato = 0;
-	private int Ordine_selezionato = 0;
 	private ArrayList<Prodotto> prodotti;
 	private ArrayList<Prodotto> carrello;
+	private ArrayList<Notifica> notifiche;
+	private ArrayList<Dipendente> dipendenti;
 	private GraficaAccountResponsabile gar;
 	private GraficaMagazzino gm;
+	private gestionale.magazzino.Dipendente dip;
+	private MyListener m;
+	private Prodotto prod;
+	private Notifica not;
+	private GraficaInsProdotto gins;
+	private GraficaModificaProdotto gmp;
+	private GraficaNotificaSelezionata gns;
+	private GraficaDipendenteSlezionato gdp;
+	private Dipendente dipSel;
 	/**
 	 * Costruttore controllore
 	 * inizializza tutte le finestre grafiche,senza pero caricarne i componenti
 	 */
 	public Controllore()
 	{
-		modello = new MyModel();
-		modello2 = new MyModel();
+		gdp = new GraficaDipendenteSlezionato();
+		gns = new GraficaNotificaSelezionata();
+		gmp = new GraficaModificaProdotto();
+		gins = new GraficaInsProdotto();
+		m = new MyListener();
+		modelloCatalogo = new MyModel();
+		modelloCarrello = new MyModel();
+		modelloNotifiche = new MyModel();
 		gar = new GraficaAccountResponsabile();
 		gm = new GraficaMagazzino();
 		gresp = new GraficaResponsabile();
@@ -114,32 +139,59 @@ public class Controllore {
 	 * in caso negativo mostra gli errori commessi dall'utente nel inserire le credenziali
 	 * in caso positivo mostra l'avvenuto accesso al sistema e mostra la finestra del catalogo
 	 */
-	public void isConnected()
+	public int isConnected()
 	{
+		int stato = 0;
 		gl.pulisciErrori();
 		String email = gl.getEmail();
 		String password = gl.getPassword();
 		boolean b1 = gestionale.magazzino.models.Dipendente.validateEmail(email);
 		boolean b2 = gestionale.magazzino.models.Dipendente.validatePassword(email, password);
 		boolean b3 = gestionale.magazzino.models.Dipendente.validateResponsabile(email, password);
+		boolean b4 = gestionale.magazzino.models.Dipendente.isActive(email);
 		if(b2)
 		{
 			if(b3)
 			{
-				JOptionPane.showMessageDialog(gl, "Login Effetuato");
-				gresp.init();
-				gl.disposeF();
+				if(b4)
+				{
+					stato = 3;
+					dip = new Dipendente();
+					dip = gestionale.magazzino.models.Dipendente.visualizzaDipendente(email, password);
+					JOptionPane.showMessageDialog(gl, "Login Effetuato");
+					gresp.init();
+					m.setTable(gresp.getTableNotifiche());
+					gl.disposeF();
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(gl, "Utente Disabilitato");
+				}
+				
 			}
 			else
 			{
-				JOptionPane.showMessageDialog(gl, "Login Effetuato");
-				gd.init();
-				gl.disposeF();
+				if(b4)
+				{
+					stato = 1;
+					dip = new Dipendente();
+					dip = gestionale.magazzino.models.Dipendente.visualizzaDipendente(email, password);
+					JOptionPane.showMessageDialog(gl, "Login Effetuato");
+					gd.init();
+					m.setTable(gd.getTableProdotti());
+					gl.disposeF();
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(gl, "Utente Disabilitato");
+				}
+				
 			}
 
 		}
 		else
 		{
+			stato = 0;
 			if(!b1 && !b2)
 			{
 				gl.setErroreEmail("Email errata");
@@ -154,6 +206,8 @@ public class Controllore {
 				gl.setErrorePass("Password errata");
 			}
 		}
+		
+		return stato;
 		
 	}
 	
@@ -285,20 +339,14 @@ public class Controllore {
 	/**
 	 * mostra la tabella dell'account con i dati dell'utente
 	 */
-	
-	//////////////////// implementare query per ricevere i dati dal singolo utente
 	public void showAccount()
 	{
-		String email;
-		String nome;
-		String cognome;
-		String tipo;
-		gestionale.magazzino.models.Dipendente dipendente;
+		gd.setAccount(dip.getEmail(), dip.getNome(), dip.getCognome(), dip.getTipo());
 		gd.setPannelloSelezionato("account");
 	}
 
 	/**
-	 * inizializza il catalogo prendendo i dati dal database e caricandoni in un modello astratto per una tabella
+	 * inizializza il catalogo prendendo i dati dal database e caricandoni in un modelloCatalogo astratto per una tabella
 	 */
 	public void initCatalogo()
 	{
@@ -308,7 +356,7 @@ public class Controllore {
 		float prezzo;
 		prodotti = new ArrayList<gestionale.magazzino.Prodotto>();
 		prodotti = gestionale.magazzino.models.Prodotto.visualizzaProdotti();
-		String[] colonne = {"ID","nome","prezzo","quantita","acquista"};
+		String[] colonne = {"ID","nome","quantita","prezzo","acquista"};
 		MyModel model = new MyModel(prodotti.size(),5,colonne);
 		for(int i = 0;i < prodotti.size(); i++)
 		{
@@ -322,35 +370,35 @@ public class Controllore {
 			model.setValueAt(prezzo, i, 3);
 			model.setValueAt(Boolean.FALSE, i, 4);
 		}
-		modello = model;
+		modelloCatalogo = model;
 	}
 	
 	/**
-	 * funzione che restituisce il numero di record presenti nel modello della tabella
+	 * funzione che restituisce il numero di record presenti nel modelloCatalogo della tabella
 	 * @return
 	 */
 	public int getRowCount()
 	{
-		return modello.getRowCount();
+		return modelloCatalogo.getRowCount();
 	}
 	/**
-	 * funzione che restituisce il numero di campi presenti nel modello della tabella
+	 * funzione che restituisce il numero di campi presenti nel modelloCatalogo della tabella
 	 * @return
 	 */
 	public int getColumnCount()
 	{
-		return modello.getColumnCount();
+		return modelloCatalogo.getColumnCount();
 	}
 	/**
-	 * funzione che restituisce il modello della tabella
+	 * funzione che restituisce il modelloCatalogo della tabella
 	 * @return
 	 */
-	public AbstractTableModel getCatalogo()
+	public MyModel getCatalogo()
 	{
-		return modello;
+		return modelloCatalogo;
 	}
 	/**
-	 * funzione che restituisce il nome dei campi del modello della tabella
+	 * funzione che restituisce il nome dei campi del modelloCatalogo della tabella
 	 * @return
 	 */
 	public String[] getColumnNames()
@@ -358,7 +406,7 @@ public class Controllore {
 		String[] s = new String[5];
 		for(int i = 0;i <5;i++)
 		{
-			s[i] = modello.getColumnName(i);
+			s[i] = modelloCatalogo.getColumnName(i);
 		}
 		return s;
 	}
@@ -369,14 +417,20 @@ public class Controllore {
 	public void showCatalogo()
 	{
 		gd.setState(true);
+		m.setTable(gd.getTableProdotti());
 		gd.setPannelloSelezionato("prodotti");
 	}
 	/**
 	 * reinizializza la finestra del catalogo (da ottimizzare)
 	 */
-	public void updateCatalogo()
+	public void updateCatalogo(int x)
 	{
 		gd.setState(true);
+		modelloCatalogo = (MyModel) gd.getTableProdotti().getModel();
+		if(modelloCatalogo.getRowCount() > 0)
+		{
+			modelloCatalogo.setValueAt(Boolean.FALSE, x, 4);
+		}
 		gd.setPannelloSelezionato("prodotti");
 	}
 	/**
@@ -386,23 +440,29 @@ public class Controllore {
 	public void showCarrello()
 	{
 		gd.setState(true);
+		m.setTable(gd.getTableCarrello());
 		gd.setPannelloSelezionato("carrello");
 	}
 	/**
 	 * reinizializza la finestra del carrello (da ottimizzare)
 	 */
-	public void updateCarrello()
+	public void updateCarrello(int x)
 	{
 		gd.setState(true);
+		modelloCarrello = (MyModel) gd.getTableProdotti().getModel();
+		if(modelloCarrello.getRowCount() > 0)
+		{
+			modelloCarrello.setValueAt(Boolean.FALSE, x, 4);
+		}
 		gd.setPannelloSelezionato("carrello");
 	}
 	/**
-	 * restituisce il modello della tabella
+	 * restituisce il modelloCatalogo della tabella
 	 * @return
 	 */
 	public AbstractTableModel getCarrrello()
 	{
-		return modello2;
+		return modelloCarrello;
 	}
 	/**
 	 * carica dal database i prodotti scelti da un utente
@@ -416,7 +476,7 @@ public class Controllore {
 		float prezzo;
 		carrello = new ArrayList<Prodotto>();
 		//prodotti = modelsCancelleria.Prodotto.visualizzaProdotti();
-		String[] colonne = {"ID","nome","prezzo","quantita","acquista"};
+		String[] colonne = {"ID","nome","quantita","prezzo","acquista"};
 		MyModel model = new MyModel(carrello.size(),5,colonne);
 		for(int i = 0;i < carrello.size(); i++)
 		{
@@ -430,7 +490,7 @@ public class Controllore {
 			model.setValueAt(prezzo, i, 3);
 			model.setValueAt(Boolean.FALSE, i, 4);
 		}
-		modello2 = model;
+		modelloCarrello = model;
 	}
 	/**
 	 * disalloca tutte le risorse create all'accesso di un dipendente al sistema
@@ -443,7 +503,6 @@ public class Controllore {
 		vp.dispose();
 		mp.dispose();
 		gd.disposeF();
-
 	}
 	/**
 	 * effettua il logout dall'account del dipendente mostrando di nuovo la finestra del login
@@ -459,14 +518,20 @@ public class Controllore {
 	 * visualizza il prodotto selezionato dal catalogo
 	 * @param p
 	 */
-	// inserire query di controllo su ID prodotto
+
 	public void showProdotto(int p)
 	{
+		JTable tabella = gd.getTableProdotti();
+		int id = Integer.parseInt(tabella.getValueAt(p, 0).toString());
+		String nome = tabella.getValueAt(p, 1).toString();
+		float prezzo = Float.parseFloat(tabella.getValueAt(p,3).toString());
+		int quantita = Integer.parseInt(tabella.getValueAt(p,2).toString());
+		prod = new Prodotto(id,nome,quantita,prezzo);
 		vp.init();
-		ArrayList<Fondo> fondi = new ArrayList<Fondo>();
-		fondi = gestionale.magazzino.models.Fondo.visualizzaFondi();
-		vp.setFondi(fondi);
-		Prodotto_selezionato = p;
+		vp.setIDProdotto(""+id);
+		vp.setNomeProdotto(nome);
+		vp.setPrezzoProdotto(""+prezzo);
+		vp.setQuantitaProdotto(""+quantita);
 		gd.setState(false);
 	}
 	
@@ -478,7 +543,6 @@ public class Controllore {
 	public void showOrdinato(int p)
 	{
 		mp.init();
-		Ordine_selezionato = p;
 		gd.setState(false);
 	}
 	
@@ -492,7 +556,6 @@ public class Controllore {
 	
 	public void disposeResp()
 	{
-		
 		gm.dispose();
 		gl.dispose();
 		gp.dispose();
@@ -500,20 +563,51 @@ public class Controllore {
 		vp.dispose();
 		mp.dispose();
 		gresp.disposeF();
+		
 	}
 	
 	public void showAccountResp()
 	{
+		gresp.setAccount(dip.getEmail(),dip.getNome(),dip.getCognome(),dip.getTipo());
 		gresp.setPannelloSelezionato("account");
 	}
 	
 	public void showMagazzino()
 	{
+		gresp.setState(true);
+		m.setTable(gresp.getTableProdotti());
 		gresp.setPannelloSelezionato("magazzino");
+	}
+	
+	public void initNotifiche()
+	{
+		int IdNotifica;
+		int IdDipNotif;
+		String data;
+		notifiche = new ArrayList<Notifica>();
+		notifiche = gestionale.magazzino.models.Notifica.visualizzaNotificheValide();
+		String[] colonne = {"ID","Nome Dipendente","Data","Mostra"};
+		MyModel model = new MyModel(notifiche.size(),4,colonne);
+		Dipendente dipendente = new Dipendente();
+		for(int i = 0;i < notifiche.size(); i++)
+		{
+			IdNotifica = notifiche.get(i).getIdNotifica();
+			IdDipNotif = notifiche.get(i).getIdDipendenteNotificato();
+			dipendente = gestionale.magazzino.models.Dipendente.visualizzaDipendente(IdDipNotif);
+			String nome = dipendente.getEmail();
+			data = notifiche.get(i).getData();
+			model.setValueAt(IdNotifica, i, 0);
+			model.setValueAt(nome, i, 1);
+			model.setValueAt(data, i, 2);
+			model.setValueAt(Boolean.FALSE, i, 3);
+		}
+		modelloNotifiche = model;
 	}
 	
 	public void showNotifiche()
 	{
+		gresp.setState(true);
+		m.setTable(gresp.getTableNotifiche());
 		gresp.setPannelloSelezionato("notifiche");
 	}
 	
@@ -521,4 +615,251 @@ public class Controllore {
 	{
 		gresp.setPannelloSelezionato("listaDip");
 	}
+	
+	public void gotoCatalogo(int x)
+	{
+		vp.doClose();
+		updateCatalogo(x);
+		
+	}
+	
+	public void controlloOrdine(int x)
+	{
+
+		int q = vp.getQuantita();
+		if(q > 0)
+		{
+			float y = vp.getPrezzoProdotto();
+			float z = y*q;
+			String b = vp.getFondoScelto();
+			
+			System.out.println(b);
+		}
+		
+		vp.doClose();
+		updateCatalogo(x);
+	}
+	
+	public void showOption()
+	{
+		gins.init();
+		gresp.setState(false);
+		updateMagazzino(0);
+	}
+	
+	public void updateMagazzino(int x)
+	{
+		gresp.setState(true);
+		modelloCatalogo = (MyModel) gresp.getTableProdotti().getModel();
+		if(modelloCatalogo.getRowCount() > 0)
+		{
+			modelloCatalogo.setValueAt(Boolean.FALSE, x, 4);
+		}
+		gresp.setPannelloSelezionato("magazzino");
+	}
+	
+	public void initMagazzino()
+	{
+		int ID;
+		String nome;
+		int qta;
+		float prezzo;
+		prodotti = new ArrayList<gestionale.magazzino.Prodotto>();
+		prodotti = gestionale.magazzino.models.Prodotto.visualizzaProdotti();
+		String[] colonne = {"ID","Nome","Quantita","Prezzo","Modifica"};
+		MyModel model = new MyModel(prodotti.size(),5,colonne);
+		for(int i = 0;i < prodotti.size(); i++)
+		{
+			ID = prodotti.get(i).getId_Prodotto();
+			nome = prodotti.get(i).getNome();
+			qta = prodotti.get(i).getQuantità();
+			prezzo = prodotti.get(i).getPrezzo();
+			model.setValueAt(ID, i, 0);
+			model.setValueAt(nome, i, 1);
+			model.setValueAt(qta, i, 2);
+			model.setValueAt(prezzo, i, 3);
+			model.setValueAt(Boolean.FALSE, i, 4);
+		}
+		modelloCatalogo = model;
+	}
+	
+	public void showModificaProdotto(int p)
+	{
+		gresp.setState(false);
+		JTable tabella = gresp.getTableProdotti();
+		int id = Integer.parseInt(tabella.getValueAt(p,0).toString());
+		String nome = tabella.getValueAt(p, 1).toString();
+		float prezzo = Float.parseFloat(tabella.getValueAt(p,3).toString());
+		int quantita = Integer.parseInt(tabella.getValueAt(p,2).toString());
+		prod = new Prodotto(id,nome,quantita,prezzo);
+		gmp.init();
+		gmp.setNome(nome);
+		gmp.setQuantita(quantita);
+		gmp.setPrezzo(prezzo);
+	}
+	
+	public void inserisciProdotto()
+	{
+		String nome = gins.getNome();
+		int qta = gins.getQuantita();
+		float prezzo = gins.getPrezzo();
+		gestionale.magazzino.models.Prodotto.inserisciProdotto(nome, qta, prezzo);
+		initMagazzino();
+		gresp.updateMagazzino(modelloCatalogo);
+		gins.doClose();
+		
+		
+	}
+	
+	public void gotoMagazzino(int x)
+	{
+		gins.disposeF();
+		updateMagazzino(x);
+	}
+	
+	public void modificaProdottoResponsabile()
+	{
+		gestionale.magazzino.models.Prodotto.cancellaProdotto(prod.getNome());
+		prod.setNome(gmp.getNome());
+		prod.setQuantità(gmp.getQuantita());
+		prod.setPrezzo(gmp.getPrezzo());
+		gestionale.magazzino.models.Prodotto.inserisciProdotto(prod.getNome(), prod.getQuantità(), prod.getPrezzo());
+		prod = null;
+		gmp.doClose();
+		initMagazzino();
+		gresp.updateMagazzino(modelloCatalogo);
+		updateMagazzino(0);
+	}
+	
+	public void rimuoviProdottoResponsabile()
+	{
+		prod.setNome(gmp.getNome());
+		gestionale.magazzino.models.Prodotto.cancellaProdotto(prod.getNome());
+		prod = null;
+		gmp.doClose();
+		initMagazzino();
+		gresp.updateMagazzino(modelloCatalogo);
+		updateMagazzino(0);
+	}
+	
+	public void gotoMagazzino2()
+	{
+		gmp.doClose();
+		updateMagazzino(0);
+	}
+
+	
+	public AbstractTableModel getNotifiche() {
+		return modelloNotifiche;
+	}
+
+	
+	public void showNotifica(int x) 
+	{
+		gresp.setState(false);
+		JTable tabella = gresp.getTableNotifiche();
+		int idNotifica = (int) tabella.getValueAt(x, 0);
+		Notifica notifica = new Notifica();
+		notifica = gestionale.magazzino.models.Notifica.visualizzaNotifica(idNotifica);
+		not = new Notifica(notifica.getIdNotifica(),notifica.getIdDipendente(),notifica.getIdDipendenteNotificato(),notifica.getNotifica(),notifica.getData(),true);
+		gns.init();
+		gns.setTesto(notifica.getNotifica());
+		gns.setData(notifica.getData());
+		
+	}
+	
+	public void updateNotifiche(int x)
+	{
+		gresp.setState(true);
+		modelloNotifiche = (MyModel) gresp.getTableNotifiche().getModel();
+		if(modelloNotifiche.getRowCount() > 0)
+		{
+			modelloNotifiche.setValueAt(Boolean.FALSE, x, 3);
+		}
+		gresp.setPannelloSelezionato("notifiche");
+	}
+	
+	public void gotoNotifiche(int x)
+	{
+		gns.doClose();
+		updateNotifiche(0);
+	}
+
+	public void eliminaNotifica() 
+	{
+		int i =JOptionPane.showConfirmDialog(gns,"Cancellare notifica?",null,JOptionPane.YES_NO_OPTION);
+		if(i == 0)
+		{
+			gestionale.magazzino.models.Notifica.cancellaNotifica(not.getIdNotifica());
+			not = null;
+			gns.doClose();
+			initNotifiche();
+			gresp.updateNotifiche(modelloNotifiche);
+			updateNotifiche(0);
+		}
+		
+	}
+
+	public void initListaDip() {
+		int idDipendente;
+		String tipo;
+		String email;
+		boolean isActive;
+		dipendenti = new ArrayList<gestionale.magazzino.Dipendente>();
+		dipendenti = gestionale.magazzino.models.Dipendente.visualizzaDipendenti();
+		String[] colonne = {"ID","Tipo","Email","Stato","Seleziona"};
+		MyModel model = new MyModel(dipendenti.size(),5,colonne);
+		for(int i = 0;i < dipendenti.size(); i++)
+		{
+			idDipendente = dipendenti.get(i).getId_Dipendente();
+			tipo = dipendenti.get(i).getTipo();
+			email = dipendenti.get(i).getEmail();
+			isActive = dipendenti.get(i).isActive();
+			model.setValueAt(idDipendente, i, 0);
+			model.setValueAt(tipo, i, 1);
+			model.setValueAt(email, i, 2);
+			model.setValueAt(""+isActive, i, 3);
+			model.setValueAt(Boolean.FALSE, i, 4);
+		}
+		modelloDipendenti = model;
+	}
+	
+	public MyModel getListaDip()
+	{
+		return modelloDipendenti;
+	}
+	
+	public void updateDipendenti(int x)
+	{
+		gresp.setState(true);
+		modelloDipendenti = (MyModel) gresp.getTableDipendenti().getModel();
+		if(modelloDipendenti.getRowCount() > 0)
+		{
+			modelloDipendenti.setValueAt(Boolean.FALSE, x, 3);
+		}
+		gresp.setPannelloSelezionato("listaDip");
+	}
+	
+	public void gotoDipendenti()
+	{
+		gdp.doClose();
+		updateDipendenti(0);
+	}
+	
+	public void showDipendente(int x)
+	{
+		gresp.setState(false);
+		JTable tabella = gresp.getTableDipendenti();
+		int IdDipendente = (int) tabella.getValueAt(x, 0);
+		Dipendente dip = new Dipendente();
+		dip = gestionale.magazzino.models.Dipendente.visualizzaDipendente(IdDipendente);
+		dipSel = new Dipendente(dip.getId_Dipendente(),dip.getNome(),dip.getCognome(),dip.getPassword(),dip.getEmail(),dip.getTipo(),dip.isActive());
+		gdp.init();
+		gdp.setId(""+dipSel.getId_Dipendente());
+		gdp.setNome(dipSel.getNome());
+		gdp.setCognome(dipSel.getCognome());
+		gdp.setTipo(gdp.getTipo());
+		gdp.setStato(""+dipSel.isActive());
+	}
+	
 }

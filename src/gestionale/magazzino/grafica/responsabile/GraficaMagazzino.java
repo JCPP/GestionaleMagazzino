@@ -4,6 +4,7 @@ package gestionale.magazzino.grafica.responsabile;
  */
 import gestionale.magazzino.Controllore;
 import gestionale.magazzino.MyListener;
+import gestionale.magazzino.grafica.cancelleria.MyModel;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
@@ -33,7 +34,7 @@ public class GraficaMagazzino extends JFrame  {
 	public void init()
 	{
 		controllore = new Controllore();
-		controllore.initCatalogo();
+		controllore.initMagazzino();
 		model = controllore.getCatalogo();
 		tabella_Magazzino = new JTable(model);
 		tabella_Magazzino.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -59,6 +60,8 @@ public class GraficaMagazzino extends JFrame  {
 		bottone_Aggiungi.setActionCommand("Aggiungi Prodotto");
 		bottone_Aggiungi.addActionListener(new MyListener());
 		
+		pannello_Opzioni.add(bottone_Aggiungi);
+		
 		pannello_Magazzino.add("Center",pannello_Dati);
 		pannello_Magazzino.add("East",pannello_Opzioni);
 		
@@ -83,5 +86,10 @@ public class GraficaMagazzino extends JFrame  {
 		return this.model;
 	}
 	
+	public void updateModel(MyModel modello)
+	{
+		model = modello;
+		tabella_Magazzino.setModel(model);
+	}
 
 }

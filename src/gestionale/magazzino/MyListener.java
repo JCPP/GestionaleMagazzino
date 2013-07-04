@@ -6,6 +6,8 @@ package gestionale.magazzino;
  * Inoltre gli eventi vengono poi inviati e gestiti dalla main,sempre per lo stesso problema
  * del multithread
  */
+import gestionale.magazzino.grafica.cancelleria.GraficaProdotti;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -20,11 +22,6 @@ public class MyListener implements ActionListener,MouseListener,WindowListener{
 	private Main m = new Main();
 	private static JTable table = new JTable();
 	
-	public void setTable(JTable tabella)
-	{
-		table = tabella;
-	}
-
 	public MyListener()
 	{
 
@@ -99,6 +96,23 @@ public class MyListener implements ActionListener,MouseListener,WindowListener{
 		{
 			m.start("dispose Responsabile");
 		}
+		if(s.contains("Inserisci Prodotto"))
+		{
+			m.start("Magazzino Responsabile");
+		}
+		if(s.contains("ModProdotto"))
+		{
+			m.start("Modifica Prodotto");
+		}
+		if(s.contains("Notifica Selezionata"))
+		{
+			m.start("Notifiche Responsabile");
+		}
+		if(s.contains("DipSel"))
+		{
+			m.start("Lista");
+		}
+		
 	}
 	@Override
 	public void windowDeactivated(WindowEvent evt) {
@@ -116,5 +130,10 @@ public class MyListener implements ActionListener,MouseListener,WindowListener{
 	public void windowOpened(WindowEvent evt) {
 		// TODO Auto-generated method stub
 	}
+
+	public void setTable(JTable tabella) {
+		table = tabella;
+	}
+
 
 }

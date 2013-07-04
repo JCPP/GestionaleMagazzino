@@ -227,5 +227,27 @@ public class Notifica {
 			risultato = null;
 		}
 		return risultato;
-}
+	}
+	
+	static public gestionale.magazzino.Notifica visualizzaNotifica(int idNotifica){
+		que = new Querist();
+		gestionale.magazzino.Notifica notifica = null;
+		String query = "SELECT * " +
+					   "FROM Notifica N " +
+					   "WHERE N.idNotifica = "+idNotifica;
+		ResultSet rs = que.eseguiQuery(query);
+		try {
+			while(rs.next()){
+				boolean isValidate = false;
+				if(rs.getString("isValidate").equals("true")){
+					isValidate = true;
+				}
+				notifica = new gestionale.magazzino.Notifica(rs.getInt("idNotifica"),rs.getInt("idDipendente"), rs.getInt("idDipendenteNotificato"), rs.getString("notifica"), rs.getString("dataNotifica"), isValidate);
+			}
+		} catch (SQLException e) {
+			notifica = null;
+			return notifica;
+		}
+		return notifica; 
+	}
 }

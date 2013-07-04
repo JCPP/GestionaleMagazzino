@@ -1,11 +1,11 @@
 package gestionale.magazzino.grafica.responsabile;
 
+
 import java.awt.Color;
 
 import gestionale.magazzino.Controllore;
 import gestionale.magazzino.MyListener;
-
-import javax.swing.JButton;
+import gestionale.magazzino.grafica.cancelleria.MyModel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -15,14 +15,11 @@ import javax.swing.table.AbstractTableModel;
 public class GraficaListaDip {
 
 	private JPanel pannello_ListaDip;
-	private JPanel pannello_Dati;
-	private JPanel pannello_Opzioni;
 	private JTable tabella_ListaDip;
 	private JScrollPane scroll_ListaDip;
 	private AbstractTableModel model;
 	private Controllore controllore;
-	private JButton visualizza;
-	private JButton cancella;
+
 	
 	public GraficaListaDip()
 	{
@@ -35,9 +32,10 @@ public class GraficaListaDip {
 	 */
 	public void init()
 	{
-		System.out.println("Sono nel init");
+
 		controllore = new Controllore();
-		
+		controllore.initListaDip();
+		model = controllore.getListaDip();
 		tabella_ListaDip = new JTable(model);
 		tabella_ListaDip.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tabella_ListaDip.setAutoCreateRowSorter(true);
@@ -48,6 +46,7 @@ public class GraficaListaDip {
 		
 		pannello_ListaDip = new JPanel();
 		pannello_ListaDip.setBackground(Color.white);
+		pannello_ListaDip.add(scroll_ListaDip);
 
 	}
 
@@ -68,6 +67,11 @@ public class GraficaListaDip {
 	public AbstractTableModel getModel()
 	{
 		return this.model;
+	}
+
+	public void updateModel(MyModel modello) {
+		model = modello;
+		tabella_ListaDip.setModel(model);
 	}
 	
 

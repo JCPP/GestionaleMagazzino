@@ -8,7 +8,9 @@ import gestionale.magazzino.MyListener;
 import javax.swing.*;
 
 import java.awt.*;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.List;
 
 public class VisualizzaProdotto extends JFrame{
 	
@@ -30,9 +32,10 @@ public class VisualizzaProdotto extends JFrame{
 	private JLabel label_ins;
 	private JTextField text_Quantita;
 	private JLabel label_sc;
-	private JComboBox combo_Fondi;
+	private JComboBox<String> combo_Fondi;
 	private JButton bottone_Ordina;
 	private JButton bottone_Annulla;
+	private ArrayList<Fondo> fondi;
 	
 	/**
 	 * Costruttore della classe
@@ -81,7 +84,15 @@ public class VisualizzaProdotto extends JFrame{
 		
 		label_sc = new JLabel("Scegli Fondo");
 		
+		fondi = new ArrayList<Fondo>();
+		fondi = gestionale.magazzino.models.Fondo.visualizzaFondi();
 		combo_Fondi = new JComboBox<String>();
+		while(!fondi.isEmpty())
+		{
+			combo_Fondi.addItem(fondi.remove(0).getNome());
+			combo_Fondi.setActionCommand("Fondi");
+		}
+		combo_Fondi.addActionListener(new MyListener());
 		
 		bottone_Ordina = new JButton("Ordina");
 		bottone_Ordina.setActionCommand("Ordina");
@@ -111,10 +122,9 @@ public class VisualizzaProdotto extends JFrame{
 		pannello_Prodotto.add(pannello_Opzioni);
 		
 		finestra_Prodotto.add(pannello_Prodotto);
-		
-		finestra_Prodotto.addWindowListener(new MyListener());
 		finestra_Prodotto.setSize(300,400);
 		finestra_Prodotto.setLocation(x,y);
+		finestra_Prodotto.addWindowListener(new MyListener());
 		finestra_Prodotto.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		finestra_Prodotto.setVisible(true);
 		
@@ -125,11 +135,18 @@ public class VisualizzaProdotto extends JFrame{
 		label_IDp.setText(s);
 	}
 	
+	public String getIDProdotto()
+	{
+		return this.label_IDp.getText();
+	}
 	public void setNomeProdotto(String s)
 	{
 		label_Nomep.setText(s);
 	}
-	
+	public String getNomeProdotto()
+	{
+		return this.label_Nomep.getText();
+	}
 	public void setQuantitaProdotto(String s)
 	{
 		label_Quantitap.setText(s);
@@ -140,24 +157,46 @@ public class VisualizzaProdotto extends JFrame{
 		label_Prezzop.setText(s);
 	}
 	
-	public void setFondi(ArrayList<Fondo> fondi)
+	public float getPrezzoProdotto()
 	{
-		int i = 0;
-		while(fondi.isEmpty())
+		float x;
+		try
 		{
-			combo_Fondi.addItem(fondi.remove(i).getNome());
-			combo_Fondi.setActionCommand(""+combo_Fondi.getItemAt(i));
-			i++;
+			x = Float.parseFloat(label_Prezzop.getText());
+		}catch(NumberFormatException e)
+		{
+			x = -1;
 		}
-		combo_Fondi.addActionListener(new MyListener());
+		return x;
 	}
-	
+
 	public int getQuantita()
 	{
-		int x = Integer.parseInt(text_Quantita.getText());
+		try
+		{
+			int x = Integer.parseInt(text_Quantita.getText());
+		}catch(NumberFormatException e)
+		{
+			JOptionPane.showMessageDialog(this, "Quantita errata");
+			return -1;
+		}
 		return x;
 	}
 	
+	public void disposeF()
+	{
+		this.finestra_Prodotto.dispose();
+	}
 	
+	public void doClose()
+	{
+		finestra_Prodotto.dispatchEvent(new WindowEvent(finestra_Prodotto, WindowEvent.WINDOW_DEACTIVATED));
+		finestra_Prodotto.dispatchEvent(new WindowEvent(finestra_Prodotto, WindowEvent.WINDOW_CLOSING));
+		finestra_Prodotto.dispose();
+	}
 	
+	public String getFondoScelto()
+	{
+		return combo_Fondi.getSelectedItem().toString();
+	}
 }

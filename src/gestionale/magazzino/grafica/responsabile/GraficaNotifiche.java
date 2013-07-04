@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import gestionale.magazzino.Controllore;
 import gestionale.magazzino.MyListener;
+import gestionale.magazzino.grafica.cancelleria.MyModel;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -35,9 +36,9 @@ public class GraficaNotifiche {
 	 */
 	public void init()
 	{
-		System.out.println("Sono nel init");
 		controllore = new Controllore();
-		
+		controllore.initNotifiche();
+		model = controllore.getNotifiche();
 		tabella_Notifiche = new JTable(model);
 		tabella_Notifiche.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tabella_Notifiche.setAutoCreateRowSorter(true);
@@ -48,6 +49,8 @@ public class GraficaNotifiche {
 		
 		pannello_Notifiche = new JPanel();
 		pannello_Notifiche.setBackground(Color.white);
+		
+		pannello_Notifiche.add(scroll_Notifiche);
 
 	}
 
@@ -70,6 +73,11 @@ public class GraficaNotifiche {
 		return this.model;
 	}
 	
+	public void updateModel(MyModel modello)
+	{
+		model = modello;
+		tabella_Notifiche.setModel(model);
+	}
 
 }
 

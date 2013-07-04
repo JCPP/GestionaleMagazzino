@@ -43,16 +43,12 @@ public class GraficaAccount {
 		label_Tipo = new JLabel("Tipo");
 		label_Email = new JLabel("Email");
 		text_Nome = new JTextField(20);
-		text_Nome.setForeground(Color.lightGray);
 		text_Nome.setEditable(false);
 		text_Cognome = new JTextField(20);
-		text_Cognome.setForeground(Color.lightGray);
 		text_Cognome.setEditable(false);
 		text_Tipo = new JTextField(20);
-		text_Tipo.setForeground(Color.lightGray);
 		text_Tipo.setEditable(false);
 		text_Email = new JTextField(20);
-		text_Email.setForeground(Color.lightGray);
 		text_Email.setEditable(false);
 		
 		
@@ -110,4 +106,6 @@ public class GraficaAccount {
 	{
 		text_Email.setText(s);
 	}
+	
+	
 }

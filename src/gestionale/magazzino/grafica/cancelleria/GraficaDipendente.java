@@ -6,7 +6,7 @@ package gestionale.magazzino.grafica.cancelleria;
 import gestionale.magazzino.MyListener;
 
 import javax.swing.*;
-import javax.swing.table.AbstractTableModel;
+
 
 import java.awt.*;
 
@@ -87,10 +87,23 @@ public class GraficaDipendente extends JFrame {
 	{
 		finestra_Dipendente.setEnabled(b);
 	}
-	
-	public AbstractTableModel getModel()
+
+	public void setAccount(String email,String nome,String cognome,String tipo)
 	{
-		return grafica_Prodotti.getModel();
+		grafica_Account.setEmail(email);
+		grafica_Account.setNome(nome);
+		grafica_Account.setCognome(cognome);
+		grafica_Account.setTipo(tipo);
+	}
+	
+	public JTable getTableCarrello()
+	{
+		return grafica_Carrello.getTable();
+	}
+	
+	public JTable getTableProdotti()
+	{
+		return grafica_Prodotti.getTable();
 	}
 	
 }

@@ -2,6 +2,7 @@ package gestionale.magazzino.grafica.responsabile;
 
 import gestionale.magazzino.MyListener;
 import gestionale.magazzino.grafica.cancelleria.GraficaAccount;
+import gestionale.magazzino.grafica.cancelleria.MyModel;
 
 import javax.swing.*;
 
@@ -32,10 +33,10 @@ public class GraficaResponsabile extends JFrame{
 		grafica_AccountResponsabile.init();
 		grafica_Magazzino = new GraficaMagazzino();
 		grafica_Magazzino.init();
-		grafica_Notifiche = new GraficaNotifiche();
-		grafica_Notifiche.init();
 		grafica_ListaDip = new GraficaListaDip();
 		grafica_ListaDip.init();
+		grafica_Notifiche = new GraficaNotifiche();
+		grafica_Notifiche.init();
 		pannello_Navigazione = new JPanel();
 		pannello_Selezionato = new JPanel();
 		
@@ -79,8 +80,38 @@ public class GraficaResponsabile extends JFrame{
 		finestra_Responsabile.setEnabled(b);
 	}
 	
-	//public AbstractTableModel getModel()
-	//{
-	//	return grafica_Prodotti.getModel();
-	//}
+	public void setAccount(String email,String nome,String cognome,String tipo)
+	{
+		grafica_AccountResponsabile.setEmail(email);
+		grafica_AccountResponsabile.setNome(nome);
+		grafica_AccountResponsabile.setCognome(cognome);
+		grafica_AccountResponsabile.setTipo(tipo);
+	}
+	
+	public JTable getTableProdotti()
+	{
+		return grafica_Magazzino.getTable();
+	}
+	
+	public void updateMagazzino(MyModel modello)
+	{
+		grafica_Magazzino.updateModel(modello);
+	}
+	
+	public void updateNotifiche(MyModel modello)
+	{
+		grafica_Notifiche.updateModel(modello);
+	}
+
+	public void updateDipendenti(MyModel modello)
+	{
+		grafica_ListaDip.updateModel(modello);
+	}
+	
+	public JTable getTableDipendenti(){
+		return grafica_ListaDip.getTable();
+	}
+	public JTable getTableNotifiche() {
+		return grafica_Notifiche.getTable();
+	}
 }

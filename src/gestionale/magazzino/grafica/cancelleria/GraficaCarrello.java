@@ -45,9 +45,6 @@ public class GraficaCarrello extends JFrame  {
 		
 		scroll_Carrello = new JScrollPane(tabella_Carrello);
 		
-		MyListener m = new MyListener();
-		m.setTable(this.getTable());
-		
 		pannello_Carrello = new JPanel();
 		pannello_Carrello.setBackground(Color.white);
 		
