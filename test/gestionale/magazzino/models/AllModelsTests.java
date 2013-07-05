@@ -9,7 +9,9 @@ import org.junit.runners.Suite.SuiteClasses;
 	AcquistoTest.class,
 	AggiornamentoTest.class,
 	DipendenteTest.class,
-	FondoTest.class
+	FondoTest.class,
+	NotificaTest.class,
+	ProdottoTest.class
 })
 public class AllModelsTests {
 

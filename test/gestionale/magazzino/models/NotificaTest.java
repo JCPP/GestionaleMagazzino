@@ -210,7 +210,7 @@ public class NotificaTest {
 	}
 
 	/**
-	 * Verifica che un dipendente sia leggibile dopo un inserimento.
+	 * Verifica che una notifica sia leggibile dopo un inserimento.
 	 */
 	@Test
 	public void testVisualizzaNotifica() {
