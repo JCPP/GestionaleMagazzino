@@ -113,7 +113,7 @@ public class ProdottoTest {
 		idProdotto = Utils.lastInsertID();
 		Prodotto.modificaQuantitaProdotto(nome, nuovaQta);
 		prodotto = Prodotto.visualizzaProdotto(idProdotto);
-		assertEquals("modificaQuantitaProdotto() non funziona correttamente", nuovaQta, prodotto.getQuantità());
+		assertEquals("modificaQuantitaProdotto() non funziona correttamente", nuovaQta + qta, prodotto.getQuantità());
 	}
 
 	/**
