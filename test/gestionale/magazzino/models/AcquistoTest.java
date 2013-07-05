@@ -51,7 +51,7 @@ public class AcquistoTest {
 	 */
 	@Test
 	public void testInserisciAcquisto() {
-		Acquisto.inserisciAcquisto(idDipendente, idProdotto, idFondo, qta); //Inserisco l'acquisto
+		Acquisto.inserisciAcquisto(idDipendente, idProdotto, idFondo, qta); //Inserisce l'acquisto
 		idAcquisto = Utils.lastInsertID();
 		acquisto = Acquisto.visualizzaAcquisto(idAcquisto);
 		assertTrue("inserisciAcquisto() non funziona correttamente", 
@@ -68,7 +68,7 @@ public class AcquistoTest {
 	 */
 	@Test
 	public void testCancellaAcquisto() {
-		Acquisto.inserisciAcquisto(idDipendente, idProdotto, idFondo, qta); //Inserisco l'acquisto
+		Acquisto.inserisciAcquisto(idDipendente, idProdotto, idFondo, qta); //Inserisce l'acquisto
 		idAcquisto = Utils.lastInsertID();
 		Acquisto.cancellaAcquisto(idAcquisto);
 		assertNull("cancellaAcquisto() non funziona correttamente", Acquisto.visualizzaAcquisto(idAcquisto));
@@ -81,7 +81,7 @@ public class AcquistoTest {
 	public void testVisualizzaAcquisti() {
 		acquisti = Acquisto.visualizzaAcquisti();
 		dimensione = acquisti.size();
-		Acquisto.inserisciAcquisto(idDipendente, idProdotto, idFondo, qta); //Inserisco l'acquisto
+		Acquisto.inserisciAcquisto(idDipendente, idProdotto, idFondo, qta); //Inserisce l'acquisto
 		
 		acquisti = null;
 		acquisti = Acquisto.visualizzaAcquisti();
@@ -95,7 +95,7 @@ public class AcquistoTest {
 	public void testVisualizzaAcquistiDipendente() {
 		acquisti = Acquisto.visualizzaAcquistiDipendente(idDipendente);
 		dimensione = acquisti.size();
-		Acquisto.inserisciAcquisto(idDipendente, idProdotto, idFondo, qta); //Inserisco l'acquisto
+		Acquisto.inserisciAcquisto(idDipendente, idProdotto, idFondo, qta); //Inserisce l'acquisto
 		
 		acquisti = Acquisto.visualizzaAcquistiDipendente(idDipendente);
 		assertEquals("visualizzaAcquistiDipendente() non funziona correttamente", dimensione + 1, acquisti.size());
