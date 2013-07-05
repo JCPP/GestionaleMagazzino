@@ -145,7 +145,7 @@ public class AggiornamentoTest {
 	}
 
 	/**
-	 * Verifica che la lista di tutti gli aggiornamenti di un dipendenti aumenti di uno dopo un inserimento.
+	 * Verifica che la lista di tutti gli aggiornamenti dei dipendenti aumenti di uno dopo un inserimento.
 	 */
 	@Test
 	public void testGetIdAggiornamentiDipendente() {

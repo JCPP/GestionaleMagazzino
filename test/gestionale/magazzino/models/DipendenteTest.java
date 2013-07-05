@@ -6,8 +6,6 @@ import gestionale.magazzino.models.utils.Utils;
 import gestionale.magazzino.utils.RandomString;
 
 import java.util.ArrayList;
-import java.util.Random;
-
 import org.junit.BeforeClass;
 import org.junit.Test;
 
