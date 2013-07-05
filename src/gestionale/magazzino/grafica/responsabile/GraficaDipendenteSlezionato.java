@@ -63,6 +63,7 @@ public class GraficaDipendenteSlezionato extends JFrame{
 		
 		label_ID = new JLabel("ID :");
 		text_ID = new JTextField(15);
+		text_ID.setEditable(false);
 		text_Nome = new JTextField(15);
 		label_Nome = new JLabel("Nome :");
 		label_Cognome = new JLabel("Cognome :");

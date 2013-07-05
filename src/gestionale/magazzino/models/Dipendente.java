@@ -19,8 +19,8 @@ public class Dipendente {
 	 */
 	static public void inserisciDipendente(String nome, String cognome, String pass, String email, String tipo){
 		que = new Querist();
-		String query = "INSERT INTO Dipendente (nome,cognome,email,password,tipo) VALUES"+
-				"('"+nome+"','"+cognome+"','"+email+"','"+pass+"','"+tipo+"')";
+		String query = "INSERT INTO Dipendente (nome,cognome,email,password,tipo,isActive) VALUES"+
+				"('"+nome+"','"+cognome+"','"+email+"','"+pass+"','"+tipo+"','"+true+"')";
 		//System.out.println(query);
 		que.eseguiQueryUpdate(query);
 
@@ -228,6 +228,15 @@ public class Dipendente {
 		}
 
 		return dip;
+	}
+	
+	static public void cancellaDipendente(int id){
+		que = new Querist();
+		String query = "DELETE " +
+				       "FROM Dipendente " +
+				       "WHERE Dipendente.idDipendente = '"+id+"'";
+		System.out.println(query);
+		que.eseguiQueryUpdate(query);
 	}
 
 }

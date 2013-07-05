@@ -7,14 +7,14 @@ package gestionale.magazzino;
 public class Fondo {
 	private int idFondo;
 	private String nome;
-	private double importo;
+	private float importo;
 	
 	/**
 	 * @param id_Fondo Identificativo del fondo
 	 * @param nome Nome del fondo
 	 * @param importo Importo disponibile sul fondo in quel momento
 	 */
-	public Fondo(int id_Fondo, String nome, double importo) {
+	public Fondo(int id_Fondo, String nome, float importo) {
 		super();
 		idFondo = id_Fondo;
 		this.nome = nome;
@@ -22,6 +22,12 @@ public class Fondo {
 	}
 
 	
+
+	public Fondo() {
+		// TODO Auto-generated constructor stub
+	}
+
+
 
 	/**
 	 * Metodi Get e Set
@@ -42,11 +48,11 @@ public class Fondo {
 		this.nome = nome;
 	}
 
-	public double getImporto() {
+	public float getImporto() {
 		return importo;
 	}
 
-	public void setImporto(double importo) {
+	public void setImporto(float importo) {
 		this.importo = importo;
 	}
 	

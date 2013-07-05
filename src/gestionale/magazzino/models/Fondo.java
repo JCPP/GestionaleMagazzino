@@ -14,7 +14,7 @@ public class Fondo {
 	 * @param nome nome del fondo
 	 * @param fondoDisponibile l'importo ancora disponibile per il fondo
 	 */
-	static public void inserisciFondo(String nome, float fondoDisponibile){
+	static public void inserisciFondo(String nome,float fondoDisponibile){
 		que = new Querist();
 		String query = "INSERT INTO Fondo(nome,fondoDisponibile) VALUES"+
 				"('"+nome+"',"+fondoDisponibile+")";
@@ -65,5 +65,31 @@ public class Fondo {
 			id = -1;
 		}
 		return id;
+	}
+	
+	static public gestionale.magazzino.Fondo visualizzaFondo(String nome){
+		que = new Querist();
+		String query = "SELECT * " +
+					   "FROM Fondo F " +
+					   "WHERE F.nome = '"+nome+"'";
+		ResultSet rs = que.eseguiQuery(query);
+		System.out.println(query);
+		gestionale.magazzino.Fondo fondo;
+		try{
+			fondo = new gestionale.magazzino.Fondo(rs.getInt("idFondo"), rs.getString("nome"), rs.getFloat("fondoDisponibile"));
+		}catch(SQLException e){
+			fondo = null;
+		}
+		
+		return fondo;
+	}
+	
+	static public void cancellaFondo(String nome){
+		que = new Querist();
+		String query = "DELETE " +
+				       "FROM Fondo " +
+				       "WHERE Fondo.nome = '"+nome+"'";
+		System.out.println(query);
+		que.eseguiQueryUpdate(query);
 	}
 }

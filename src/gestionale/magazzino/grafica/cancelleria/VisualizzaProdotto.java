@@ -87,10 +87,12 @@ public class VisualizzaProdotto extends JFrame{
 		fondi = new ArrayList<Fondo>();
 		fondi = gestionale.magazzino.models.Fondo.visualizzaFondi();
 		combo_Fondi = new JComboBox<String>();
-		while(!fondi.isEmpty())
+		int i = 0;
+		while(i < fondi.size())
 		{
-			combo_Fondi.addItem(fondi.remove(0).getNome());
+			combo_Fondi.addItem(fondi.get(i).getNome());
 			combo_Fondi.setActionCommand("Fondi");
+			i++;
 		}
 		combo_Fondi.addActionListener(new MyListener());
 		
@@ -151,6 +153,10 @@ public class VisualizzaProdotto extends JFrame{
 	{
 		label_Quantitap.setText(s);
 	}
+	public int getQuantitaProdotto()
+	{
+		return Integer.parseInt(label_Quantitap.getText());
+	}
 	
 	public void setPrezzoProdotto(String s)
 	{
@@ -159,22 +165,23 @@ public class VisualizzaProdotto extends JFrame{
 	
 	public float getPrezzoProdotto()
 	{
-		float x;
+		float x = 0;
 		try
 		{
 			x = Float.parseFloat(label_Prezzop.getText());
 		}catch(NumberFormatException e)
 		{
-			x = -1;
+			
 		}
 		return x;
 	}
 
 	public int getQuantita()
 	{
+		int x = 0;
 		try
 		{
-			int x = Integer.parseInt(text_Quantita.getText());
+			x = Integer.parseInt(text_Quantita.getText());
 		}catch(NumberFormatException e)
 		{
 			JOptionPane.showMessageDialog(this, "Quantita errata");
@@ -188,6 +195,15 @@ public class VisualizzaProdotto extends JFrame{
 		this.finestra_Prodotto.dispose();
 	}
 	
+	public int getIndex()
+	{
+		return this.combo_Fondi.getSelectedIndex();
+	}
+	
+	public void setIndex(int i)
+	{
+		this.combo_Fondi.setSelectedIndex(i);
+	}
 	public void doClose()
 	{
 		finestra_Prodotto.dispatchEvent(new WindowEvent(finestra_Prodotto, WindowEvent.WINDOW_DEACTIVATED));

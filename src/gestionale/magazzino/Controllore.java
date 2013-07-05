@@ -99,6 +99,7 @@ public class Controllore {
 	private GraficaNotificaSelezionata gns;
 	private GraficaDipendenteSlezionato gdp;
 	private Dipendente dipSel;
+	private int index = 0;
 	/**
 	 * Costruttore controllore
 	 * inizializza tutte le finestre grafiche,senza pero caricarne i componenti
@@ -163,7 +164,7 @@ public class Controllore {
 					m.setTable(gresp.getTableNotifiche());
 					gl.disposeF();
 				}
-				else
+				if(!b4)
 				{
 					JOptionPane.showMessageDialog(gl, "Utente Disabilitato");
 				}
@@ -181,7 +182,7 @@ public class Controllore {
 					m.setTable(gd.getTableProdotti());
 					gl.disposeF();
 				}
-				else
+				if(!b4)
 				{
 					JOptionPane.showMessageDialog(gl, "Utente Disabilitato");
 				}
@@ -625,19 +626,41 @@ public class Controllore {
 	
 	public void controlloOrdine(int x)
 	{
-
-		int q = vp.getQuantita();
+		vp.setIndex(index);
+		int q = vp.getQuantitaProdotto();
+		System.out.println(q);
 		if(q > 0)
 		{
 			float y = vp.getPrezzoProdotto();
 			float z = y*q;
 			String b = vp.getFondoScelto();
-			
-			System.out.println(b);
+			Fondo f = new Fondo();
+			f = gestionale.magazzino.models.Fondo.visualizzaFondo(b);
+			float v = f.getImporto();
+			if(z > v)
+			{
+				JOptionPane.showMessageDialog(vp, "Fondo non sufficiente");
+			}
+			else
+			{
+				index = vp.getIndex();
+				vp.doClose();
+				f.setImporto(f.getImporto()-z);
+				gestionale.magazzino.models.Fondo.cancellaFondo(f.getNome());
+				gestionale.magazzino.models.Fondo.inserisciFondo(f.getNome(),f.getImporto());
+				updateCatalogo(x);
+			}
 		}
-		
-		vp.doClose();
-		updateCatalogo(x);
+		else
+		{
+			int i =JOptionPane.showConfirmDialog(vp,"Inviare una notifica al responsabile?",null,JOptionPane.YES_NO_OPTION);
+			if(i == 0)
+			{
+				String msg = "L'oggetto: "+vp.getNomeProdotto()+" non è disponibile in magazzino";
+				gestionale.magazzino.models.Notifica.inserisciNotifica(1, 1, msg);
+				JOptionPane.showMessageDialog(vp, "Notifica Inviata");
+			}
+		}
 	}
 	
 	public void showOption()
@@ -852,10 +875,10 @@ public class Controllore {
 	{
 		gresp.setState(false);
 		JTable tabella = gresp.getTableDipendenti();
-		int IdDipendente = (int) tabella.getValueAt(x, 0);
+		int IdDipendente = Integer.parseInt(tabella.getValueAt(x, 0).toString());
 		Dipendente dip = new Dipendente();
 		dip = gestionale.magazzino.models.Dipendente.visualizzaDipendente(IdDipendente);
-		dipSel = new Dipendente(dip.getId_Dipendente(),dip.getNome(),dip.getCognome(),dip.getPassword(),dip.getEmail(),dip.getTipo(),dip.isActive());
+		dipSel = new Dipendente(dip.getId_Dipendente(),dip.getNome(),dip.getCognome(),dip.getEmail(),dip.getPassword(),dip.getTipo(),dip.isActive());
 		gdp.init();
 		gdp.setId(""+dipSel.getId_Dipendente());
 		gdp.setNome(""+dipSel.getNome());
@@ -872,6 +895,55 @@ public class Controllore {
 			s = "Disabilitato";
 		}
 		gdp.setStato(s);
+	}
+
+	public void modificaDipendenteResp() {
+		Dipendente dip = new Dipendente();
+		int i = Integer.parseInt(gdp.getID());
+		String pass = (gestionale.magazzino.models.Dipendente.visualizzaDipendente(i).getPassword());
+		gestionale.magazzino.models.Dipendente.cancellaDipendente(i);
+		String t = gdp.getTipo();
+		if(t.equals("res"))
+		{
+			t = "";
+			t = "responsabile";
+		}
+		else
+		{
+			t = "";
+			t = "dipendente";
+		}
+		dip.setTipo(t);
+		gestionale.magazzino.models.Dipendente.inserisciDipendente(gdp.getNome(), gdp.getCognome(), pass, gdp.getEmail(), t);
+		String s = gdp.getStato();
+		if(s.equals("Attivo"))
+		{
+			gestionale.magazzino.models.Dipendente.attivaDipendente(gdp.getEmail());
+		}
+		else
+		{
+			gestionale.magazzino.models.Dipendente.disattivaDipendente(gdp.getEmail());
+		}
+		
+		dip = null;
+		gdp.doClose();
+		initListaDip();
+		gresp.updateDipendenti(modelloDipendenti);
+		updateDipendenti(0);
+	}
+
+	public void rimuoviDipendenteResp() {
+		
+		int i =JOptionPane.showConfirmDialog(gns,"Cancellare Dipendente?",null,JOptionPane.YES_NO_OPTION);
+		if(i == 0)
+		{
+			gestionale.magazzino.models.Dipendente.cancellaDipendente(Integer.parseInt(gdp.getID()));
+			dipSel = null;
+			gdp.doClose();
+			initListaDip();
+			gresp.updateDipendenti(modelloDipendenti);
+			updateDipendenti(0);
+		}
 	}
 	
 }

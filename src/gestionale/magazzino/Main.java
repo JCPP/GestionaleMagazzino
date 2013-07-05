@@ -295,6 +295,16 @@ public class Main {
 			case "Indietro Notifiche":
 				controllo.gotoNotifiche(z);
 				break;
+			//metodi lista dipendenti
+			case "Modifica Dipendente Responsabile":
+				controllo.modificaDipendenteResp();
+				break;
+			case "Rimuovi Dipendente Responsabile":
+				controllo.rimuoviDipendenteResp();
+				break;
+			case "Annulla Dipendente Responsabile":
+				controllo.gotoDipendenti();
+				break;
 			default:
 				break;
 
