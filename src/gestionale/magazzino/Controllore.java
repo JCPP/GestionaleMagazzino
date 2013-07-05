@@ -104,7 +104,6 @@ public class Controllore {
 	private Dipendente dipSel;
 	DateFormat dateFormat;
 	Date date;
-	private int index = 0;
 	/**
 	 * Costruttore controllore
 	 * inizializza tutte le finestre grafiche,senza pero caricarne i componenti
@@ -635,7 +634,6 @@ public class Controllore {
 	
 	public void controlloOrdine(int x)
 	{
-		vp.setIndex(index);
 		int q = vp.getQuantitaProdotto();
 		int qins = vp.getQuantita();
 		System.out.println(q);
@@ -653,7 +651,6 @@ public class Controllore {
 			}
 			else
 			{
-				index = vp.getIndex();
 				vp.doClose();
 				f.setImporto(f.getImporto()-z);
 				gestionale.magazzino.models.Fondo.cancellaFondo(f.getNome());
