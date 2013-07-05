@@ -77,8 +77,7 @@ public class GraficaDipendente extends JFrame {
 	{
 		finestra_Dipendente.dispose();
 	}
-	
-	///////////////////////////////////////////////////////////////////
+
 	public void setPannelloSelezionato(String s)
 	{
 		layout_Pannello.show(pannello_Selezionato, s);

@@ -32,10 +32,10 @@ public class GraficaAccount {
 	 */
 	public void init()
 	{
-		pannello_Account = new JPanel();
 		layout_Dati = new GridBagLayout();
 		dati_Constraints = new GridBagConstraints();
 		
+		pannello_Account = new JPanel();
 		pannello_Account.setLayout(layout_Dati);
 		
 		label_Nome = new JLabel("Nome");

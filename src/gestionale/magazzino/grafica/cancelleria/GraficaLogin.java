@@ -12,8 +12,6 @@ import java.awt.*;
 
 public class GraficaLogin extends JFrame {
 	
-	private GraficaProdotti grafica_Prodotti;
-	private GraficaRegistrazione grafica_Registrazione;
 	private JFrame finestra_Login;
 	private Dimension dimensione_Finestra;
 	private int x;
@@ -63,11 +61,11 @@ public class GraficaLogin extends JFrame {
 		pannello_Dati = new JPanel();
 		pannello_Dati.setLayout(layout);
 		
-		pannello_Bottoni = new JPanel();
-		
 		opzioni_Constraints = new GridBagConstraints();
 		pannello_Opzioni = new JPanel();
 		pannello_Opzioni.setLayout(layout);
+		
+		pannello_Bottoni = new JPanel();
 		
 		label_Errore_Email = new JLabel(" ");
 		
@@ -133,7 +131,7 @@ public class GraficaLogin extends JFrame {
 		finestra_Login.setSize(300,400);
 		finestra_Login.setLocation(x, y);
 		finestra_Login.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		//finestra_Login.setResizable(false);
+		finestra_Login.setResizable(false);
 		finestra_Login.setVisible(true);
 		
 		
