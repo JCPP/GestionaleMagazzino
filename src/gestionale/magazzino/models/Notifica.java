@@ -35,10 +35,7 @@ public class Notifica {
 		ResultSet rs = que.eseguiQuery(query);
 		try {
 			while(rs.next()){
-				boolean isValidate = false;
-				if(rs.getString("isValidate").equals("true")){
-					isValidate = true;
-				}
+				boolean isValidate = Boolean.parseBoolean(rs.getString("isValidate"));
 				gestionale.magazzino.Notifica notifica = new gestionale.magazzino.Notifica(rs.getInt("idNotifica"),rs.getInt("idDipendente"), rs.getInt("idDipendenteNotificato"), rs.getString("notifica"), rs.getString("dataNotifica"), isValidate);
 				risultato.add(notifica);
 			}
@@ -100,10 +97,7 @@ public class Notifica {
 		ResultSet rs = que.eseguiQuery(query);
 		try {
 			while(rs.next()){
-				boolean isValidate = false;
-				if(rs.getString("isValidate").equals("true")){
-					isValidate = true;
-				}
+				boolean isValidate = Boolean.parseBoolean(rs.getString("isValidate"));
 				gestionale.magazzino.Notifica notifica = new gestionale.magazzino.Notifica(rs.getInt("idNotifica"),rs.getInt("idDipendente"), rs.getInt("idDipendenteNotificato"), rs.getString("notifica"), rs.getString("dataNotifica"), isValidate);
 				risultato.add(notifica);
 			}
@@ -128,10 +122,7 @@ public class Notifica {
 		ResultSet rs = que.eseguiQuery(query);
 		try {
 			while(rs.next()){
-				boolean isValidate = false;
-				if(rs.getString("isValidate").equals("true")){
-					isValidate = true;
-				}
+				boolean isValidate = Boolean.parseBoolean(rs.getString("isValidate"));
 				gestionale.magazzino.Notifica notifica = new gestionale.magazzino.Notifica(rs.getInt("idNotifica"),rs.getInt("idDipendente"), rs.getInt("idDipendenteNotificato"), rs.getString("notifica"), rs.getString("dataNotifica"), isValidate);
 				risultato.add(notifica);
 			}
@@ -238,10 +229,7 @@ public class Notifica {
 		ResultSet rs = que.eseguiQuery(query);
 		try {
 			while(rs.next()){
-				boolean isValidate = false;
-				if(rs.getString("isValidate").equals("true")){
-					isValidate = true;
-				}
+				boolean isValidate = Boolean.parseBoolean(rs.getString("isValidate"));
 				notifica = new gestionale.magazzino.Notifica(rs.getInt("idNotifica"),rs.getInt("idDipendente"), rs.getInt("idDipendenteNotificato"), rs.getString("notifica"), rs.getString("dataNotifica"), isValidate);
 			}
 		} catch (SQLException e) {

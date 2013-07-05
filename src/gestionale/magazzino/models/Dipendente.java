@@ -143,10 +143,7 @@ public class Dipendente {
 		ResultSet rs = que.eseguiQuery(query);
 		try {
 			while(rs.next()){
-				boolean isActive = false;
-				if( rs.getString("isActive").equals("true")){
-					isActive = true;
-				}
+				boolean isActive = Boolean.parseBoolean(rs.getString("isActive"));
 				gestionale.magazzino.Dipendente dip = new gestionale.magazzino.Dipendente(rs.getInt("idDipendente"),rs.getString("nome"), rs.getString("cognome"), rs.getString("email"), rs.getString("password"), rs.getString("tipo"), isActive);
 				risultato.add(dip);
 			}
@@ -173,9 +170,7 @@ public class Dipendente {
 		System.out.println(query);
 		try {
 			while(rs.next()){
-				if(rs.getString("isActive").equals("true")){
-					isActive = true;
-				}
+				isActive = Boolean.parseBoolean(rs.getString("isActive"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -197,10 +192,7 @@ public class Dipendente {
 		System.out.println(query);
 		gestionale.magazzino.Dipendente dip;
 		try{
-			boolean isActive = false;
-			if(rs.getString("isActive").equals("true")){
-				isActive = true;
-			}
+			boolean isActive = Boolean.parseBoolean(rs.getString("isActive"));
 			dip = new gestionale.magazzino.Dipendente(rs.getInt("idDipendente"), rs.getString("nome"), rs.getString("cognome"), rs.getString("email"), rs.getString("password"), rs.getString("tipo"), isActive);
 		}catch(SQLException e){
 			dip = null;
@@ -218,10 +210,7 @@ public class Dipendente {
 		System.out.println(query);
 		gestionale.magazzino.Dipendente dip;
 		try{
-			boolean isActive = false;
-			if(rs.getString("isActive").equals("true")){
-				isActive = true;
-			}
+			boolean isActive = Boolean.parseBoolean(rs.getString("isActive"));
 			dip = new gestionale.magazzino.Dipendente(rs.getInt("idDipendente"), rs.getString("nome"), rs.getString("cognome"), rs.getString("email"), rs.getString("password"), rs.getString("tipo"), isActive);
 		}catch(SQLException e){
 			dip = null;

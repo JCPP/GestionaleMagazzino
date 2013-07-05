@@ -36,10 +36,7 @@ public class Aggiornamento {
 		ResultSet rs = que.eseguiQuery(query);
 		try {
 			while(rs.next()){
-				boolean isValidate = false;
-				if(rs.getString("isValidate").equals("true")){
-					isValidate = true;
-				}
+				boolean isValidate = Boolean.parseBoolean(rs.getString("isValidate"));
 				gestionale.magazzino.Aggiornamento agg = new gestionale.magazzino.Aggiornamento(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getString(5), isValidate);
 				risultato.add(agg);
 			}
@@ -101,10 +98,7 @@ public class Aggiornamento {
 		ResultSet rs = que.eseguiQuery(query);
 		try {
 			while(rs.next()){
-				boolean isValidate = false;
-				if(rs.getString("isValidate").equals("true")){
-					isValidate = true;
-				}
+				boolean isValidate = Boolean.parseBoolean(rs.getString("isValidate"));;
 				gestionale.magazzino.Aggiornamento agg = new gestionale.magazzino.Aggiornamento(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getString(5), isValidate);
 				risultato.add(agg);
 			}
@@ -129,10 +123,7 @@ public class Aggiornamento {
 		ResultSet rs = que.eseguiQuery(query);
 		try {
 			while(rs.next()){
-				boolean isValidate = false;
-				if(rs.getString("isValidate").equals("true")){
-					isValidate = true;
-				}
+				boolean isValidate = Boolean.parseBoolean(rs.getString("isValidate"));
 				gestionale.magazzino.Aggiornamento agg = new gestionale.magazzino.Aggiornamento(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getString(5), isValidate);
 				risultato.add(agg);
 			}
@@ -181,10 +172,7 @@ public class Aggiornamento {
 		ResultSet rs = que.eseguiQuery(query);
 		gestionale.magazzino.Aggiornamento agg = null;
 		try{
-			boolean isValidate = false;
-			if(rs.getString("isValidate").equals("true")){
-				isValidate = true;
-			}
+			boolean isValidate = Boolean.parseBoolean(rs.getString("isValidate"));
 			agg = new gestionale.magazzino.Aggiornamento(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getString(5), isValidate);
 		}catch(SQLException e){
 		}
