@@ -1,4 +1,4 @@
-package gestionale.magazzino.grafica.cancelleria;
+package gestionale.magazzino.grafica.dipendente.pannelli;
 /**
  * Classe che si occupa di visualizzare i dati di un dipendente
  */

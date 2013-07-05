@@ -6,7 +6,7 @@ package gestionale.magazzino;
  * Inoltre gli eventi vengono poi inviati e gestiti dalla main,sempre per lo stesso problema
  * del multithread
  */
-import gestionale.magazzino.grafica.cancelleria.GraficaProdotti;
+import gestionale.magazzino.grafica.dipendente.pannelli.GraficaProdotti;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

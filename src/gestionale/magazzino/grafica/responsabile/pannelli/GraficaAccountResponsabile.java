@@ -1,4 +1,4 @@
-package gestionale.magazzino.grafica.responsabile;
+package gestionale.magazzino.grafica.responsabile.pannelli;
 /**
  * Classe che si occupa di visualizzare i dati di un dipendente
  */

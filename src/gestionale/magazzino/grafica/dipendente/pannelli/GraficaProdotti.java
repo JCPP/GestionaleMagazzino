@@ -1,9 +1,10 @@
-package gestionale.magazzino.grafica.cancelleria;
+package gestionale.magazzino.grafica.dipendente.pannelli;
 /**
  * Classe che visualizza i prodotti di un magazzino in una lista,i dati sono reperiti da un database
  */
 import gestionale.magazzino.Controllore;
 import gestionale.magazzino.MyListener;
+import gestionale.magazzino.grafica.cancelleria.MyModel;
 
 import javax.swing.*;
 

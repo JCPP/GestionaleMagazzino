@@ -1,21 +1,21 @@
 package gestionale.magazzino;
 
-import gestionale.magazzino.grafica.cancelleria.GraficaAccount;
-import gestionale.magazzino.grafica.cancelleria.GraficaCarrello;
-import gestionale.magazzino.grafica.cancelleria.GraficaDipendente;
 import gestionale.magazzino.grafica.cancelleria.GraficaLogin;
-import gestionale.magazzino.grafica.cancelleria.GraficaProdotti;
 import gestionale.magazzino.grafica.cancelleria.GraficaRegistrazione;
-import gestionale.magazzino.grafica.cancelleria.ModificaProdotto;
 import gestionale.magazzino.grafica.cancelleria.MyModel;
-import gestionale.magazzino.grafica.cancelleria.VisualizzaProdotto;
-import gestionale.magazzino.grafica.responsabile.GraficaAccountResponsabile;
-import gestionale.magazzino.grafica.responsabile.GraficaDipendenteSlezionato;
-import gestionale.magazzino.grafica.responsabile.GraficaInsProdotto;
-import gestionale.magazzino.grafica.responsabile.GraficaMagazzino;
-import gestionale.magazzino.grafica.responsabile.GraficaModificaProdotto;
-import gestionale.magazzino.grafica.responsabile.GraficaNotificaSelezionata;
-import gestionale.magazzino.grafica.responsabile.GraficaResponsabile;
+import gestionale.magazzino.grafica.dipendente.finestre.GraficaDipendente;
+import gestionale.magazzino.grafica.dipendente.finestre.ModificaProdotto;
+import gestionale.magazzino.grafica.dipendente.finestre.VisualizzaProdotto;
+import gestionale.magazzino.grafica.dipendente.pannelli.GraficaAccount;
+import gestionale.magazzino.grafica.dipendente.pannelli.GraficaCarrello;
+import gestionale.magazzino.grafica.dipendente.pannelli.GraficaProdotti;
+import gestionale.magazzino.grafica.responsabile.finestre.GraficaDipendenteSlezionato;
+import gestionale.magazzino.grafica.responsabile.finestre.GraficaInsProdotto;
+import gestionale.magazzino.grafica.responsabile.finestre.GraficaModificaProdotto;
+import gestionale.magazzino.grafica.responsabile.finestre.GraficaNotificaSelezionata;
+import gestionale.magazzino.grafica.responsabile.finestre.GraficaResponsabile;
+import gestionale.magazzino.grafica.responsabile.pannelli.GraficaAccountResponsabile;
+import gestionale.magazzino.grafica.responsabile.pannelli.GraficaMagazzino;
 
 import java.awt.event.WindowEvent;
 import java.text.DateFormat;

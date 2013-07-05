@@ -1,8 +1,12 @@
-package gestionale.magazzino.grafica.responsabile;
+package gestionale.magazzino.grafica.responsabile.finestre;
 
 import gestionale.magazzino.MyListener;
-import gestionale.magazzino.grafica.cancelleria.GraficaAccount;
 import gestionale.magazzino.grafica.cancelleria.MyModel;
+import gestionale.magazzino.grafica.dipendente.pannelli.GraficaAccount;
+import gestionale.magazzino.grafica.responsabile.pannelli.GraficaListaDip;
+import gestionale.magazzino.grafica.responsabile.pannelli.GraficaMagazzino;
+import gestionale.magazzino.grafica.responsabile.pannelli.GraficaNavigatoreResponsabile;
+import gestionale.magazzino.grafica.responsabile.pannelli.GraficaNotifiche;
 
 import javax.swing.*;
 

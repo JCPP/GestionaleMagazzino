@@ -1,4 +1,4 @@
-package gestionale.magazzino.grafica.responsabile;
+package gestionale.magazzino.grafica.responsabile.pannelli;
 
 import java.awt.Color;
 

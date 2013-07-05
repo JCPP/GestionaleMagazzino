@@ -1,4 +1,4 @@
-package gestionale.magazzino.grafica.cancelleria;
+package gestionale.magazzino.grafica.dipendente.finestre;
 /**
  * Classe che crea una finestra grafica per consentire all'utente di effettuare un ordine
  */

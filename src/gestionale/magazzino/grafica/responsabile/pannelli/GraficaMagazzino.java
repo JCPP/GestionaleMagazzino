@@ -1,4 +1,4 @@
-package gestionale.magazzino.grafica.responsabile;
+package gestionale.magazzino.grafica.responsabile.pannelli;
 /**
  * Classe che visualizza i Magazzino di un magazzino in una lista,i dati sono reperiti da un database
  */

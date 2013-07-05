@@ -1,4 +1,4 @@
-package gestionale.magazzino.grafica.cancelleria;
+package gestionale.magazzino.grafica.dipendente.pannelli;
 /**
  * Classe che crea un menu di navigazione per i dipendenti
  */

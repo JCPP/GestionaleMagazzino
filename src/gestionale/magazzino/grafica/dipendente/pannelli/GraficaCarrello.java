@@ -1,4 +1,4 @@
-package gestionale.magazzino.grafica.cancelleria;
+package gestionale.magazzino.grafica.dipendente.pannelli;
 /**
  * Questa classe si occupa di visualizzare il carrello spesa di un dipendente
  */

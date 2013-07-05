@@ -1,9 +1,13 @@
-package gestionale.magazzino.grafica.cancelleria;
+package gestionale.magazzino.grafica.dipendente.finestre;
 /**
  * Questa classe si occupa di gestire la grafica per un dipendente
  * fornendogli un menu di navigazione
  */
 import gestionale.magazzino.MyListener;
+import gestionale.magazzino.grafica.dipendente.pannelli.GraficaAccount;
+import gestionale.magazzino.grafica.dipendente.pannelli.GraficaCarrello;
+import gestionale.magazzino.grafica.dipendente.pannelli.GraficaNavigatoreDipendenti;
+import gestionale.magazzino.grafica.dipendente.pannelli.GraficaProdotti;
 
 import javax.swing.*;
 
