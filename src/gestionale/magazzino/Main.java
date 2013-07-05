@@ -91,52 +91,18 @@ public class Main {
 	public void start(String evento)
 	{
 		System.out.println(evento);
-		// controlli legati al WindowListener
-		/**
-		 * aggiorna la visuale del carrello dopo che un oggetto è stato selezionato (da ottimizzare)
-		 */
-		if(evento.equals("Carrello Dipendente"))
-		{
-			controllo.updateCarrello(z);
-		}
-		/**
-		 * aggiorna la visuale del catalogo dopo che un oggetto è stato selezionato (da ottimizzare)
-		 */
-		if(evento.equals("Catalogo Dipendente"))
-		{
-			controllo.updateCatalogo(z);
-		}
-		/**
-		 * chiude la finestra graficaDipendente (windowListener non funzionava....)
-		 */
-		if(evento.equals("dispose Dipendente"))
-		{
-			controllo.disposeDipendente();
-		}
-		
-		if(evento.equals("Magazzino Responsabile"))
-		{
-			controllo.updateMagazzino(z);
-		}
-		if(evento.equals("dispose Responsabile"))
-		{
-			controllo.disposeResp();
-		}
-		if(evento.equals("Modifica Prodotto"))
-		{
-			controllo.updateMagazzino(z);
-		}
-		if(evento.equals("Notifiche Responsabile"))
-		{
-			controllo.updateNotifiche(z);
-		}
-		if(evento.equals("Lista"))
-		{
-			controllo.updateDipendenti(z);
-		}
+		gestisciLogin(evento);
+		gestisciRegistrazione(evento);
+		gestisciDipendente(evento);
+		gestisciResponsabile(evento);
+		gestisciOrdine(evento);
+		gestisciMagazzino(evento);
+		gestisciNotifiche(evento);
+		gestisciListaDipendentei(evento);
 		//controlli legati alle tabelle
 		/**
 		 * se a == 4 siamo nella lista dipendenti
+		 * invia la riga selezionata al controllo che mostra il dipendente corrispondente
 		 */
 		
 		if(evento.endsWith("4") && a == 4)
@@ -149,6 +115,7 @@ public class Main {
 		}	
 		/**
 		 * se a == 3 siamo nelle notifiche
+		 * invia la riga selezionata al controllo che mostra la notifica corrispondente
 		 */
 		if(evento.endsWith("3") && a == 3)
 		{
@@ -160,6 +127,7 @@ public class Main {
 		}
 		/**
 		 * se a == 2 siamo nel magazzino
+		 * invia la riga selezionata al controllo che mostra il prodotto corrispondente
 		 */
 		if(evento.endsWith("4") && a == 2)
 		{
@@ -195,23 +163,35 @@ public class Main {
 			controllo.showOrdinato(x);
 		}
 		
-		//Controlli legati agli eventi dei bottoni
+	}
+	
+	public void gestisciLogin(String evento)
+	{
 		switch(evento)
 		{
-		//casi login
 			case "Connetti":
 				a = controllo.isConnected();
 				break;
 			case "Password":
 				a = controllo.isConnected();
 				break;
+			case "Email":
+				a = controllo.isConnected();
 			case "Chiudi":
 				controllo.disconnect();
 				break;
 			case "Registrati":
 				controllo.registering();
 				break;
-		//casi registrazione
+			default:
+				break;
+		}
+	}
+
+	public void gestisciRegistrazione(String evento)
+	{
+		switch(evento)
+		{
 			case "Indietro":
 				controllo.logging();
 				break;
@@ -221,7 +201,23 @@ public class Main {
 			case "Invio":
 				controllo.registered();
 				break;
-			//casi dipendente
+			default:
+				break;
+		}
+	}
+
+	public void gestisciDipendente(String evento)
+	{
+	
+		/**
+		 * chiude la finestra graficaDipendente (windowListener non funzionava....)
+		 */
+		if(evento.equals("dispose Dipendente"))
+		{
+			controllo.disposeDipendente();
+		}
+		switch(evento)
+		{
 			case "Account":
 				controllo.showAccount();
 				break;
@@ -239,7 +235,21 @@ public class Main {
 			case "Exit":
 				controllo.disposeDipendente();
 				break;
-				//casi responsabile
+			case "Carrello Dipendente":
+				controllo.updateCarrello(z);
+				break;
+			case "Catalogo Dipendente":
+				controllo.updateCatalogo(z);
+				break;
+			default:
+				break;
+		}
+	}
+
+	public void gestisciResponsabile(String evento)
+	{
+		switch(evento)
+		{
 			case "Account Responsabile":
 				controllo.showAccountResp();
 				break;
@@ -265,14 +275,33 @@ public class Main {
 			case "Exit Responsabile":
 				controllo.disposeResp();
 				break;
-			//casi ordina prodotto
+			case "dispose Responsabile":
+				controllo.disposeResp();
+				break;
+			default:
+				break;
+		}
+	}
+
+	public void gestisciOrdine(String evento)
+	{
+		switch(evento)
+		{
 			case "Ordina":
 				controllo.controlloOrdine(z);
 				break;
 			case "Annulla":
 				controllo.gotoCatalogo(z);
 				break;
-			//casi magazzino
+			default:
+				break;
+		}
+	}
+
+	public void gestisciMagazzino(String evento)
+	{
+		switch(evento)
+		{
 			case "Inserisci Prodotto":
 				controllo.inserisciProdotto();
 				break;
@@ -288,14 +317,39 @@ public class Main {
 			case "Annulla Modifica Responsabile":
 				controllo.gotoMagazzino2();
 				break;
-			//casi notifiche
+			case "Magazzino Responsabile":
+				controllo.updateMagazzino(z);
+				break;
+			case "Modifica Prodotto":
+				controllo.updateMagazzino(z);
+				break;
+			default:
+				break;
+		}
+	}
+	
+	public void gestisciNotifiche(String evento)
+	{
+		switch(evento)
+		{
 			case "Elimina Notifiche":
 				controllo.eliminaNotifica();
 				break;
 			case "Indietro Notifiche":
 				controllo.gotoNotifiche(z);
 				break;
-			//metodi lista dipendenti
+			case "Notifiche Responsabile":
+				controllo.updateNotifiche(z);
+				break;
+			default:
+				break;
+		}
+	}
+	
+	public void gestisciListaDipendentei(String evento)
+	{
+		switch(evento)
+		{
 			case "Modifica Dipendente Responsabile":
 				controllo.modificaDipendenteResp();
 				break;
@@ -305,11 +359,14 @@ public class Main {
 			case "Annulla Dipendente Responsabile":
 				controllo.gotoDipendenti();
 				break;
+			case "Lista":
+				controllo.updateDipendenti(z);
+				break;
 			default:
 				break;
-
 		}
 	}
+	
 	
 }
 
