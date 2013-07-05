@@ -166,4 +166,29 @@ public class Aggiornamento {
 		}
 		return risultato;
 	}
+	
+	/**
+	 * Questo metodo visualizza un singolo aggiornamento in base al suo identificativo
+	 * @param idAggiornamento identificativo dell'aggiornamento
+	 * @return un oggetto Aggiornamento
+	 */
+	static public gestionale.magazzino.Aggiornamento visualizzaAggiornamento(int idAggiornamento){
+		que = new Querist();
+		String query = "SELECT * " +
+				       "FROM Aggiornamento A " +
+				       "WHERE A.idAggiornamento = "+idAggiornamento;
+		System.out.println(query);
+		ResultSet rs = que.eseguiQuery(query);
+		gestionale.magazzino.Aggiornamento agg = null;
+		try{
+			boolean isValidate = false;
+			if(rs.getString("isValidate").equals("true")){
+				isValidate = true;
+			}
+			agg = new gestionale.magazzino.Aggiornamento(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getString(5), isValidate);
+		}catch(SQLException e){
+		}
+		return agg;
+		
+	}
 }

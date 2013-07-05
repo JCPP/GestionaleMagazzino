@@ -1,5 +1,7 @@
-package gestionale.magazzino;
+package gestionale.magazzino.suite;
 
+import gestionale.magazzino.ControlloreTest;
+import gestionale.magazzino.EmailValidatorTest;
 import gestionale.magazzino.models.AcquistoTest;
 
 import org.junit.runner.RunWith;
