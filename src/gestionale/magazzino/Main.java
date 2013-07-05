@@ -25,11 +25,11 @@ public class Main {
             public void run() 
             {
             	
-    			conn = new Connettore();
+    			//conn = new Connettore();
     			a = 1;
     			z = 0;
-    			conn.caricadriver();
-        		conn.collegati();
+    			Connettore.caricadriver();
+    			Connettore.collegati();
         		controllo = new Controllore();
         		/**
         		 * Overridding del metodo worker,qui vengono eseguiti i thread secondari

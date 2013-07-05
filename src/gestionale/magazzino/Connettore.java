@@ -13,37 +13,48 @@ public class Connettore {
 	 */
 	public static Connection conn;
 	public static Statement stat;
-	public Connettore() {
-		super();
+	
+	private static boolean driverCaricati = false;
+	private static boolean collegamentoEffettuato = false;
+	
+	/**
+	 * Classe non istanziabile.
+	 */
+	private Connettore() {
 	}
-
 	
 	
 	/**
 	 * Ora dobbiamo caricare il driver JDBC strumento utilissimo in quanto 
 	 * traduce le operazioni java in sql e si connette con il database.
 	 */
-	public void caricadriver() {
-		try {  
-			Class.forName("org.sqlite.JDBC"); }
-		catch(ClassNotFoundException e) {
-			System.out.println(e.getMessage());
-			System.out.println("Driver SQL non trovato");
-			System.exit(1); }
+	public static void caricadriver() {
+		if(!driverCaricati){
+			try {  
+				Class.forName("org.sqlite.JDBC");
+				driverCaricati = true;
+			} catch(ClassNotFoundException e) {
+				System.out.println(e.getMessage());
+				System.out.println("Driver SQL non trovato");
+				System.exit(1);
+			}
+		}
 	}
 	
 	/**
 	 * Metodo che istaura la connessione al database già creato
 	 */
-	public void collegati(){
-		try { conn = DriverManager.getConnection("jdbc:sqlite:./database/magazzino.sqlite");
-			  stat = conn.createStatement();
-
-		}
-		catch(SQLException e) {
-			System.out.println(e.getMessage());
-			System.out.println("Collegamento non riuscito");
-			System.exit(1);
+	public static void collegati(){
+		if(!collegamentoEffettuato){
+			try {
+				conn = DriverManager.getConnection("jdbc:sqlite:./database/magazzino.sqlite");
+				stat = conn.createStatement();
+				collegamentoEffettuato = true;
+			} catch(SQLException e) {
+				System.out.println(e.getMessage());
+				System.out.println("Collegamento non riuscito");
+				System.exit(1);
+			}
 		}
 	}
 

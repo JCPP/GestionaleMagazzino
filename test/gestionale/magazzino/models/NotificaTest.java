@@ -21,7 +21,7 @@ public class NotificaTest {
 	private static gestionale.magazzino.Notifica notifica;
 	private static ArrayList<gestionale.magazzino.Notifica> notifiche;
 	private static ArrayList<Integer> idNotifiche;
-	private static Connettore connettore;
+	//private static Connettore connettore;
 	private static RandomString randomString;
 	
 	private int idNotifica;
@@ -41,9 +41,9 @@ public class NotificaTest {
 		notifiche = new ArrayList<gestionale.magazzino.Notifica>();
 		idNotifiche = new ArrayList<Integer>();
 		
-		connettore = new Connettore();
-		connettore.caricadriver();
-		connettore.collegati();
+		//connettore = new Connettore();
+		Connettore.caricadriver();
+		Connettore.collegati();
 	}
 
 	@Before

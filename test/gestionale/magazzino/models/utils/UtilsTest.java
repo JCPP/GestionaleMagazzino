@@ -15,7 +15,7 @@ public class UtilsTest {
 	private int idProdotto;
 	private int idFondo;
 	private int qta;
-	private Connettore connettore;
+	//private Connettore connettore;
 	private gestionale.magazzino.Acquisto acquisto;
 	
 	@Before
@@ -24,9 +24,9 @@ public class UtilsTest {
 		idProdotto = 2;
 		idFondo = 1;
 		qta = 120;
-		connettore = new Connettore();
-		connettore.caricadriver();
-		connettore.collegati();
+		//connettore = new Connettore();
+		Connettore.caricadriver();
+		Connettore.collegati();
 	}
 
 	@Test

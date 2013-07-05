@@ -23,7 +23,7 @@ public class ProdottoTest {
 	
 	private static gestionale.magazzino.Prodotto prodotto;
 	private static ArrayList<gestionale.magazzino.Prodotto> prodotti;
-	private static Connettore connettore;
+	//private static Connettore connettore;
 	private static RandomString randomString;
 	
 	private static String nome;
@@ -42,9 +42,8 @@ public class ProdottoTest {
 		prezzoUnita = 32.23f;
 		randomString = new RandomString(15);
 		
-		connettore = new Connettore();
-		connettore.caricadriver();
-		connettore.collegati();
+		Connettore.caricadriver();
+		Connettore.collegati();
 	}
 	
 	/**

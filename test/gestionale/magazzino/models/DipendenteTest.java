@@ -18,7 +18,7 @@ public class DipendenteTest {
 	
 	private static gestionale.magazzino.Dipendente dipendente;
 	private static ArrayList<gestionale.magazzino.Dipendente> dipendenti;
-	private static Connettore connettore;
+	//private static Connettore connettore;
 	private static RandomString randomString;
 	
 	private int idDipendente;
@@ -39,9 +39,9 @@ public class DipendenteTest {
 		email = "%s@%s.com";
 		
 		randomString = new RandomString(10);
-		connettore = new Connettore();
-		connettore.caricadriver();
-		connettore.collegati();
+		//connettore = new Connettore();
+		Connettore.caricadriver();
+		Connettore.collegati();
 	}
 	
 	/**

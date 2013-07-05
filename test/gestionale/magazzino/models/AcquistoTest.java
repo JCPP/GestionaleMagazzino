@@ -28,7 +28,7 @@ public class AcquistoTest {
 	private gestionale.magazzino.Acquisto acquisto;
 	private static ArrayList<gestionale.magazzino.Acquisto> acquisti;
 	private int dimensione;
-	private static Connettore connettore;
+	//private static Connettore connettore;
 	
 	/**
 	 * Setup del test.
@@ -41,9 +41,9 @@ public class AcquistoTest {
 		idFondo = 1;
 		qta = 120;
 		acquisti = new ArrayList<gestionale.magazzino.Acquisto>();
-		connettore = new Connettore();
-		connettore.caricadriver();
-		connettore.collegati();
+		//connettore = new Connettore();
+		Connettore.caricadriver();
+		Connettore.collegati();
 	}
 
 	/**

@@ -21,7 +21,7 @@ public class AggiornamentoTest {
 	private static gestionale.magazzino.Aggiornamento aggiornamento;
 	private static ArrayList<gestionale.magazzino.Aggiornamento> aggiornamenti;
 	private static ArrayList<Integer> idAggiornamenti; 
-	private static Connettore connettore;
+	//private static Connettore connettore;
 	
 	private static int idAggiornamento;
 	private static int idDipendente;
@@ -37,9 +37,9 @@ public class AggiornamentoTest {
 		qta = 120;
 		aggiornamenti = new ArrayList<gestionale.magazzino.Aggiornamento>();
 		idAggiornamenti = new ArrayList<Integer>();
-		connettore = new Connettore();
-		connettore.caricadriver();
-		connettore.collegati();
+		//connettore = new Connettore();
+		Connettore.caricadriver();
+		Connettore.collegati();
 	}
 
 	/**

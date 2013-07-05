@@ -21,7 +21,7 @@ public class FondoTest {
 	
 	private static gestionale.magazzino.Fondo fondo;
 	private static ArrayList<gestionale.magazzino.Fondo> fondi;
-	private static Connettore connettore;
+	//private static Connettore connettore;
 	private static RandomString randomString;
 	
 	private static float importo;
@@ -36,9 +36,9 @@ public class FondoTest {
 		fondi = new ArrayList<gestionale.magazzino.Fondo>();
 		randomString = new RandomString(12);
 		
-		connettore = new Connettore();
-		connettore.caricadriver();
-		connettore.collegati();
+		//connettore = new Connettore();
+		Connettore.caricadriver();
+		Connettore.collegati();
 	}
 	
 	@Before
