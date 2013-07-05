@@ -8,7 +8,8 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({ 
 	AcquistoTest.class,
 	AggiornamentoTest.class,
-	DipendenteTest.class
+	DipendenteTest.class,
+	FondoTest.class
 })
 public class AllModelsTests {
 

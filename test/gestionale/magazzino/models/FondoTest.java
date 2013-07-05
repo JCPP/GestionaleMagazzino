@@ -8,6 +8,7 @@ import gestionale.magazzino.Connettore;
 import gestionale.magazzino.models.utils.Utils;
 import gestionale.magazzino.utils.RandomString;
 
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -39,13 +40,17 @@ public class FondoTest {
 		connettore.caricadriver();
 		connettore.collegati();
 	}
+	
+	@Before
+	public void setUp() throws Exception {
+		nome = randomString.nextString();
+	}
 
 	/**
 	 * Verifica che l'elemento inserito corrisponda con quello letto successivamente.
 	 */
 	@Test
 	public void testInserisciFondo() {
-		nome = randomString.nextString();
 		Fondo.inserisciFondo(nome, importo);
 		idFondo = Utils.lastInsertID();
 		fondo = Fondo.visualizzaFondo(nome);
@@ -76,7 +81,6 @@ public class FondoTest {
 	 */
 	@Test
 	public void testGetIdFondo() {
-		nome = randomString.nextString();
 		Fondo.inserisciFondo(nome, importo);
 		idFondo = Utils.lastInsertID();
 		fondo = Fondo.visualizzaFondo(nome);
@@ -88,7 +92,6 @@ public class FondoTest {
 	 */
 	@Test
 	public void testVisualizzaFondo() {
-		nome = randomString.nextString();
 		Fondo.inserisciFondo(nome, importo);
 		idFondo = Utils.lastInsertID();
 		fondo = Fondo.visualizzaFondo(nome);
@@ -104,7 +107,6 @@ public class FondoTest {
 	 */
 	@Test
 	public void testCancellaFondo() {
-		nome = randomString.nextString();
 		Fondo.inserisciFondo(nome, importo);
 		idFondo = Utils.lastInsertID();
 		Fondo.cancellaFondo(nome);
