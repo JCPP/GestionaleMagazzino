@@ -1,14 +1,13 @@
 package gestionale.magazzino.suite;
 
-import gestionale.magazzino.ControlloreTest;
-import gestionale.magazzino.EmailValidatorTest;
-import gestionale.magazzino.models.AcquistoTest;
+import gestionale.magazzino.AllMainTests;
+import gestionale.magazzino.models.AllModelsTests;
+import gestionale.magazzino.models.utils.UtilsTest;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
-import com.sun.org.apache.xml.internal.serializer.utils.Utils;
 
 /**
  * Effettua tutti i test.
@@ -17,10 +16,9 @@ import com.sun.org.apache.xml.internal.serializer.utils.Utils;
  */
 @RunWith(Suite.class)
 @SuiteClasses({ 
-	ControlloreTest.class,
-	EmailValidatorTest.class,
-	AcquistoTest.class,
-	Utils.class 
+	AllMainTests.class,
+	AllModelsTests.class,
+	UtilsTest.class 
 })
 public class AllTests {
 
