@@ -116,6 +116,7 @@ public class GraficaModificaProdotto extends JFrame {
 		finestra_Modifica.setSize(300,400);
 		finestra_Modifica.setLocation(x,y);
 		finestra_Modifica.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		finestra_Modifica.setResizable(false);
 		finestra_Modifica.setVisible(true);
 	}
 	

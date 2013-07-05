@@ -30,7 +30,6 @@ public class GraficaCarrello extends JFrame  {
 	 */
 	public void init()
 	{
-		//bottone = new Boolean(false);
 		controllore = new Controllore();
 		controllore.initCarrello();
 		model = controllore.getCarrrello();

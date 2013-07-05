@@ -102,6 +102,7 @@ public class GraficaInsProdotto extends JFrame{
 		finestra_Inserimento.setLocation(x,y);
 		finestra_Inserimento.addWindowListener(new MyListener());
 		finestra_Inserimento.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		finestra_Inserimento.setResizable(false);
 		finestra_Inserimento.setVisible(true);
 		
 	}

@@ -63,6 +63,7 @@ public class GraficaResponsabile extends JFrame{
 		finestra_Responsabile.setLocation(x,y);
 		finestra_Responsabile.setBackground(Color.white);
 		finestra_Responsabile.addWindowListener(new MyListener());
+		finestra_Responsabile.setResizable(false);
 		finestra_Responsabile.setVisible(true);
 	}
 	

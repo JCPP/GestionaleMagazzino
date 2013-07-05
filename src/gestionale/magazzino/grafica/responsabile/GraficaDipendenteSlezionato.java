@@ -3,6 +3,7 @@ package gestionale.magazzino.grafica.responsabile;
 import gestionale.magazzino.MyListener;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.WindowEvent;
 
@@ -33,6 +34,8 @@ public class GraficaDipendenteSlezionato extends JFrame{
 	private JButton bottone_Modifica;
 	private JButton bottone_Annulla;
 	private JButton bottone_Rimuovi;
+	private JComboBox combo_Tipo;
+	private JComboBox combo_Stato;
 	
 	public GraficaDipendenteSlezionato()
 	{
@@ -50,6 +53,18 @@ public class GraficaDipendenteSlezionato extends JFrame{
 		
 		pannello_Dipendente = new JPanel();
 		pannello_Dipendente.setLayout(new BorderLayout());
+		
+		combo_Tipo = new JComboBox();
+		combo_Tipo.addItem("res");
+		combo_Tipo.addItem("dip");
+		combo_Tipo.setActionCommand("Combo Tipo");
+		combo_Tipo.addActionListener(new MyListener());
+		
+		combo_Stato = new JComboBox();
+		combo_Stato.addItem("Attivo");
+		combo_Stato.addItem("Disabilitato");
+		combo_Stato.setActionCommand("Combo Stato");
+		combo_Stato.addActionListener(new MyListener());
 		
 		layout = new GridBagLayout();
 		dati_Constraints = new GridBagConstraints();
@@ -110,26 +125,26 @@ public class GraficaDipendenteSlezionato extends JFrame{
 		dati_Constraints.gridy = 2;
 		pannello_Dati.add(text_Cognome,dati_Constraints);
 		
-		dati_Constraints.gridx = 2;
-		dati_Constraints.gridy = 0;
+		dati_Constraints.gridx = 0;
+		dati_Constraints.gridy = 3;
 		pannello_Dati.add(label_Email,dati_Constraints);
-		dati_Constraints.gridx = 3;
-		dati_Constraints.gridy = 0;
+		dati_Constraints.gridx = 1;
+		dati_Constraints.gridy = 3;
 		pannello_Dati.add(text_Email,dati_Constraints);
 		
-		dati_Constraints.gridx = 2;
-		dati_Constraints.gridy = 1;
+		dati_Constraints.gridx = 0;
+		dati_Constraints.gridy = 4;
 		pannello_Dati.add(label_Tipo,dati_Constraints);
-		dati_Constraints.gridx = 3;
-		dati_Constraints.gridy = 1;
-		pannello_Dati.add(text_Tipo,dati_Constraints);
+		dati_Constraints.gridx = 1;
+		dati_Constraints.gridy = 4;
+		pannello_Dati.add(combo_Tipo,dati_Constraints);
 		
-		dati_Constraints.gridx = 2;
-		dati_Constraints.gridy = 2;
+		dati_Constraints.gridx = 0;
+		dati_Constraints.gridy = 5;
 		pannello_Dati.add(label_Stato,dati_Constraints);
-		dati_Constraints.gridx = 3;
-		dati_Constraints.gridy = 2;
-		pannello_Dati.add(text_Stato,dati_Constraints);
+		dati_Constraints.gridx = 1;
+		dati_Constraints.gridy = 5;
+		pannello_Dati.add(combo_Stato,dati_Constraints);
 	
 		
 		opzioni_Constraints.fill = GridBagConstraints.HORIZONTAL;
@@ -154,6 +169,7 @@ public class GraficaDipendenteSlezionato extends JFrame{
 		finestra_DipSel.setSize(300,400);
 		finestra_DipSel.setLocation(x,y);
 		finestra_DipSel.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		finestra_DipSel.setResizable(false);
 		finestra_DipSel.setVisible(true);
 	}
 	
@@ -169,25 +185,30 @@ public class GraficaDipendenteSlezionato extends JFrame{
 	public void setNome(String n)
 	{
 		text_Nome.setText(n);
+		text_Nome.moveCaretPosition(0);
 	}
 	
 	public void setCognome(String c)
 	{
 		text_Cognome.setText(c);
+		text_Cognome.moveCaretPosition(0);
 	}
 	
 	public void setEmail(String e)
 	{
 		text_Email.setText(e);
+		text_Email.moveCaretPosition(0);
 	}
 	public void setTipo(String t)
 	{
 		text_Tipo.setText(t);
+		text_Tipo.moveCaretPosition(0);
 	}
 	
 	public void setStato(String s)
 	{
 		text_Stato.setText(s);
+		text_Stato.moveCaretPosition(0);
 	}
 	public String getID()
 	{
@@ -219,7 +240,16 @@ public class GraficaDipendenteSlezionato extends JFrame{
 		finestra_DipSel.dispatchEvent(new WindowEvent(finestra_DipSel, WindowEvent.WINDOW_DEACTIVATED));
 		finestra_DipSel.dispatchEvent(new WindowEvent(finestra_DipSel, WindowEvent.WINDOW_CLOSING));
 		finestra_DipSel.dispose();
-		
+	}
+	
+	public String getTipoScelto()
+	{
+		return this.combo_Tipo.getSelectedItem().toString();
+	}
+	
+	public String getStatoScelto()
+	{
+		return this.combo_Stato.getSelectedItem().toString();
 	}
 }
 

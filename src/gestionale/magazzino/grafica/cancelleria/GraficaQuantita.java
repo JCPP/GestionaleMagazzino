@@ -45,6 +45,7 @@ public class GraficaQuantita extends JFrame implements ActionListener{
 		finestra_Quantita.setSize(300,200);
 		finestra_Quantita.setLocation(x,y);
 		finestra_Quantita.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		finestra_Quantita.setResizable(false);
 		finestra_Quantita.setVisible(true);
 	}
 	/**

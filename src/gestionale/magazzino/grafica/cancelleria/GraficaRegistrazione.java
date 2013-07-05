@@ -61,6 +61,7 @@ public class GraficaRegistrazione extends JFrame{
 		y = (int) (dimensione.getHeight() - finestra_Registrazione.getHeight())/2;
 		
 		pannello_Registrazione = new JPanel();
+		pannello_Registrazione.setLayout(new BorderLayout());
 		
 		
 		
@@ -121,7 +122,6 @@ public class GraficaRegistrazione extends JFrame{
 		bottone_Indietro.addActionListener(new MyListener());
 		
 		dati_Constraints.fill = GridBagConstraints.HORIZONTAL;
-		dati_Constraints.weightx = 1.0;
 		dati_Constraints.gridx = 0;
 		dati_Constraints.gridy = 0;
 		pannello_Dati.add(label_Email,dati_Constraints);
@@ -176,13 +176,14 @@ public class GraficaRegistrazione extends JFrame{
 		pannello_Bottoni.add(bottone_Reset);
 		pannello_Bottoni.add(bottone_Indietro);
 		
-		pannello_Registrazione.add(pannello_Dati);
-		pannello_Registrazione.add(pannello_Bottoni);
+		pannello_Registrazione.add("Center",pannello_Dati);
+		pannello_Registrazione.add("South",pannello_Bottoni);
 		
 		finestra_Registrazione.add("Center",pannello_Registrazione);
 		finestra_Registrazione.setSize(300,400);
 		finestra_Registrazione.setLocation(x,y);
 		finestra_Registrazione.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		finestra_Registrazione.setResizable(false);
 		finestra_Registrazione.setVisible(true);
 	}
 	

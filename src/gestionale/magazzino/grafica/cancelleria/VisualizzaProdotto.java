@@ -91,9 +91,9 @@ public class VisualizzaProdotto extends JFrame{
 		while(i < fondi.size())
 		{
 			combo_Fondi.addItem(fondi.get(i).getNome());
-			combo_Fondi.setActionCommand("Fondi");
 			i++;
 		}
+		combo_Fondi.setActionCommand("Fondi");
 		combo_Fondi.addActionListener(new MyListener());
 		
 		bottone_Ordina = new JButton("Ordina");
@@ -128,6 +128,7 @@ public class VisualizzaProdotto extends JFrame{
 		finestra_Prodotto.setLocation(x,y);
 		finestra_Prodotto.addWindowListener(new MyListener());
 		finestra_Prodotto.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		finestra_Prodotto.setResizable(false);
 		finestra_Prodotto.setVisible(true);
 		
 	}
@@ -137,9 +138,9 @@ public class VisualizzaProdotto extends JFrame{
 		label_IDp.setText(s);
 	}
 	
-	public String getIDProdotto()
+	public int getIDProdotto()
 	{
-		return this.label_IDp.getText();
+		return Integer.parseInt(label_IDp.getText());
 	}
 	public void setNomeProdotto(String s)
 	{

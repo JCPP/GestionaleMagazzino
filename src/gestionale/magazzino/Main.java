@@ -139,7 +139,7 @@ public class Main {
 		 * se a == 4 siamo nella lista dipendenti
 		 */
 		
-		if(evento.endsWith("3") && a == 4)
+		if(evento.endsWith("4") && a == 4)
 		{
 			String s = evento;
 			int x = 0;

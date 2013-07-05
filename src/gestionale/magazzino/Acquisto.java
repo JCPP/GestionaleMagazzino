@@ -44,6 +44,8 @@ public class Acquisto {
 	public int getIdAcquisto() {
 		return idAcquisto;
 	}
+	
+	
 
 
 	/**
@@ -51,6 +53,19 @@ public class Acquisto {
 	 */
 	public void setIdAcquisto(int idAcquisto) {
 		this.idAcquisto = idAcquisto;
+	}
+	
+	public void setIdDipendente(int idDipendente) {
+		this.idDipendente = idDipendente;
+	}
+	
+	public void setIdProdotto(int idProdotto)
+	{
+		this.idProdotto = idProdotto;
+	}
+	public void setIdFondo(int idFondo)
+	{
+		this.idFondo = idFondo;
 	}
 
 

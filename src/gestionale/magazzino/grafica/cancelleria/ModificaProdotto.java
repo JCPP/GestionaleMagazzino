@@ -3,11 +3,14 @@ package gestionale.magazzino.grafica.cancelleria;
  * Classe che crea una finestra grafica per consetire all'utente di modificare un
  * prodotto prenotato
  */
+import gestionale.magazzino.Fondo;
 import gestionale.magazzino.MyListener;
 
 import javax.swing.*;
 
 import java.awt.*;
+import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
 public class ModificaProdotto extends JFrame {
 	private JFrame finestra_Prodotto;
@@ -28,10 +31,13 @@ public class ModificaProdotto extends JFrame {
 	private JTextField text_Quantita;
 	private JLabel label_Fondo;
 	private JTextField text_Fondo;
+	private JLabel spesa;
+	private JTextField text_Spesa;
 	private JComboBox combo_Fondi;
 	private JButton bottone_Modifica;
 	private JButton bottone_Chiudi;
 	private JButton bottone_Rimuovi;
+	private ArrayList<Fondo> fondi;
 	/**
 	 * Costruttore della classe
 	 */
@@ -68,14 +74,27 @@ public class ModificaProdotto extends JFrame {
 		label_IDp = new JLabel(" I");
 		label_Nome = new JLabel("Nome");
 		label_Nomep = new JLabel(" N");
-		label_Quantita = new JLabel("Quantita");
+		label_Quantita = new JLabel("Quantita :");
 		text_Quantita = new JTextField(5);
 		text_Quantita.setEditable(false);
 		label_Fondo = new JLabel("Fondo Scelto");
 		text_Fondo = new JTextField(5);
 		text_Fondo.setEditable(false);
-		combo_Fondi = new JComboBox();
+		spesa = new JLabel();
+		text_Spesa = new JTextField(15);
+		text_Spesa.setEditable(false);
 		
+		fondi = new ArrayList<Fondo>();
+		fondi = gestionale.magazzino.models.Fondo.visualizzaFondi();
+		combo_Fondi = new JComboBox<String>();
+		int i = 0;
+		while(i < fondi.size())
+		{
+			combo_Fondi.addItem(fondi.get(i).getNome());
+			combo_Fondi.setActionCommand("Fondi");
+			i++;
+		}
+		combo_Fondi.addActionListener(new MyListener());
 		
 		
 		bottone_Modifica = new JButton("Modifica Prodotto");
@@ -138,6 +157,7 @@ public class ModificaProdotto extends JFrame {
 		finestra_Prodotto.setSize(300,400);
 		finestra_Prodotto.setLocation(x,y);
 		finestra_Prodotto.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		finestra_Prodotto.setResizable(false);
 		finestra_Prodotto.setVisible(true);
 			
 	}
@@ -164,5 +184,57 @@ public class ModificaProdotto extends JFrame {
 		this.pannello_Dati.remove(text_Fondo);
 		this.pannello_Dati.add(combo_Fondi, dati_Constraints, -1);
 	}
-
+	
+	public void setQta(int q)
+	{
+		text_Quantita.setText(""+q);
+	}
+	
+	public void setPrezzo(float p)
+	{
+		this.text_Spesa.setText(""+p);
+	}
+	
+	public int getID()
+	{
+		return Integer.parseInt(label_IDp.getText());
+	}
+	
+	public String getNome()
+	{
+		return label_Nomep.getText();
+	}
+	
+	public int getQuantita()
+	{
+		int x = 0;
+		try
+		{
+			x = Integer.parseInt(text_Quantita.getText());
+		}catch(NumberFormatException e)
+		{
+			JOptionPane.showMessageDialog(this, "Quantita inserita non valida");
+			return -1;
+		}
+		
+		return x;
+	}
+	
+	public float getSpesa()
+	{
+		return Float.parseFloat(text_Spesa.getText());
+	}
+	
+	public void doClose()
+	{
+		finestra_Prodotto.dispatchEvent(new WindowEvent(finestra_Prodotto, WindowEvent.WINDOW_DEACTIVATED));
+		finestra_Prodotto.dispatchEvent(new WindowEvent(finestra_Prodotto, WindowEvent.WINDOW_CLOSING));
+		finestra_Prodotto.dispose();
+	}
+	
+	public String getFondoScelto()
+	{
+		return combo_Fondi.getSelectedItem().toString();
+	}
+	
 }

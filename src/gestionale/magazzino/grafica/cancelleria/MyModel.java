@@ -69,26 +69,28 @@ public class MyModel extends AbstractTableModel{
 
 	@Override
 	public boolean isCellEditable(int row, int col) {
-		System.out.println("Colonne: "+col);
-		if(col == 4)
+		//System.out.println("Colonne: "+col);
+		int i = getColumnCount();
+		System.out.println("Colonne: "+i);
+		if(i == 4)
 		{
 			switch(col)
 			{
 				case 0:
 				case 1:
 				case 2:
-				case 3:
 					return false;
 				default:
 					return true;
 			}			
 		}
-		if(col == 3)
+		if(i == 5)
 		{
 			switch (col) {
         		case 0:
         		case 1:
         		case 2:
+        		case 3:
         			return false;
         		default:
         			return true;

@@ -18,7 +18,10 @@ import gestionale.magazzino.grafica.responsabile.GraficaNotificaSelezionata;
 import gestionale.magazzino.grafica.responsabile.GraficaResponsabile;
 
 import java.awt.event.WindowEvent;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -85,7 +88,7 @@ public class Controllore {
 	private MyModel modelloDipendenti;
 	private GraficaCarrello gc;
 	private ArrayList<Prodotto> prodotti;
-	private ArrayList<Prodotto> carrello;
+	private ArrayList<Acquisto> carrello;
 	private ArrayList<Notifica> notifiche;
 	private ArrayList<Dipendente> dipendenti;
 	private GraficaAccountResponsabile gar;
@@ -99,6 +102,8 @@ public class Controllore {
 	private GraficaNotificaSelezionata gns;
 	private GraficaDipendenteSlezionato gdp;
 	private Dipendente dipSel;
+	DateFormat dateFormat;
+	Date date;
 	private int index = 0;
 	/**
 	 * Costruttore controllore
@@ -106,6 +111,8 @@ public class Controllore {
 	 */
 	public Controllore()
 	{
+		dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		date = new Date();
 		gdp = new GraficaDipendenteSlezionato();
 		gns = new GraficaNotificaSelezionata();
 		gmp = new GraficaModificaProdotto();
@@ -474,21 +481,21 @@ public class Controllore {
 		int ID;
 		String nome;
 		int qta;
-		float prezzo;
-		carrello = new ArrayList<Prodotto>();
-		//prodotti = modelsCancelleria.Prodotto.visualizzaProdotti();
-		String[] colonne = {"ID","nome","quantita","prezzo","acquista"};
+		float spesa;
+		carrello = new ArrayList<Acquisto>();
+		//carrello = gestionale.magazzino.models.Acquisto.visualizzaAcquistiDipendente(dip.getId_Dipendente());
+		String[] colonne = {"ID","Prodotto","Quantita","Spesa","Seleziona"};
 		MyModel model = new MyModel(carrello.size(),5,colonne);
 		for(int i = 0;i < carrello.size(); i++)
 		{
-			ID = prodotti.get(i).getId_Prodotto();
-			nome = prodotti.get(i).getNome();
-			qta = prodotti.get(i).getQuantità();
-			prezzo = prodotti.get(i).getPrezzo();
+			ID = carrello.get(i).getIdAcquisto();
+			nome = carrello.get(i).getNomeProdotto();
+			qta = carrello.get(i).getQta();
+			spesa = carrello.get(i).getSpesa();
 			model.setValueAt(ID, i, 0);
 			model.setValueAt(nome, i, 1);
 			model.setValueAt(qta, i, 2);
-			model.setValueAt(prezzo, i, 3);
+			model.setValueAt(spesa, i, 3);
 			model.setValueAt(Boolean.FALSE, i, 4);
 		}
 		modelloCarrello = model;
@@ -614,6 +621,8 @@ public class Controllore {
 	
 	public void showListaDip()
 	{
+		gresp.setState(true);
+		m.setTable(gresp.getTableDipendenti());
 		gresp.setPannelloSelezionato("listaDip");
 	}
 	
@@ -628,8 +637,9 @@ public class Controllore {
 	{
 		vp.setIndex(index);
 		int q = vp.getQuantitaProdotto();
+		int qins = vp.getQuantita();
 		System.out.println(q);
-		if(q > 0)
+		if(qins > 0)
 		{
 			float y = vp.getPrezzoProdotto();
 			float z = y*q;
@@ -648,10 +658,26 @@ public class Controllore {
 				f.setImporto(f.getImporto()-z);
 				gestionale.magazzino.models.Fondo.cancellaFondo(f.getNome());
 				gestionale.magazzino.models.Fondo.inserisciFondo(f.getNome(),f.getImporto());
+				prod = gestionale.magazzino.models.Prodotto.visualizzaProdotto(vp.getIDProdotto());
+				Acquisto acq = new Acquisto();
+				acq.setIdDipendente(dip.getId_Dipendente());
+				acq.setNomeDipendente(dip.getNome());
+				acq.setIdProdotto(vp.getIDProdotto());
+				acq.setNomeProdotto(vp.getNomeProdotto());
+				acq.setIdFondo(f.getId_Fondo());
+				acq.setNomeFondo(f.getNome());
+				acq.setQta(qins);
+				acq.setSpesa(z);
+				date = new Date();
+				String data = dateFormat.format(date);
+				System.out.println(data);
+				acq.setDataAcquisto(data);
+				//gestionale.magazzino.models.Acquisto.inserisciAcquisto(acq.getIdDipendente(), acq.getIdProdotto(), acq.getIdFondo(), acq.getQta());
+				JOptionPane.showMessageDialog(vp, "Prodotto aggiunto al carrello");
 				updateCatalogo(x);
 			}
 		}
-		else
+		if(q <= 0)
 		{
 			int i =JOptionPane.showConfirmDialog(vp,"Inviare una notifica al responsabile?",null,JOptionPane.YES_NO_OPTION);
 			if(i == 0)
@@ -902,7 +928,7 @@ public class Controllore {
 		int i = Integer.parseInt(gdp.getID());
 		String pass = (gestionale.magazzino.models.Dipendente.visualizzaDipendente(i).getPassword());
 		gestionale.magazzino.models.Dipendente.cancellaDipendente(i);
-		String t = gdp.getTipo();
+		String t = gdp.getTipoScelto();
 		if(t.equals("res"))
 		{
 			t = "";
@@ -915,7 +941,7 @@ public class Controllore {
 		}
 		dip.setTipo(t);
 		gestionale.magazzino.models.Dipendente.inserisciDipendente(gdp.getNome(), gdp.getCognome(), pass, gdp.getEmail(), t);
-		String s = gdp.getStato();
+		String s = gdp.getStatoScelto();
 		if(s.equals("Attivo"))
 		{
 			gestionale.magazzino.models.Dipendente.attivaDipendente(gdp.getEmail());

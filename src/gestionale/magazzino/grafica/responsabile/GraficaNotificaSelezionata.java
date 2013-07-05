@@ -65,6 +65,7 @@ public class GraficaNotificaSelezionata extends JFrame {
 		finestra_Selezionata.setLocation(x,y);
 		finestra_Selezionata.addWindowListener(new MyListener());
 		finestra_Selezionata.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		finestra_Selezionata.setResizable(false);
 		finestra_Selezionata.setVisible(true);
 	}
 	
