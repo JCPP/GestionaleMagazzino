@@ -109,4 +109,31 @@ public class Acquisto {
 		return acq;
 		
 	}
+	
+	/**
+	 * Questo metodo visualizza un singolo acquisto in base al nome del prodotto.
+	 * @param nomeProdotto nome del prodotto
+	 * @return un oggetto Acquisto
+	 */
+	public static gestionale.magazzino.Acquisto visualizzaAcquisto(String nomeProdotto){
+		que = new Querist();
+		String query = "SELECT A.idAcquisto, D.nome AS dipendente, P.nome AS prodotto, F.nome AS fondo, A.qta,A.qta * P.prezzoUnita AS spesa, A.dataAcquisto " +
+						" FROM Acquisto A, Dipendente D, Prodotto P, Fondo F " +
+						" WHERE A.idDipendente = D.idDipendente AND P.nome='"+nomeProdotto+"' AND " +
+						"A.idProdotto = P.idProdotto AND " +
+						"A.idFondo = F.idFondo ";
+		/*
+		String query = "SELECT A.idAcquisto, A.idDipendente, A.idProdotto, A.idFondo, A.qta, A.dataAcquisto, A.qta * P.prezzoUnita AS spesa " +
+				       "FROM Acquisto A, Prodotto P " +
+				       "WHERE P.idProdotto = A.idProdotto AND P.nome='"+nomeProdotto+"'";
+		System.out.println(query);*/
+		ResultSet rs = que.eseguiQuery(query);
+		gestionale.magazzino.Acquisto acq = null;
+		try{
+			acq = new gestionale.magazzino.Acquisto(rs.getInt("idAcquisto"),rs.getString("dipendente"), rs.getString("prodotto"), rs.getString("fondo"), rs.getInt("qta"), rs.getFloat("spesa"), rs.getString("dataAcquisto"));
+		}catch(SQLException e){
+		}
+		return acq;
+		
+	}
 }

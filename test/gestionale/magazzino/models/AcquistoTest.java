@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import gestionale.magazzino.Connettore;
 import gestionale.magazzino.models.utils.Utils;
+import gestionale.magazzino.utils.RandomString;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -28,7 +29,7 @@ public class AcquistoTest {
 	private gestionale.magazzino.Acquisto acquisto;
 	private static ArrayList<gestionale.magazzino.Acquisto> acquisti;
 	private int dimensione;
-	//private static Connettore connettore;
+	private static RandomString randomString;
 	
 	/**
 	 * Setup del test.
@@ -41,7 +42,7 @@ public class AcquistoTest {
 		idFondo = 1;
 		qta = 120;
 		acquisti = new ArrayList<gestionale.magazzino.Acquisto>();
-		//connettore = new Connettore();
+		randomString = new RandomString(10);
 		Connettore.caricadriver();
 		Connettore.collegati();
 	}
@@ -55,11 +56,11 @@ public class AcquistoTest {
 		idAcquisto = Utils.lastInsertID();
 		acquisto = Acquisto.visualizzaAcquisto(idAcquisto);
 		assertTrue("inserisciAcquisto() non funziona correttamente", 
-		acquisto.getIdAcquisto() == idAcquisto &&
-		acquisto.getIdDipendente() == idDipendente &&
-		acquisto.getIdProdotto() == idProdotto &&
-		acquisto.getIdFondo() == idFondo &&
-		acquisto.getQta() == qta
+			acquisto.getIdAcquisto() == idAcquisto &&
+			acquisto.getIdDipendente() == idDipendente &&
+			acquisto.getIdProdotto() == idProdotto &&
+			acquisto.getIdFondo() == idFondo &&
+			acquisto.getQta() == qta
 		);
 	}
 
@@ -89,16 +90,40 @@ public class AcquistoTest {
 	}
 
 	/**
-	 * Verifica che la dimensione aumenti di uno quando si aggiunge un acquisto di un determinato dipendente.
+	 * Verifica che l'elemento inserito corrisponda con quello letto successivamente.
 	 */
 	@Test
-	public void testVisualizzaAcquistiDipendente() {
-		acquisti = Acquisto.visualizzaAcquistiDipendente(idDipendente);
-		dimensione = acquisti.size();
+	public void testVisualizzaAcquistoInt() {
 		Acquisto.inserisciAcquisto(idDipendente, idProdotto, idFondo, qta); //Inserisce l'acquisto
+		idAcquisto = Utils.lastInsertID();
+		acquisto = Acquisto.visualizzaAcquisto(idAcquisto);
+		assertTrue("visualizzaAcquistoInt() non funziona correttamente", 
+			acquisto.getIdAcquisto() == idAcquisto &&
+			acquisto.getIdDipendente() == idDipendente &&
+			acquisto.getIdProdotto() == idProdotto &&
+			acquisto.getIdFondo() == idFondo &&
+			acquisto.getQta() == qta
+		);
+	}
+	
+	/**
+	 * Verifica che l'elemento inserito corrisponda con quello letto successivamente.
+	 */
+	@Test
+	public void testVisualizzaAcquistoString() {
+		String nome = randomString.nextString();
+		gestionale.magazzino.Prodotto prodotto;
+		Prodotto.inserisciProdotto(nome, qta, 21.4f);
+		idProdotto = Utils.lastInsertID();
 		
-		acquisti = Acquisto.visualizzaAcquistiDipendente(idDipendente);
-		assertEquals("visualizzaAcquistiDipendente() non funziona correttamente", dimensione + 1, acquisti.size());
+		Acquisto.inserisciAcquisto(idDipendente, idProdotto, idFondo, qta); //Inserisce l'acquisto
+		idAcquisto = Utils.lastInsertID();
+		acquisto = Acquisto.visualizzaAcquisto(idAcquisto);
+		prodotto = Prodotto.visualizzaProdotto(acquisto.getIdProdotto());
+		assertEquals("visualizzaAcquistoString() non funziona correttamente", 
+			prodotto.getNome(),
+			Prodotto.visualizzaProdotto(idProdotto).getNome()
+		);
 	}
 
 }
