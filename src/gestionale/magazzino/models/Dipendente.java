@@ -227,5 +227,11 @@ public class Dipendente {
 		System.out.println(query);
 		que.eseguiQueryUpdate(query);
 	}
+	
+	public static void reindexTable(){
+		que = new Querist();
+		String query = "REINDEX 'Dipendente'";
+		que.eseguiQueryUpdate(query);
+	}
 
 }

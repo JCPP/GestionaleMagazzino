@@ -110,4 +110,10 @@ public class Prodotto {
 		}
 		return pr;
 	}
+	
+	public static void reindexTable(){
+		que = new Querist();
+		String query = "REINDEX 'Prodotto'";
+		que.eseguiQueryUpdate(query);
+	}
 }

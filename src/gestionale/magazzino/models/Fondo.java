@@ -92,4 +92,10 @@ public class Fondo {
 		System.out.println(query);
 		que.eseguiQueryUpdate(query);
 	}
+	
+	public static void reindexTable(){
+		que = new Querist();
+		String query = "REINDEX 'Fondo'";
+		que.eseguiQueryUpdate(query);
+	}
 }

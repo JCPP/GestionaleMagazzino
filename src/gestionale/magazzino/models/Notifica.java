@@ -238,4 +238,10 @@ public class Notifica {
 		}
 		return notifica; 
 	}
+	
+	public static void reindexTable(){
+		que = new Querist();
+		String query = "REINDEX 'Notifica'";
+		que.eseguiQueryUpdate(query);
+	}
 }

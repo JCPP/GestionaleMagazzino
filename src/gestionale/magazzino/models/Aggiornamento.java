@@ -179,4 +179,9 @@ public class Aggiornamento {
 		return agg;
 		
 	}
+	public static void reindexTable(){
+		que = new Querist();
+		String query = "REINDEX 'Aggiornamento'";
+		que.eseguiQueryUpdate(query);
+	}
 }

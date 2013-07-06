@@ -136,4 +136,10 @@ public class Acquisto {
 		return acq;
 		
 	}
+	
+	public static void reindexTable(){
+		que = new Querist();
+		String query = "REINDEX 'Acquisto'";
+		que.eseguiQueryUpdate(query);
+	}
 }
