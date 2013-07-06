@@ -657,7 +657,7 @@ public class Controllore {
 				gestionale.magazzino.models.Fondo.inserisciFondo(f.getNome(),f.getImporto());
 				prod = gestionale.magazzino.models.Prodotto.visualizzaProdotto(vp.getIDProdotto());
 				Acquisto acq = new Acquisto();
-				acq.setIdDipendente(dip.getId_Dipendente());
+				acq.setIdDipendente(dip.getIdDipendente());
 				acq.setNomeDipendente(dip.getNome());
 				acq.setIdProdotto(vp.getIDProdotto());
 				acq.setNomeProdotto(vp.getNomeProdotto());
@@ -858,7 +858,7 @@ public class Controllore {
 		MyModel model = new MyModel(dipendenti.size(),5,colonne);
 		for(int i = 0;i < dipendenti.size(); i++)
 		{
-			idDipendente = dipendenti.get(i).getId_Dipendente();
+			idDipendente = dipendenti.get(i).getIdDipendente();
 			tipo = dipendenti.get(i).getTipo();
 			email = dipendenti.get(i).getEmail();
 			isActive = dipendenti.get(i).isActive();
@@ -901,9 +901,9 @@ public class Controllore {
 		int IdDipendente = Integer.parseInt(tabella.getValueAt(x, 0).toString());
 		Dipendente dip = new Dipendente();
 		dip = gestionale.magazzino.models.Dipendente.visualizzaDipendente(IdDipendente);
-		dipSel = new Dipendente(dip.getId_Dipendente(),dip.getNome(),dip.getCognome(),dip.getEmail(),dip.getPassword(),dip.getTipo(),dip.isActive());
+		dipSel = new Dipendente(dip.getIdDipendente(),dip.getNome(),dip.getCognome(),dip.getEmail(),dip.getPassword(),dip.getTipo(),dip.isActive());
 		gdp.init();
-		gdp.setId(""+dipSel.getId_Dipendente());
+		gdp.setId(""+dipSel.getIdDipendente());
 		gdp.setNome(""+dipSel.getNome());
 		gdp.setCognome(""+dipSel.getCognome());
 		gdp.setEmail(""+ dipSel.getEmail());

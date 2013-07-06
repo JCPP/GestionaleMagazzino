@@ -43,12 +43,6 @@ public class Dipendente {
 	 * Metodi Get e Set
 	 */
 
-	public int getId_Dipendente() {
-		return idDipendente;
-	}
-	public void setId_Dipendente(int id_Dipendente) {
-		this.idDipendente = id_Dipendente;
-	}
 	public String getNome() {
 		return nome;
 	}
@@ -79,7 +73,18 @@ public class Dipendente {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
+	/**
+	 * @return the idDipendente
+	 */
+	public int getIdDipendente() {
+		return idDipendente;
+	}
+	/**
+	 * @param idDipendente the idDipendente to set
+	 */
+	public void setIdDipendente(int idDipendente) {
+		this.idDipendente = idDipendente;
+	}
 	/**
 	 * @return the isActive
 	 */
