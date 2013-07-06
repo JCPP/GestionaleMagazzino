@@ -79,18 +79,7 @@ public class Dipendente {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	/**
-	 * @return the idDipendente
-	 */
-	public int getIdDipendente() {
-		return idDipendente;
-	}
-	/**
-	 * @param idDipendente the idDipendente to set
-	 */
-	public void setIdDipendente(int idDipendente) {
-		this.idDipendente = idDipendente;
-	}
+
 	/**
 	 * @return the isActive
 	 */
