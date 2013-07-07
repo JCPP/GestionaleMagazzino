@@ -89,7 +89,7 @@ public class Aggiornamento {
 	 * Questo metodo restituisce tutti gli Aggiornamenti ancora attivi
 	 * @return ritorna un arraylist di Aggiornamenti ancora validi
 	 */
-	static public ArrayList<gestionale.magazzino.Aggiornamento> visualizzaAggiornamentoValidi(){
+	static public ArrayList<gestionale.magazzino.Aggiornamento> visualizzaAggiornamentiValidi(){
 		que = new Querist();
 		ArrayList<gestionale.magazzino.Aggiornamento> risultato = new ArrayList<gestionale.magazzino.Aggiornamento>();
 		String query = "SELECT * " +
@@ -114,7 +114,7 @@ public class Aggiornamento {
 	 * Questo metodo restituisce tutti gli Aggiornamenti non attivi
 	 * @return ritorna un arraylist di Aggiornamenti non attivi
 	 */
-	static public ArrayList<gestionale.magazzino.Aggiornamento> visualizzaAggiornamentInvalidi(){
+	static public ArrayList<gestionale.magazzino.Aggiornamento> visualizzaAggiornamentiInvalidi(){
 		que = new Querist();
 		ArrayList<gestionale.magazzino.Aggiornamento> risultato = new ArrayList<gestionale.magazzino.Aggiornamento>();
 		String query = "SELECT * " +

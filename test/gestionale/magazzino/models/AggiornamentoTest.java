@@ -114,8 +114,8 @@ public class AggiornamentoTest {
 	 * Verifica che l'elemento inserito si sommi agli elementi validi.
 	 */
 	@Test
-	public void testVisualizzaAggiornamentoValidi() {
-		aggiornamenti = Aggiornamento.visualizzaAggiornamenti();
+	public void testVisualizzaAggiornamentiValidi() {
+		aggiornamenti = Aggiornamento.visualizzaAggiornamentiValidi();
 		dimensione = aggiornamenti.size();
 		
 		Aggiornamento.inserisciAggiornamento(idDipendente, idProdotto, qta); //Inserisce l'aggiornamento
@@ -123,7 +123,7 @@ public class AggiornamentoTest {
 		
 		Aggiornamento.validateAggiornamento(idAggiornamento); //Valida l'aggiornamento
 		
-		aggiornamenti = Aggiornamento.visualizzaAggiornamenti();
+		aggiornamenti = Aggiornamento.visualizzaAggiornamentiValidi();
 		assertEquals("visualizzaAggiornamentiValidi() non funziona correttamente", dimensione + 1, aggiornamenti.size());
 	}
 
@@ -131,8 +131,8 @@ public class AggiornamentoTest {
 	 * Verifica che l'elemento inserito si sommi agli elementi invalidi.
 	 */
 	@Test
-	public void testVisualizzaAggiornamentInvalidi() {
-		aggiornamenti = Aggiornamento.visualizzaAggiornamenti();
+	public void testVisualizzaAggiornamentiInvalidi() {
+		aggiornamenti = Aggiornamento.visualizzaAggiornamentiInvalidi();
 		dimensione = aggiornamenti.size();
 		
 		Aggiornamento.inserisciAggiornamento(idDipendente, idProdotto, qta); //Inserisce l'aggiornamento
@@ -140,8 +140,8 @@ public class AggiornamentoTest {
 		
 		Aggiornamento.invalidateAggiornamento(idAggiornamento); //Valida l'aggiornamento
 		
-		aggiornamenti = Aggiornamento.visualizzaAggiornamenti();
-		assertEquals("visualizzaAggiornamentiValidi() non funziona correttamente", dimensione + 1, aggiornamenti.size());
+		aggiornamenti = Aggiornamento.visualizzaAggiornamentiInvalidi();
+		assertEquals("visualizzaAggiornamentiInvalidi() non funziona correttamente", dimensione + 1, aggiornamenti.size());
 	}
 
 	/**
