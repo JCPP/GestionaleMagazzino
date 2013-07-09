@@ -82,7 +82,7 @@ public class ControlloreCarrello{
 		carrello = new ArrayList<Acquisto>();
 		System.out.println(dip.getIdDipendente());
 		System.out.println(dip.getNome());
-		carrello = gestionale.magazzino.models.Acquisto.visualizzaAcquisto(dip.getIdDipendente());
+		carrello = gestionale.magazzino.models.Acquisto.visualizzaAcquistiDaDipendente(dip.getIdDipendente());
 		String[] colonne = {"ID","Prodotto","Quantita","Spesa","Seleziona"};
 		MyModel model = new MyModel(carrello.size(),5,colonne);
 		for(int i = 0;i < carrello.size(); i++)

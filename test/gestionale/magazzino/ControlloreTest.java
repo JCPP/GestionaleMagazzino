@@ -1,7 +1,7 @@
 package gestionale.magazzino;
 
-import static org.junit.Assert.*;
-import gestionale.magazzino.Controllore;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -14,11 +14,11 @@ import org.junit.Test;
 public class ControlloreTest {
 	
 	private String password;
-	private Controllore controllore;
+	private gestionale.magazzino.controllore.Controllore controllore;
 
 	@Before
 	public void setUp() throws Exception {
-		controllore = new Controllore();
+		controllore = new gestionale.magazzino.controllore.Controllore();
 	}
 
 	@Test

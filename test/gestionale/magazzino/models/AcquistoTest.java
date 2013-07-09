@@ -72,7 +72,7 @@ public class AcquistoTest {
 		Acquisto.inserisciAcquisto(idDipendente, idProdotto, idFondo, qta); //Inserisce l'acquisto
 		idAcquisto = Utils.lastInsertID();
 		Acquisto.cancellaAcquisto(idAcquisto);
-		assertNull("cancellaAcquisto() non funziona correttamente", Acquisto.visualizzaAcquisto(idAcquisto));
+		assertNull("cancellaAcquisto() non funziona correttamente", Acquisto.visualizzaAcquistiDaDipendente(idAcquisto));
 	}
 
 	/**
