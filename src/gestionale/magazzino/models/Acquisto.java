@@ -54,6 +54,7 @@ public class Acquisto {
 				risultato.add(acq);
 			}
 		} catch (SQLException e) {
+			System.out.println("Eccezione: " + e);
 			gestionale.magazzino.Acquisto acq = null;
 			risultato.add(acq);
 			return risultato;
@@ -81,6 +82,7 @@ public class Acquisto {
 				risultato.add(acq);
 			}
 		} catch (SQLException e) {
+			System.out.println("Eccezione: " + e);
 			gestionale.magazzino.Acquisto acq = null;
 			risultato.add(acq);
 			return risultato;
@@ -96,15 +98,17 @@ public class Acquisto {
 	 */
 	public static gestionale.magazzino.Acquisto visualizzaAcquisto(int idAcquisto){
 		que = new Querist();
-		String query = "SELECT *" +
+		String query = "SELECT A.idAcquisto, A.idDipendente, A.idProdotto, A.idFondo, A.qta, A.dataAcquisto " +
 						" FROM Acquisto A " +
-						" WHERE A.idAcquisto='" + idAcquisto + "' AND ";
+						" WHERE A.idAcquisto='" + idAcquisto + "'";
 		System.out.println(query);
 		ResultSet rs = que.eseguiQuery(query);
 		gestionale.magazzino.Acquisto acq = null;
 		try{
-			acq = new gestionale.magazzino.Acquisto(rs.getInt("idAcquisto"),rs.getString("dipendente"), rs.getString("prodotto"), rs.getString("fondo"), rs.getInt("qta"), rs.getFloat("spesa"), rs.getString("dataAcquisto"));
+			//acq = new gestionale.magazzino.Acquisto(rs.getInt("idAcquisto"),rs.getString("dipendente"), rs.getString("prodotto"), rs.getString("fondo"), rs.getInt("qta"), rs.getFloat("spesa"), rs.getString("dataAcquisto"));
+			acq = new gestionale.magazzino.Acquisto(rs.getInt("idAcquisto"), rs.getInt("idDipendente"), rs.getInt("idProdotto"), rs.getInt("idFondo"), rs.getInt("qta"), rs.getString("dataAcquisto"));
 		}catch(SQLException e){
+			System.out.println("Eccezione: " + e);
 		}
 		return acq;
 		
