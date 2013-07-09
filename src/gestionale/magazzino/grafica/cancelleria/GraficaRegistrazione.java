@@ -182,7 +182,7 @@ public class GraficaRegistrazione extends JFrame{
 		finestra_Registrazione.add("Center",pannello_Registrazione);
 		finestra_Registrazione.setSize(300,400);
 		finestra_Registrazione.setLocation(x,y);
-		finestra_Registrazione.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		finestra_Registrazione.addWindowListener(new MyListener());
 		finestra_Registrazione.setResizable(false);
 		finestra_Registrazione.setVisible(true);
 	}

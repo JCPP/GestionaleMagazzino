@@ -3,8 +3,9 @@ package gestionale.magazzino.grafica.responsabile.pannelli;
 
 import java.awt.Color;
 
-import gestionale.magazzino.Controllore;
 import gestionale.magazzino.MyListener;
+import gestionale.magazzino.controllore.Controllore;
+import gestionale.magazzino.controllore.Responsabile.ControlloreDipendenti;
 import gestionale.magazzino.grafica.cancelleria.MyModel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -18,7 +19,7 @@ public class GraficaListaDip {
 	private JTable tabella_ListaDip;
 	private JScrollPane scroll_ListaDip;
 	private AbstractTableModel model;
-	private Controllore controllore;
+	private ControlloreDipendenti controllore;
 
 	
 	public GraficaListaDip()
@@ -33,7 +34,7 @@ public class GraficaListaDip {
 	public void init()
 	{
 
-		controllore = new Controllore();
+		controllore = new ControlloreDipendenti();
 		controllore.initListaDip();
 		model = controllore.getListaDip();
 		tabella_ListaDip = new JTable(model);

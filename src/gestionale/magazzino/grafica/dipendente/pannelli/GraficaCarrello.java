@@ -2,8 +2,11 @@ package gestionale.magazzino.grafica.dipendente.pannelli;
 /**
  * Questa classe si occupa di visualizzare il carrello spesa di un dipendente
  */
-import gestionale.magazzino.Controllore;
+import gestionale.magazzino.Dipendente;
 import gestionale.magazzino.MyListener;
+import gestionale.magazzino.controllore.Controllore;
+import gestionale.magazzino.controllore.Dipendente.ControlloreCarrello;
+import gestionale.magazzino.grafica.cancelleria.MyModel;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
@@ -17,21 +20,24 @@ public class GraficaCarrello extends JFrame  {
 	private JTable tabella_Carrello;
 	private JTableHeader tabella_Colonne;
 	private JScrollPane scroll_Carrello;
-	private Controllore controllore;
-	private AbstractTableModel model;
+	private ControlloreCarrello controllore;
+	private MyModel model;
+	private Dipendente dipendente;
 	/**
 	 * Costruttore della classe
 	 */
-	public GraficaCarrello()
+	public GraficaCarrello(Dipendente dip)
 	{
+		dipendente = new Dipendente();
+		dipendente = dip;
 	}
 	/**
 	 * Inizializzazione delle componenti grafiche
 	 */
 	public void init()
 	{
-		controllore = new Controllore();
-		controllore.initCarrello();
+		controllore = new ControlloreCarrello();
+		controllore.initCarrello(dipendente);
 		model = controllore.getCarrrello();
 		tabella_Carrello = new JTable(model);
 		tabella_Carrello.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -64,6 +70,16 @@ public class GraficaCarrello extends JFrame  {
 	public JPanel getPannello()
 	{
 		return pannello_Carrello;
+	}
+	
+	public void setDipendente(Dipendente dip)
+	{
+		dipendente = dip;
+	}
+	
+	public void updateModel(MyModel modello) {
+		model = modello;
+		tabella_Carrello.setModel(model);
 	}
 	
 

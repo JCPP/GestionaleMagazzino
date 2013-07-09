@@ -2,8 +2,9 @@ package gestionale.magazzino.grafica.responsabile.pannelli;
 /**
  * Classe che visualizza i Magazzino di un magazzino in una lista,i dati sono reperiti da un database
  */
-import gestionale.magazzino.Controllore;
 import gestionale.magazzino.MyListener;
+import gestionale.magazzino.controllore.Controllore;
+import gestionale.magazzino.controllore.Responsabile.ControlloreMagazzino;
 import gestionale.magazzino.grafica.cancelleria.MyModel;
 
 import javax.swing.*;
@@ -17,7 +18,7 @@ public class GraficaMagazzino extends JFrame  {
 	private JTable tabella_Magazzino;
 	private JScrollPane scroll_Magazzino;
 	private AbstractTableModel model;
-	private Controllore controllore;
+	private ControlloreMagazzino controllore;
 	private JPanel pannello_Dati;
 	private JPanel pannello_Opzioni;
 	private JButton bottone_Aggiungi;
@@ -33,9 +34,9 @@ public class GraficaMagazzino extends JFrame  {
 	 */
 	public void init()
 	{
-		controllore = new Controllore();
+		controllore = new ControlloreMagazzino();
 		controllore.initMagazzino();
-		model = controllore.getCatalogo();
+		model = controllore.getMagazzino();
 		tabella_Magazzino = new JTable(model);
 		tabella_Magazzino.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tabella_Magazzino.setAutoCreateRowSorter(true);

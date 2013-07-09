@@ -2,8 +2,9 @@ package gestionale.magazzino.grafica.responsabile.pannelli;
 
 import java.awt.Color;
 
-import gestionale.magazzino.Controllore;
 import gestionale.magazzino.MyListener;
+import gestionale.magazzino.controllore.Controllore;
+import gestionale.magazzino.controllore.Responsabile.ControlloreNotifiche;
 import gestionale.magazzino.grafica.cancelleria.MyModel;
 
 import javax.swing.JButton;
@@ -21,7 +22,7 @@ public class GraficaNotifiche {
 	private JTable tabella_Notifiche;
 	private JScrollPane scroll_Notifiche;
 	private AbstractTableModel model;
-	private Controllore controllore;
+	private ControlloreNotifiche controllore;
 	private JButton visualizza;
 	private JButton cancella;
 	
@@ -36,7 +37,7 @@ public class GraficaNotifiche {
 	 */
 	public void init()
 	{
-		controllore = new Controllore();
+		controllore = new ControlloreNotifiche();
 		controllore.initNotifiche();
 		model = controllore.getNotifiche();
 		tabella_Notifiche = new JTable(model);

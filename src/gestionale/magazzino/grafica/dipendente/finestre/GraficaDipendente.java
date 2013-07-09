@@ -3,7 +3,9 @@ package gestionale.magazzino.grafica.dipendente.finestre;
  * Questa classe si occupa di gestire la grafica per un dipendente
  * fornendogli un menu di navigazione
  */
+import gestionale.magazzino.Dipendente;
 import gestionale.magazzino.MyListener;
+import gestionale.magazzino.grafica.cancelleria.MyModel;
 import gestionale.magazzino.grafica.dipendente.pannelli.GraficaAccount;
 import gestionale.magazzino.grafica.dipendente.pannelli.GraficaCarrello;
 import gestionale.magazzino.grafica.dipendente.pannelli.GraficaNavigatoreDipendenti;
@@ -27,23 +29,23 @@ public class GraficaDipendente extends JFrame {
 	private CardLayout layout_Pannello;
 	private JPanel pannello_Selezionato;
 	private JPanel pannello_Navigazione;
+	private Dipendente dipendente;
 	/**
 	 * Costruttore della classe
 	 */
 	public GraficaDipendente()
 	{
-		
 	}
 	/**
 	 * inizializzazione delle componenti grafiche e visualizzazione della finestra
 	 */
-	public void init()
+	public void init(Dipendente dipendente)
 	{
 		grafica_Account = new GraficaAccount();
 		grafica_Account.init();
 		grafica_Prodotti = new GraficaProdotti();
 		grafica_Prodotti.init();
-		grafica_Carrello = new GraficaCarrello();
+		grafica_Carrello = new GraficaCarrello(dipendente);
 		grafica_Carrello.init();
 		grafica_Navigazione = new GraficaNavigatoreDipendenti();
 		grafica_Navigazione.init();
@@ -100,6 +102,10 @@ public class GraficaDipendente extends JFrame {
 		grafica_Account.setTipo(tipo);
 	}
 	
+	public void setDipendente(Dipendente dipendente)
+	{
+		grafica_Carrello.setDipendente(dipendente);
+	}
 	public JTable getTableCarrello()
 	{
 		return grafica_Carrello.getTable();
@@ -110,4 +116,13 @@ public class GraficaDipendente extends JFrame {
 		return grafica_Prodotti.getTable();
 	}
 	
+	public void updateCarrello(MyModel modello)
+	{
+		grafica_Carrello.updateModel(modello);
+	}
+	
+	public void updateCatalogo(MyModel modello)
+	{
+		grafica_Prodotti.updateModel(modello);
+	}
 }

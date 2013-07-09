@@ -1,5 +1,12 @@
 package gestionale.magazzino;
 
+
+
+import gestionale.magazzino.controllore.ControlloreLogin;
+import gestionale.magazzino.controllore.ControlloreRegistrazione;
+import gestionale.magazzino.controllore.Dipendente.ControlloreDipendente;
+import gestionale.magazzino.controllore.Responsabile.ControlloreResponsabile;
+
 import java.util.concurrent.ExecutionException;
 
 import javax.swing.SwingUtilities;
@@ -9,9 +16,11 @@ public class Main {
 	
 	private static Connettore conn;
 	private static int a;
-	private static Controllore controllo;
 	private static int z;
-
+	private static ControlloreDipendente controlloreDipendente;
+	private static ControlloreResponsabile controlloreResponsabile;
+	private static ControlloreLogin controlloreLogin;
+	private static ControlloreRegistrazione controlloreRegistrazione;
 	public static void main(String[] args) 
 	{
 		/**
@@ -26,11 +35,14 @@ public class Main {
             {
             	
     			//conn = new Connettore();
-    			a = 1;
+            	a = 1;
     			z = 0;
     			Connettore.caricadriver();
     			Connettore.collegati();
-        		controllo = new Controllore();
+    			controlloreDipendente = new ControlloreDipendente();
+        		controlloreRegistrazione = new ControlloreRegistrazione();
+        		controlloreResponsabile = new ControlloreResponsabile();
+        		controlloreLogin = new ControlloreLogin(controlloreDipendente,controlloreRegistrazione,controlloreResponsabile);
         		/**
         		 * Overridding del metodo worker,qui vengono eseguiti i thread secondari
         		 */
@@ -44,7 +56,7 @@ public class Main {
                 	protected Boolean doInBackground() throws Exception 
                 	{
                 		
-            			controllo.start();
+            			controlloreLogin.start();
                 		return true;
                 	};
   			        
@@ -90,6 +102,9 @@ public class Main {
 	 */
 	public void start(String evento)
 	{
+		
+		//Controlli legati alle finestre
+		
 		System.out.println(evento);
 		gestisciLogin(evento);
 		gestisciRegistrazione(evento);
@@ -99,6 +114,7 @@ public class Main {
 		gestisciMagazzino(evento);
 		gestisciNotifiche(evento);
 		gestisciListaDipendentei(evento);
+		
 		//controlli legati alle tabelle
 		/**
 		 * se a == 4 siamo nella lista dipendenti
@@ -111,7 +127,7 @@ public class Main {
 			int x = 0;
 			x = Integer.parseInt(s.substring(0, s.length()-1));
 			z = x;
-			controllo.showDipendente(x);
+			controlloreResponsabile.showDipendente(x);
 		}	
 		/**
 		 * se a == 3 siamo nelle notifiche
@@ -123,7 +139,7 @@ public class Main {
 			int x = 0;
 			x = Integer.parseInt(s.substring(0, s.length()-1));
 			z = x;
-			controllo.showNotifica(x);
+			controlloreResponsabile.showNotifica(x);
 		}
 		/**
 		 * se a == 2 siamo nel magazzino
@@ -135,7 +151,7 @@ public class Main {
 			int x = 0;
 			x = Integer.parseInt(s.substring(0, s.length()-1));
 			z = x;
-			controllo.showModificaProdotto(x);
+			controlloreResponsabile.showModificaProdotto(x);
 		}
 		/**
 		 * se a == 1 siamo nel catalogo
@@ -147,7 +163,7 @@ public class Main {
 			int x = 0;
 			x = Integer.parseInt(s.substring(0, s.length()-1));
 			z = x;
-			controllo.showProdotto(x);
+			controlloreDipendente.showProdotto(x);
 			
 		}
 		/**
@@ -160,28 +176,30 @@ public class Main {
 			int x = 0;
 			x = Integer.parseInt(s.substring(0, s.length()-1));
 			z = x;
-			controllo.showOrdinato(x);
+			//controlloreDipendente.showOrdinato(x);
 		}
 		
 	}
+	
 	
 	public void gestisciLogin(String evento)
 	{
 		switch(evento)
 		{
 			case "Connetti":
-				a = controllo.isConnected();
+				a = controlloreLogin.isConnected();
 				break;
 			case "Password":
-				a = controllo.isConnected();
+				a = controlloreLogin.isConnected();
 				break;
 			case "Email":
-				a = controllo.isConnected();
+				a = controlloreLogin.isConnected();
 			case "Chiudi":
-				controllo.disconnect();
+				controlloreLogin.disconnect();
+
 				break;
 			case "Registrati":
-				controllo.registering();
+				controlloreLogin.registering();
 				break;
 			default:
 				break;
@@ -193,13 +211,22 @@ public class Main {
 		switch(evento)
 		{
 			case "Indietro":
-				controllo.logging();
+				controlloreRegistrazione.dispose();
+				controlloreLogin.start();
 				break;
 			case "Reset":
-				controllo.resetRegistrazione();
+				controlloreRegistrazione.resetRegistrazione();
 				break;
 			case "Invio":
-				controllo.registered();
+				boolean b = controlloreRegistrazione.registered();
+				if(b)
+				{
+					controlloreLogin.start();
+				}
+				controlloreRegistrazione.dispose();
+				break;
+			case "dispose Registrazione":
+
 				break;
 			default:
 				break;
@@ -209,37 +236,38 @@ public class Main {
 	public void gestisciDipendente(String evento)
 	{
 	
-		/**
-		 * chiude la finestra graficaDipendente (windowListener non funzionava....)
-		 */
-		if(evento.equals("dispose Dipendente"))
-		{
-			controllo.disposeDipendente();
-		}
 		switch(evento)
 		{
 			case "Account":
-				controllo.showAccount();
+				controlloreDipendente.showAccount();
 				break;
 			case "Catalogo":
 				a = 1;
-				controllo.showCatalogo();
+				controlloreDipendente.showCatalogo();
 				break;
 			case "Carrello":
 				a = 0;
-				controllo.showCarrello();
+				controlloreDipendente.initCarrello();
+				controlloreDipendente.updateCarrello(0);		
+				controlloreDipendente.showCarrello();
 				break;
 			case "Logout":
-				controllo.doLogout();
+				controlloreDipendente.doLogout();
+				controlloreLogin.start();
 				break;
 			case "Exit":
-				controllo.disposeDipendente();
+				controlloreDipendente.dispose();
+
 				break;
 			case "Carrello Dipendente":
-				controllo.updateCarrello(z);
+				controlloreDipendente.updateCarrello(z);
 				break;
 			case "Catalogo Dipendente":
-				controllo.updateCatalogo(z);
+				controlloreDipendente.updateCatalogo(z);
+				break;
+			case "dispose Dipendente":
+				controlloreDipendente.dispose();
+
 				break;
 			default:
 				break;
@@ -251,32 +279,34 @@ public class Main {
 		switch(evento)
 		{
 			case "Account Responsabile":
-				controllo.showAccountResp();
+				controlloreResponsabile.showAccount();
 				break;
 			case "Catalogo Responsabile":
 				a = 2;
-				controllo.showMagazzino();
+				controlloreResponsabile.showMagazzino();
 				break;
 			case "Aggiungi Prodotto":
 				a = 2;
-				controllo.showOption();
+				controlloreResponsabile.showOption();
 				break;
 			case "Notifiche Responsabile":
 				a = 3;
-				controllo.showNotifiche();
+				controlloreResponsabile.showNotifiche();
 				break;
 			case "Lista Dipendenti":
 				a = 4;
-				controllo.showListaDip();
+				controlloreResponsabile.showListaDip();
 				break;
 			case "Logout Responsabile":
-				controllo.logoutResp();
+				controlloreResponsabile.doLogout();
 				break;
 			case "Exit Responsabile":
-				controllo.disposeResp();
+				controlloreResponsabile.dispose();
+
 				break;
 			case "dispose Responsabile":
-				controllo.disposeResp();
+				controlloreResponsabile.dispose();
+
 				break;
 			default:
 				break;
@@ -288,10 +318,10 @@ public class Main {
 		switch(evento)
 		{
 			case "Ordina":
-				controllo.controlloOrdine(z);
+				controlloreDipendente.controlloOrdine(z);
 				break;
 			case "Annulla":
-				controllo.gotoCatalogo(z);
+				controlloreDipendente.gotoCatalogo(z);
 				break;
 			default:
 				break;
@@ -303,25 +333,25 @@ public class Main {
 		switch(evento)
 		{
 			case "Inserisci Prodotto":
-				controllo.inserisciProdotto();
+				controlloreResponsabile.inserisciProdotto();
 				break;
 			case "Annulla Inserimento":
-				controllo.gotoMagazzino(0);
+				controlloreResponsabile.gotoMagazzino(0);
 				break;
 			case "Modifica Prodotto Responsabile":
-				controllo.modificaProdottoResponsabile();
+				controlloreResponsabile.modificaProdottoResponsabile();
 				break;
 			case "Rimuovi Prodotto Responsabile":
-				controllo.rimuoviProdottoResponsabile();
+				controlloreResponsabile.rimuoviProdottoResponsabile();
 				break;
 			case "Annulla Modifica Responsabile":
-				controllo.gotoMagazzino2();
+				controlloreResponsabile.gotoMagazzino2();
 				break;
 			case "Magazzino Responsabile":
-				controllo.updateMagazzino(z);
+				controlloreResponsabile.updateMagazzino(z);
 				break;
 			case "Modifica Prodotto":
-				controllo.updateMagazzino(z);
+				controlloreResponsabile.updateMagazzino(z);
 				break;
 			default:
 				break;
@@ -333,13 +363,13 @@ public class Main {
 		switch(evento)
 		{
 			case "Elimina Notifiche":
-				controllo.eliminaNotifica();
+				controlloreResponsabile.eliminaNotifica();
 				break;
 			case "Indietro Notifiche":
-				controllo.gotoNotifiche(z);
+				controlloreResponsabile.gotoNotifiche(z);
 				break;
 			case "Notifiche Responsabile":
-				controllo.updateNotifiche(z);
+				controlloreResponsabile.updateNotifiche(z);
 				break;
 			default:
 				break;
@@ -351,24 +381,24 @@ public class Main {
 		switch(evento)
 		{
 			case "Modifica Dipendente Responsabile":
-				controllo.modificaDipendenteResp();
+				controlloreResponsabile.modificaDipendenteResp();
 				break;
 			case "Rimuovi Dipendente Responsabile":
-				controllo.rimuoviDipendenteResp();
+				controlloreResponsabile.rimuoviDipendenteResp();
 				break;
 			case "Annulla Dipendente Responsabile":
-				controllo.gotoDipendenti();
+				controlloreResponsabile.gotoDipendenti();
 				break;
 			case "Lista":
-				controllo.updateDipendenti(z);
+				controlloreResponsabile.updateDipendenti(z);
 				break;
 			default:
 				break;
 		}
 	}
 	
-	
+	public void dispose() throws Throwable
+	{
+		super.finalize();
+	}
 }
-
-
-

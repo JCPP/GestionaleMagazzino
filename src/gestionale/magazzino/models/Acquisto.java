@@ -61,24 +61,23 @@ public class Acquisto {
 		return risultato;
 	}
 
+	
 	/**
-	 * Questo metodo visualizza gli acquisti di un dato dipendente
-	 * @param idDipendente identificativo del dipendente di cui si vogliono gli acquisti
-	 * @return un arraylist con tutti gli acquisti
+	 * Questo metodo visualizza un singolo acquisto in base al suo identificativo
+	 * @param idAcquisto identificativo dell'acquisto
+	 * @return un oggetto Acquisto
 	 */
-	static public ArrayList<gestionale.magazzino.Acquisto> visualizzaAcquistiDipendente(int idDipendente){
+	static public ArrayList<gestionale.magazzino.Acquisto> visualizzaAcquisto(int idDipendete){
 		que = new Querist();
+		String query = "SELECT A.idAcquisto, A.idDipendente, A.idProdotto, A.idFondo, A.qta, A.dataAcquisto " +
+				       "FROM Acquisto A " +
+				       "WHERE A.idDipendente = "+idDipendete;
 		ArrayList<gestionale.magazzino.Acquisto> risultato = new ArrayList<gestionale.magazzino.Acquisto>();
-		String query = "SELECT A.idAcquisto, D.nome AS dipendente, P.nome AS prodotto, F.nome AS fondo, A.qta,A.qta * P.prezzoUnita AS spesa, A.dataAcquisto " +
-				" FROM Acquisto A, Dipendente D, Prodotto P, Fondo F " +
-				" WHERE A.idDipendente = D.idDipendente AND A.idDipendente = '"+idDipendente+"' AND " +
-				"A.idProdotto = P.idProdotto AND " +
-				"A.idFondo = F.idFondo ";
 		System.out.println(query);
 		ResultSet rs = que.eseguiQuery(query);
 		try {
 			while(rs.next()){
-				gestionale.magazzino.Acquisto acq = new gestionale.magazzino.Acquisto(rs.getInt("idAcquisto"),rs.getString("dipendente"), rs.getString("prodotto"), rs.getString("fondo"), rs.getInt("qta"), rs.getFloat("spesa"), rs.getString("dataAcquisto"));
+				gestionale.magazzino.Acquisto acq = new gestionale.magazzino.Acquisto(rs.getInt("idAcquisto"),rs.getInt("idDipendente"), rs.getInt("idProdotto"), rs.getInt("idFondo"), rs.getInt("qta"),  rs.getString("dataAcquisto"));
 				risultato.add(acq);
 			}
 		} catch (SQLException e) {
@@ -87,27 +86,6 @@ public class Acquisto {
 			return risultato;
 		}
 		return risultato;
-	}
-	
-	/**
-	 * Questo metodo visualizza un singolo acquisto in base al suo identificativo
-	 * @param idAcquisto identificativo dell'acquisto
-	 * @return un oggetto Acquisto
-	 */
-	static public gestionale.magazzino.Acquisto visualizzaAcquisto(int idAcquisto){
-		que = new Querist();
-		String query = "SELECT A.idAcquisto, A.idDipendente, A.idProdotto, A.idFondo, A.qta, A.dataAcquisto " +
-				       "FROM Acquisto A " +
-				       "WHERE A.idAcquisto = "+idAcquisto;
-		System.out.println(query);
-		ResultSet rs = que.eseguiQuery(query);
-		gestionale.magazzino.Acquisto acq = null;
-		try{
-			acq = new gestionale.magazzino.Acquisto(rs.getInt("idAcquisto"), rs.getInt("idDipendente"), rs.getInt("idProdotto"), rs.getInt("idFondo"), rs.getInt("qta"), rs.getString("dataAcquisto"));
-		}catch(SQLException e){
-		}
-		return acq;
-		
 	}
 	
 	/**

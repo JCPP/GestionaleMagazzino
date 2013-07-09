@@ -2,8 +2,9 @@ package gestionale.magazzino.grafica.dipendente.pannelli;
 /**
  * Classe che visualizza i prodotti di un magazzino in una lista,i dati sono reperiti da un database
  */
-import gestionale.magazzino.Controllore;
 import gestionale.magazzino.MyListener;
+import gestionale.magazzino.controllore.Controllore;
+import gestionale.magazzino.controllore.Dipendente.ControlloreCatalogo;
 import gestionale.magazzino.grafica.cancelleria.MyModel;
 
 import javax.swing.*;
@@ -17,7 +18,7 @@ public class GraficaProdotti extends JFrame  {
 	private JTable tabella_Prodotti;
 	private JScrollPane scroll_Prodotti;
 	private MyModel model;
-	private Controllore controllore;
+	private ControlloreCatalogo controllore;
 	/**
 	 * Costruttore della classe
 	 */
@@ -30,7 +31,7 @@ public class GraficaProdotti extends JFrame  {
 	 */
 	public void init()
 	{
-		controllore = new Controllore();
+		controllore = new ControlloreCatalogo();
 		controllore.initCatalogo();
 		model = controllore.getCatalogo();
 		tabella_Prodotti = new JTable(model);
@@ -58,5 +59,10 @@ public class GraficaProdotti extends JFrame  {
 		return tabella_Prodotti;
 	}
 	
+	public void updateModel(MyModel modello)
+	{
+		model = modello;
+		tabella_Prodotti.setModel(model);
+	}
 	
 }
