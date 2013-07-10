@@ -176,7 +176,7 @@ public class Main {
 			int x = 0;
 			x = Integer.parseInt(s.substring(0, s.length()-1));
 			z = x;
-			//controlloreDipendente.showOrdinato(x);
+			controlloreDipendente.showOrdinato(x);
 		}
 		
 	}

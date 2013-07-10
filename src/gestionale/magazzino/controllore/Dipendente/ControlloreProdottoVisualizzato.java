@@ -101,6 +101,7 @@ public class ControlloreProdottoVisualizzato{
 				JOptionPane.showMessageDialog(visualizza_Prodotto, "Prodotto aggiunto al carrello");
 				controlloreCatalogo.initCatalogo();
 				grafica_Dipendente.updateCatalogo(controlloreCatalogo.getCatalogo());
+				
 			}
 		}
 		if(q <= 0)
@@ -108,8 +109,8 @@ public class ControlloreProdottoVisualizzato{
 			int i =JOptionPane.showConfirmDialog(visualizza_Prodotto,"Inviare una notifica al responsabile?",null,JOptionPane.YES_NO_OPTION);
 			if(i == 0)
 			{
-				String msg = "L'oggetto: "+visualizza_Prodotto.getNomeProdotto()+" non è disponibile in magazzino";
-				gestionale.magazzino.models.Notifica.inserisciNotifica(1, 1, msg);
+				String msg = "Oggetto: "+visualizza_Prodotto.getNomeProdotto()+" non è disponibile in magazzino";
+				gestionale.magazzino.models.Notifica.inserisciNotifica(1, dipendente.getIdDipendente(), msg);
 				JOptionPane.showMessageDialog(visualizza_Prodotto, "Notifica Inviata");
 			}
 		}
