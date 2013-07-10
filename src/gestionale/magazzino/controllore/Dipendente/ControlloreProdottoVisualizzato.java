@@ -55,7 +55,6 @@ public class ControlloreProdottoVisualizzato{
 	{
 		visualizza_Prodotto.doClose();
 		controlloreCatalogo.updateCatalogo(grafica_Dipendente,x);
-		
 	}
 	
 	public void controlloOrdine(ControlloreCatalogo controlloreCatalogo,int x,GraficaDipendente grafica_Dipendente,Dipendente dip)
@@ -105,7 +104,6 @@ public class ControlloreProdottoVisualizzato{
 				JOptionPane.showMessageDialog(visualizza_Prodotto, "Prodotto aggiunto al carrello");
 				controlloreCatalogo.initCatalogo();
 				grafica_Dipendente.updateCatalogo(controlloreCatalogo.getCatalogo());
-				
 			}
 		}
 		if(q <= 0)

@@ -23,8 +23,6 @@ public class ModificaProdotto extends JFrame {
 	private LayoutManager layout;
 	private JPanel pannello_Dati;
 	private JPanel pannello_Opzioni;
-	private JLabel label_ID;
-	private JLabel label_IDp;
 	private JLabel label_Nome;
 	private JLabel label_Nomep;
 	private JLabel label_Quantita;
@@ -70,17 +68,15 @@ public class ModificaProdotto extends JFrame {
 		pannello_Opzioni = new JPanel();
 		pannello_Opzioni.setLayout(layout);
 		
-		label_ID = new JLabel("ID");
-		label_IDp = new JLabel(" I");
 		label_Nome = new JLabel("Nome");
-		label_Nomep = new JLabel(" N");
+		label_Nomep = new JLabel(" ");
 		label_Quantita = new JLabel("Quantita :");
-		text_Quantita = new JTextField(5);
+		text_Quantita = new JTextField(15);
 		text_Quantita.setEditable(false);
 		label_Fondo = new JLabel("Fondo Scelto");
-		text_Fondo = new JTextField(5);
+		text_Fondo = new JTextField(15);
 		text_Fondo.setEditable(false);
-		spesa = new JLabel();
+		spesa = new JLabel("Totale Spesa");
 		text_Spesa = new JTextField(15);
 		text_Spesa.setEditable(false);
 		
@@ -98,7 +94,7 @@ public class ModificaProdotto extends JFrame {
 		
 		
 		bottone_Modifica = new JButton("Modifica Prodotto");
-		bottone_Modifica.setActionCommand("Modifica Prodotto");
+		bottone_Modifica.setActionCommand("Modifica Ordine");
 		bottone_Modifica.addActionListener(new MyListener());
 		bottone_Chiudi = new JButton("Chiudi");
 		bottone_Chiudi.setActionCommand("Chiudi Prodotto");
@@ -107,27 +103,27 @@ public class ModificaProdotto extends JFrame {
 		bottone_Rimuovi.setActionCommand("Rimuovi Prodotto");
 		bottone_Rimuovi.addActionListener(new MyListener());
 		
-		dati_Constraints.fill = GridBagConstraints.HORIZONTAL;
-		dati_Constraints.weightx = 1.0;
-		dati_Constraints.weighty = 1.0;
+		dati_Constraints.fill = dati_Constraints.HORIZONTAL;
+		dati_Constraints.weightx = 1;
+		dati_Constraints.insets = new Insets(50,0,0,0);
 		dati_Constraints.gridx = 0;
 		dati_Constraints.gridy = 0;
-		pannello_Dati.add(label_ID,dati_Constraints);
-		dati_Constraints.gridx = 1;
-		dati_Constraints.gridy = 0;
-		pannello_Dati.add(label_IDp,dati_Constraints);
-		dati_Constraints.gridx = 0;
-		dati_Constraints.gridy = 1;
 		pannello_Dati.add(label_Nome,dati_Constraints);
 		dati_Constraints.gridx = 1;
-		dati_Constraints.gridy = 1;
+		dati_Constraints.gridy = 0;
 		pannello_Dati.add(label_Nomep,dati_Constraints);
 		dati_Constraints.gridx = 0;
-		dati_Constraints.gridy = 2;
+		dati_Constraints.gridy = 1;
 		pannello_Dati.add(label_Quantita,dati_Constraints);
 		dati_Constraints.gridx = 1;
-		dati_Constraints.gridy = 2;
+		dati_Constraints.gridy = 1;
 		pannello_Dati.add(text_Quantita,dati_Constraints);
+		dati_Constraints.gridx = 0;
+		dati_Constraints.gridy = 2;
+		pannello_Dati.add(spesa,dati_Constraints);
+		dati_Constraints.gridx = 1;
+		dati_Constraints.gridy = 2;
+		pannello_Dati.add(text_Spesa,dati_Constraints);
 		dati_Constraints.gridx = 0;
 		dati_Constraints.gridy = 3;
 		pannello_Dati.add(label_Fondo,dati_Constraints);
@@ -175,12 +171,14 @@ public class ModificaProdotto extends JFrame {
 	public void buttonDefaultState()
 	{
 		this.bottone_Modifica.setText("Modifica Prodotto");
-		this.bottone_Modifica.setActionCommand("Modifica Prodotto");
+		this.bottone_Modifica.setActionCommand("Modifica Ordine");
 	}
 	
 	public void setModificable()
 	{
+		buttonChangeState();
 		this.text_Quantita.setEditable(true);
+		this.text_Spesa.setEditable(true);
 		this.pannello_Dati.remove(text_Fondo);
 		this.pannello_Dati.add(combo_Fondi, dati_Constraints, -1);
 	}
@@ -195,10 +193,11 @@ public class ModificaProdotto extends JFrame {
 		this.text_Spesa.setText(""+p);
 	}
 	
-	public int getID()
+	public void setNome(String n)
 	{
-		return Integer.parseInt(label_IDp.getText());
+		label_Nomep.setText(n);
 	}
+	
 	
 	public String getNome()
 	{

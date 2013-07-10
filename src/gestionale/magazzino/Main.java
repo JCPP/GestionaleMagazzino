@@ -114,6 +114,7 @@ public class Main {
 		gestisciMagazzino(evento);
 		gestisciNotifiche(evento);
 		gestisciListaDipendentei(evento);
+		gestisciCodaOrdini(evento);
 		
 		//controlli legati alle tabelle
 		/**
@@ -329,7 +330,27 @@ public class Main {
 				break;
 		}
 	}
-
+	
+	public void gestisciCodaOrdini(String evento)
+	{
+		switch(evento)
+		{
+			case "Modifica Ordine":
+				controlloreDipendente.modificaOrdine();
+				break;
+			case "Chiudi Prodotto":
+				controlloreDipendente.chiudiModifica(z);
+				break;
+			case "Rimuovi Prodotto":
+				controlloreDipendente.rimuoviProdotto();
+				break;
+			case "Conferma Prodotto":
+				controlloreDipendente.confermaOrdine();
+			default:
+				break;
+		}
+	}
+	
 	public void gestisciMagazzino(String evento)
 	{
 		switch(evento)

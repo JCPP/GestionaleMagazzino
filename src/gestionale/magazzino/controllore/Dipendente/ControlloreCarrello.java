@@ -66,6 +66,10 @@ public class ControlloreCarrello{
 	
 	public MyModel getCarrrello()
 	{
+		if(modelloCarrello == null){
+			System.out.println("Sembra null!");
+		}
+		
 		return modelloCarrello;
 	}
 	
@@ -84,21 +88,36 @@ public class ControlloreCarrello{
 		System.out.println(dip.getNome());
 		carrello = gestionale.magazzino.models.Acquisto.visualizzaAcquistiDaDipendente(dip.getIdDipendente());
 		String[] colonne = {"ID","Prodotto","Quantita","Spesa","Seleziona"};
-		MyModel model = new MyModel(carrello.size(),5,colonne);
-		for(int i = 0;i < carrello.size(); i++)
+		
+		if(carrello.size() > 0)
 		{
-			IDA = carrello.get(i).getIdAcquisto();
-			IDP = carrello.get(i).getIdProdotto();
-			p = gestionale.magazzino.models.Prodotto.visualizzaProdotto(IDP);
-			QTA = carrello.get(i).getQta();
-			IDF = carrello.get(i).getIdFondo();
-			spesa = QTA * p.getPrezzo();
-			model.setValueAt(IDA, i, 0);
-			model.setValueAt(p.getNome(), i, 1);
-			model.setValueAt(QTA, i, 2);
-			model.setValueAt(spesa, i, 3);
-			model.setValueAt(Boolean.FALSE, i, 4);
+			MyModel model = new MyModel(carrello.size(),5,colonne);
+			for(int i = 0;i < carrello.size(); i++)
+			{
+				IDA = carrello.get(i).getIdAcquisto();
+				IDP = carrello.get(i).getIdProdotto();
+				p = gestionale.magazzino.models.Prodotto.visualizzaProdotto(IDP);
+				QTA = carrello.get(i).getQta();
+				IDF = carrello.get(i).getIdFondo();
+				spesa = QTA * p.getPrezzo();
+				model.setValueAt(IDA, i, 0);
+				model.setValueAt(p.getNome(), i, 1);
+				model.setValueAt(QTA, i, 2);
+				model.setValueAt(spesa, i, 3);
+				model.setValueAt(Boolean.FALSE, i, 4);
+				modelloCarrello = model;
+			}
 		}
-		modelloCarrello = model;
+		else
+		{
+			MyModel model = new MyModel(1,5,colonne);
+			model.setValueAt(" ", 0, 0);
+			model.setValueAt(" ", 0, 1);
+			model.setValueAt(" ", 0, 2);
+			model.setValueAt(" ", 0, 3);
+			model.setValueAt(" ", 0, 4);
+			modelloCarrello = model;
+		}
+		
 	}
 }

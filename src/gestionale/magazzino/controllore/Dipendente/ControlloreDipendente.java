@@ -13,6 +13,7 @@ public class ControlloreDipendente{
 	private ControlloreCarrello controlloreCarrello;
 	private ControlloreCatalogo controlloreCatalogo;
 	private ControlloreProdottoVisualizzato controlloreProdottoVisualizzato;
+	private ControlloProdottoModficato controlloreProdottoModificato;
 	private GraficaDipendente grafica_Dipendente;
 	private Dipendente dipendente;
 	
@@ -22,6 +23,7 @@ public class ControlloreDipendente{
 		controlloreCarrello = new ControlloreCarrello();
 		controlloreCatalogo = new ControlloreCatalogo();
 		controlloreProdottoVisualizzato = new ControlloreProdottoVisualizzato(dipendente);
+		controlloreProdottoModificato = new ControlloProdottoModficato(dipendente);
 		dipendente = new Dipendente();
 		grafica_Dipendente = new GraficaDipendente();
 	}
@@ -122,13 +124,32 @@ public class ControlloreDipendente{
 		controlloreProdottoVisualizzato.controlloOrdine(controlloreCatalogo,x,grafica_Dipendente,dipendente);
 		controlloreCarrello.initCarrello(dipendente);
 		grafica_Dipendente.updateCarrello(controlloreCarrello.getCarrrello());
-		
+
 	}
 	
 	//Modifica Prodotto
 	
 	public void showOrdinato(int x)
 	{
+		controlloreProdottoModificato.showOrdinato(grafica_Dipendente, x);
+	}
+
+	public void rimuoviProdotto() {
+		controlloreProdottoModificato.cancellaOrdine(controlloreCarrello,grafica_Dipendente,dipendente);
+		
+	}
+
+	public void chiudiModifica(int x) {
+		controlloreProdottoModificato.gotoCarrello(controlloreCarrello, x, grafica_Dipendente);
+		
+	}
+
+	public void modificaOrdine() {
+		controlloreProdottoModificato.modifcaOrdine();
+	}
+
+	public void confermaOrdine() {
+		
 		
 	}
 }
