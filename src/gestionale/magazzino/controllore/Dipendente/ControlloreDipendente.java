@@ -122,6 +122,7 @@ public class ControlloreDipendente{
 		controlloreProdottoVisualizzato.controlloOrdine(controlloreCatalogo,x,grafica_Dipendente,dipendente);
 		controlloreCarrello.initCarrello(dipendente);
 		grafica_Dipendente.updateCarrello(controlloreCarrello.getCarrrello());
+		
 	}
 	
 	//Modifica Prodotto

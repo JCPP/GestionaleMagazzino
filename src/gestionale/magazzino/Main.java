@@ -194,6 +194,7 @@ public class Main {
 				break;
 			case "Email":
 				a = controlloreLogin.isConnected();
+				break;
 			case "Chiudi":
 				controlloreLogin.disconnect();
 				System.exit(0);
@@ -258,9 +259,11 @@ public class Main {
 				System.exit(0);
 				break;
 			case "Carrello Dipendente":
+				a = 0;
 				controlloreDipendente.updateCarrello(z);
 				break;
 			case "Catalogo Dipendente":
+				a = 1;
 				controlloreDipendente.updateCatalogo(z);
 				break;
 			case "dispose Dipendente":

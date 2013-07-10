@@ -66,6 +66,10 @@ public class ControlloreProdottoVisualizzato{
 		int quantita = q - qins;
 		System.out.println(q);
 		System.out.println("quantita" +quantita);
+		if(quantita <0)
+		{
+			JOptionPane.showMessageDialog(visualizza_Prodotto, "Quantita richiesta non disponibile");
+		}
 		if(qins > 0 && q > 0 && quantita >= 0)
 		{
 			float y = visualizza_Prodotto.getPrezzoProdotto();
