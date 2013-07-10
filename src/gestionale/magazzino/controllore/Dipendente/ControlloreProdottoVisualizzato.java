@@ -83,9 +83,7 @@ public class ControlloreProdottoVisualizzato{
 				visualizza_Prodotto.doClose();
 				f.setImporto(f.getImporto()-z);
 				gestionale.magazzino.models.Fondo.cancellaFondo(f.getNome());
-				gestionale.magazzino.models.Fondo.inserisciFondo(f.getNome(),f.getImporto());
-				prodotto = gestionale.magazzino.models.Prodotto.visualizzaProdotto(visualizza_Prodotto.getIDProdotto());
-				prodotto.setQuantità(quantita);
+				gestionale.magazzino.models.Fondo.inserisciFondo(f.getNome(),f.getImporto()); //editable
 				gestionale.magazzino.models.Prodotto.modificaQuantitaProdotto(visualizza_Prodotto.getNomeProdotto(), -qins);
 				Acquisto acq = new Acquisto();
 				acq.setIdDipendente(dipendente.getIdDipendente());
@@ -98,13 +96,11 @@ public class ControlloreProdottoVisualizzato{
 				acq.setSpesa(z);
 				date = new Date();
 				String data = dateFormat.format(date);
-				System.out.println(data);
 				acq.setDataAcquisto(data);
-				gestionale.magazzino.models.Acquisto.inserisciAcquisto(acq.getIdDipendente(), acq.getIdProdotto(), acq.getIdFondo(), acq.getQta());
+				gestionale.magazzino.models.Acquisto.inserisciAcquisto(acq.getIdDipendente(), acq.getIdProdotto(), acq.getIdFondo(),qins);
 				JOptionPane.showMessageDialog(visualizza_Prodotto, "Prodotto aggiunto al carrello");
 				controlloreCatalogo.initCatalogo();
-				grafica_Dipendente.updateCarrello(controlloreCatalogo.getCatalogo());
-				controlloreCatalogo.updateCatalogo(grafica_Dipendente,x);
+				grafica_Dipendente.updateCatalogo(controlloreCatalogo.getCatalogo());
 			}
 		}
 		if(q <= 0)

@@ -36,7 +36,6 @@ public class FondoTest {
 		fondi = new ArrayList<gestionale.magazzino.Fondo>();
 		randomString = new RandomString(12);
 		
-		//connettore = new Connettore();
 		Connettore.caricadriver();
 		Connettore.collegati();
 	}

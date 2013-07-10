@@ -74,7 +74,8 @@ public class MyListener implements ActionListener,MouseListener,WindowListener{
 	@Override
 	public void windowClosed(WindowEvent evt) {
 		// TODO Auto-generated method stub
-
+		String s = evt.getSource().toString();
+		System.out.println("Source closed: " + s);
 	}
 	@Override
 	public void windowClosing(WindowEvent evt) {

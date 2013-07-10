@@ -196,7 +196,7 @@ public class Main {
 				a = controlloreLogin.isConnected();
 			case "Chiudi":
 				controlloreLogin.disconnect();
-
+				System.exit(0);
 				break;
 			case "Registrati":
 				controlloreLogin.registering();
@@ -246,9 +246,7 @@ public class Main {
 				controlloreDipendente.showCatalogo();
 				break;
 			case "Carrello":
-				a = 0;
-				controlloreDipendente.initCarrello();
-				controlloreDipendente.updateCarrello(0);		
+				a = 0;		
 				controlloreDipendente.showCarrello();
 				break;
 			case "Logout":
@@ -257,7 +255,7 @@ public class Main {
 				break;
 			case "Exit":
 				controlloreDipendente.dispose();
-
+				System.exit(0);
 				break;
 			case "Carrello Dipendente":
 				controlloreDipendente.updateCarrello(z);
@@ -302,6 +300,7 @@ public class Main {
 				break;
 			case "Exit Responsabile":
 				controlloreResponsabile.dispose();
+				System.exit(0);
 
 				break;
 			case "dispose Responsabile":

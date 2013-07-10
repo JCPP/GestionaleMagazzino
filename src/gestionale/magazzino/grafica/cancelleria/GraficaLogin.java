@@ -130,7 +130,7 @@ public class GraficaLogin extends JFrame {
 		finestra_Login.add(pannello_Login);
 		finestra_Login.setSize(300,400);
 		finestra_Login.setLocation(x, y);
-		finestra_Login.addWindowListener(new MyListener());
+		finestra_Login.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		finestra_Login.setResizable(false);
 		finestra_Login.setVisible(true);
 		
