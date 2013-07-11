@@ -1,4 +1,4 @@
-package gestionale.magazzino.controllore.Dipendente;
+package gestionale.magazzino.controllore.dipendente;
 
 import gestionale.magazzino.Dipendente;
 import gestionale.magazzino.grafica.dipendente.finestre.GraficaDipendente;

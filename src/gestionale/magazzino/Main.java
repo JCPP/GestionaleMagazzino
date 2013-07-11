@@ -4,8 +4,8 @@ package gestionale.magazzino;
 
 import gestionale.magazzino.controllore.ControlloreLogin;
 import gestionale.magazzino.controllore.ControlloreRegistrazione;
-import gestionale.magazzino.controllore.Dipendente.ControlloreDipendente;
-import gestionale.magazzino.controllore.Responsabile.ControlloreResponsabile;
+import gestionale.magazzino.controllore.dipendente.ControlloreDipendente;
+import gestionale.magazzino.controllore.responsabile.ControlloreResponsabile;
 
 import java.util.concurrent.ExecutionException;
 

@@ -2,9 +2,9 @@ package gestionale.magazzino.controllore;
 
 import gestionale.magazzino.Dipendente;
 import gestionale.magazzino.MyListener;
-import gestionale.magazzino.controllore.Dipendente.ControlloreAccount;
-import gestionale.magazzino.controllore.Dipendente.ControlloreDipendente;
-import gestionale.magazzino.controllore.Responsabile.ControlloreResponsabile;
+import gestionale.magazzino.controllore.dipendente.ControlloreAccount;
+import gestionale.magazzino.controllore.dipendente.ControlloreDipendente;
+import gestionale.magazzino.controllore.responsabile.ControlloreResponsabile;
 import gestionale.magazzino.grafica.cancelleria.GraficaLogin;
 import gestionale.magazzino.grafica.cancelleria.GraficaRegistrazione;
 import gestionale.magazzino.grafica.dipendente.finestre.GraficaDipendente;

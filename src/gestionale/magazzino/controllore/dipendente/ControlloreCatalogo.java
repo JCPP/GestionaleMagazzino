@@ -1,4 +1,4 @@
-package gestionale.magazzino.controllore.Dipendente;
+package gestionale.magazzino.controllore.dipendente;
 
 import java.util.ArrayList;
 

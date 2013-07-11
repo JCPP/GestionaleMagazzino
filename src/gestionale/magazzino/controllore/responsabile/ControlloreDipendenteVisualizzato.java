@@ -1,4 +1,4 @@
-package gestionale.magazzino.controllore.Responsabile;
+package gestionale.magazzino.controllore.responsabile;
 
 import gestionale.magazzino.Dipendente;
 import gestionale.magazzino.grafica.responsabile.finestre.GraficaDipendenteSlezionato;

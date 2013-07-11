@@ -4,7 +4,7 @@ import java.awt.Color;
 
 import gestionale.magazzino.MyListener;
 import gestionale.magazzino.controllore.Controllore;
-import gestionale.magazzino.controllore.Responsabile.ControlloreNotifiche;
+import gestionale.magazzino.controllore.responsabile.ControlloreNotifiche;
 import gestionale.magazzino.grafica.cancelleria.MyModel;
 
 import javax.swing.JButton;

@@ -5,7 +5,7 @@ import java.awt.Color;
 
 import gestionale.magazzino.MyListener;
 import gestionale.magazzino.controllore.Controllore;
-import gestionale.magazzino.controllore.Responsabile.ControlloreDipendenti;
+import gestionale.magazzino.controllore.responsabile.ControlloreDipendenti;
 import gestionale.magazzino.grafica.cancelleria.MyModel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;

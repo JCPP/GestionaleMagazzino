@@ -5,7 +5,7 @@ package gestionale.magazzino.grafica.dipendente.pannelli;
 import gestionale.magazzino.Dipendente;
 import gestionale.magazzino.MyListener;
 import gestionale.magazzino.controllore.Controllore;
-import gestionale.magazzino.controllore.Dipendente.ControlloreCarrello;
+import gestionale.magazzino.controllore.dipendente.ControlloreCarrello;
 import gestionale.magazzino.grafica.cancelleria.MyModel;
 
 import javax.swing.*;
