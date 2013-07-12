@@ -33,38 +33,43 @@ public class ControlloreDipendenteVisualizzato {
 	
 	public void modificaDipendenteResp(GraficaResponsabile grafica_Responsabile,ControlloreDipendenti controlloreDipendenti) 
 	{
-		Dipendente dip = new Dipendente();
-		int i = Integer.parseInt(grafica_DipSel.getID());
-		String pass = (gestionale.magazzino.models.Dipendente.visualizzaDipendente(i).getPassword());
-		gestionale.magazzino.models.Dipendente.cancellaDipendente(i);
-		String t = grafica_DipSel.getTipoScelto();
-		if(t.equals("res"))
+		int j = JOptionPane.showConfirmDialog(grafica_DipSel, "Si stanno modificando i dati di un dipendnete,continuare?",null,JOptionPane.YES_NO_OPTION);
+		if(j == 0)
 		{
-			t = "";
-			t = "responsabile";
-		}
-		else
-		{
-			t = "";
-			t = "dipendente";
-		}
-		dip.setTipo(t);
-		gestionale.magazzino.models.Dipendente.inserisciDipendente(grafica_DipSel.getNome(), grafica_DipSel.getCognome(), pass, grafica_DipSel.getEmail(), t);
-		String s = grafica_DipSel.getStatoScelto();
-		if(s.equals("Attivo"))
-		{
-			gestionale.magazzino.models.Dipendente.attivaDipendente(grafica_DipSel.getEmail());
-		}
-		else
-		{
-			gestionale.magazzino.models.Dipendente.disattivaDipendente(grafica_DipSel.getEmail());
+			Dipendente dip = new Dipendente();
+			int i = Integer.parseInt(grafica_DipSel.getID());
+			String pass = (gestionale.magazzino.models.Dipendente.visualizzaDipendente(i).getPassword());
+			gestionale.magazzino.models.Dipendente.cancellaDipendente(i);
+			String t = grafica_DipSel.getTipoScelto();
+			if(t.equals("res"))
+			{
+				t = "";
+				t = "responsabile";
+			}
+			else
+			{
+				t = "";
+				t = "dipendente";
+			}
+			dip.setTipo(t);
+			gestionale.magazzino.models.Dipendente.inserisciDipendente(grafica_DipSel.getNome(), grafica_DipSel.getCognome(), pass, grafica_DipSel.getEmail(), t);
+			String s = grafica_DipSel.getStatoScelto();
+			if(s.equals("Attivo"))
+			{
+				gestionale.magazzino.models.Dipendente.attivaDipendente(grafica_DipSel.getEmail());
+			}
+			else
+			{
+				gestionale.magazzino.models.Dipendente.disattivaDipendente(grafica_DipSel.getEmail());
+			}
+			
+			dip = null;
+			grafica_DipSel.doClose();
+			controlloreDipendenti.initListaDip();
+			grafica_Responsabile.updateDipendenti(controlloreDipendenti.getListaDip());
+			controlloreDipendenti.updateDipendenti(grafica_Responsabile,0);
 		}
 		
-		dip = null;
-		grafica_DipSel.doClose();
-		controlloreDipendenti.initListaDip();
-		grafica_Responsabile.updateDipendenti(controlloreDipendenti.getListaDip());
-		controlloreDipendenti.updateDipendenti(grafica_Responsabile,0);
 	}
 	
 	public void showDipendente(GraficaResponsabile grafica_Responsabile,int x)

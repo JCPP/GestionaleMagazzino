@@ -1,5 +1,6 @@
 package gestionale.magazzino.controllore.responsabile;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
 import gestionale.magazzino.Prodotto;
@@ -27,12 +28,21 @@ public class ControlloreProdotto {
 		String nome = grafica_InsProdotto.getNome();
 		int qta = grafica_InsProdotto.getQuantita();
 		float prezzo = grafica_InsProdotto.getPrezzo();
-		gestionale.magazzino.models.Prodotto.inserisciProdotto(nome, qta, prezzo);
-		controlloreMagazzino.initMagazzino();
-		grafica_Responsabile.updateMagazzino(controlloreMagazzino.getMagazzino());
-		grafica_InsProdotto.doClose();
-		
-		
+		if(nome.equals(null) || nome.equals(""))
+		{
+			JOptionPane.showMessageDialog(grafica_InsProdotto, "Nome non valido");
+		}else if(prezzo == 0)
+		{
+			
+		}else
+		{
+			gestionale.magazzino.models.Prodotto.inserisciProdotto(nome, qta, prezzo);
+			JOptionPane.showMessageDialog(grafica_InsProdotto, "Prodotto aggiunto al magazzino");
+			controlloreMagazzino.initMagazzino();
+			grafica_Responsabile.updateMagazzino(controlloreMagazzino.getMagazzino());
+			grafica_InsProdotto.doClose();
+		}
+	
 	}
 	
 	public void gotoMagazzino(GraficaResponsabile grafica_Responsabile,ControlloreMagazzino controlloreMagazzino,int x)

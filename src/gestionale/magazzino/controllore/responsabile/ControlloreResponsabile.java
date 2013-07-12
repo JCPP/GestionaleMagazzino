@@ -52,7 +52,7 @@ public class ControlloreResponsabile {
 	
 	public void dispose()
 	{
-		
+		grafica_Responsabile.disposeF();
 	}
 	
 	//Account

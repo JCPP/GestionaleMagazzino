@@ -310,15 +310,14 @@ public class Main {
 				break;
 			case "Logout Responsabile":
 				controlloreResponsabile.doLogout();
+				controlloreLogin.start();
 				break;
 			case "Exit Responsabile":
 				controlloreResponsabile.dispose();
 				System.exit(0);
-
 				break;
 			case "dispose Responsabile":
 				controlloreResponsabile.dispose();
-
 				break;
 			default:
 				break;
