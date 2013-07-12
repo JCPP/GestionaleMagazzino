@@ -120,7 +120,7 @@ public class ControlloreCarrello{
 	public void flusCarrello(GraficaDipendente grafica_Dipendente)
 	{
 		int j = JOptionPane.showConfirmDialog(grafica_Dipendente,"Si stanno per acquistare " +
-												"tutti gli oggetti presenti nel carrello sicuri di" +
+												"tutti gli oggetti presenti nel carrello. Sicuro di " +
 												"voler continuare?",null,JOptionPane.YES_NO_OPTION);
 		if(j == 0)
 		{
