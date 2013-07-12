@@ -14,7 +14,7 @@ public class Fondo {
 	 * @param nome nome del fondo
 	 * @param fondoDisponibile l'importo ancora disponibile per il fondo
 	 */
-	static public void inserisciFondo(String nome,float fondoDisponibile){
+	public static void inserisciFondo(String nome,float fondoDisponibile){
 		que = new Querist();
 		String query = "INSERT INTO Fondo(nome,fondoDisponibile) VALUES"+
 				"('"+nome+"',"+fondoDisponibile+")";
@@ -25,7 +25,7 @@ public class Fondo {
 	 * Questo metodo restituisce i nomi dei fondi presenti nel database aventi un fondo disponibile maggiore di 0
 	 * @return Il ritorno è un arraylist di stringhe contenenti i risultati, in caso di errore ritorna l'arraylist con il messaggio di errore
 	 */
-	static public ArrayList<gestionale.magazzino.Fondo> visualizzaFondi (){
+	public static ArrayList<gestionale.magazzino.Fondo> visualizzaFondi (){
 		que = new Querist();
 		String query = "SELECT F.idFondo, F.Nome , F.fondoDisponibile " +
 					   "FROM Fondo F " +
@@ -51,7 +51,7 @@ public class Fondo {
 	 * @param nomeFondo nome del fondo di cui si vuole l'identificatore
 	 * @return l'indice del fondo voluto
 	 */
-	static public int getIdFondo (String nomeFondo){
+	public static int getIdFondo (String nomeFondo){
 		que = new Querist();
 		int id = 0;
 		String query = "SELECT F.idFondo " +
@@ -67,7 +67,12 @@ public class Fondo {
 		return id;
 	}
 	
-	static public gestionale.magazzino.Fondo visualizzaFondo(String nome){
+	/**
+	 * Restituisce un fondo in base al suo nome.
+	 * @param nome il nome del fondo
+	 * @return Restituisce il fondo in base al suo nome.
+	 */
+	public static gestionale.magazzino.Fondo visualizzaFondo(String nome){
 		que = new Querist();
 		String query = "SELECT * " +
 					   "FROM Fondo F " +
@@ -84,7 +89,29 @@ public class Fondo {
 		return fondo;
 	}
 	
-	static public void cancellaFondo(String nome){
+	/**
+	 * Restituisce un fondo in base al suo id.
+	 * @param idFondo l'id del fondo
+	 * @return Restituisce il fondo in base al suo id.
+	 */
+	public static gestionale.magazzino.Fondo visualizzaFondo(int idFondo){
+		que = new Querist();
+		String query = "SELECT * " +
+					   "FROM Fondo F " +
+					   "WHERE F.idFondo = '"+idFondo+"'";
+		ResultSet rs = que.eseguiQuery(query);
+		System.out.println(query);
+		gestionale.magazzino.Fondo fondo;
+		try{
+			fondo = new gestionale.magazzino.Fondo(rs.getInt("idFondo"), rs.getString("nome"), rs.getFloat("fondoDisponibile"));
+		}catch(SQLException e){
+			fondo = null;
+		}
+		
+		return fondo;
+	}
+	
+	public static void cancellaFondo(String nome){
 		que = new Querist();
 		String query = "DELETE " +
 				       "FROM Fondo " +

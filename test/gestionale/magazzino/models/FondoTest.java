@@ -100,6 +100,21 @@ public class FondoTest {
 				fondo.getId_Fondo() == idFondo
 		);
 	}
+	
+	/**
+	 * Verifica che un fondo sia leggibile dopo un inserimento.
+	 */
+	@Test
+	public void testVisualizzaFondoInt() {
+		Fondo.inserisciFondo(nome, importo);
+		idFondo = Utils.lastInsertID();
+		fondo = Fondo.visualizzaFondo(idFondo);
+		assertTrue("visualizzaFondoInt() non funziona correttamente", 
+				fondo.getNome().equals(nome) &&
+				fondo.getImporto() == importo &&
+				fondo.getId_Fondo() == idFondo
+		);
+	}
 
 	/**
 	 * Verifica che l'elemento inserito venga cancellato.
