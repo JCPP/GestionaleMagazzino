@@ -125,4 +125,18 @@ public class Fondo {
 		String query = "REINDEX 'Fondo'";
 		que.eseguiQueryUpdate(query);
 	}
+	
+	/**
+	 * Questo metodo permette di cambiare il prezzo di un fondo
+	 * @param idFondo identificativo del fondo
+	 * @param importo nuovo importo
+	 */
+	public static void cambiaImporto (int idFondo, float importo){
+		que = new Querist();
+		String query = "UPDATE Fondo " +
+					   "SET fondoDisponibile = " +importo+" "+
+					   "WHERE idFondo = "+idFondo;
+		System.out.println(query);
+		que.eseguiQueryUpdate(query);
+	}
 }

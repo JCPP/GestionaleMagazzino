@@ -116,4 +116,18 @@ public class Prodotto {
 		String query = "REINDEX 'Prodotto'";
 		que.eseguiQueryUpdate(query);
 	}
+	
+	/**
+	 * Questo metodo permette di cambiare il nome di un prodotto
+	 * @param idProdotto identificativo del prodotto
+	 * @param nome nuovo nome
+	 */
+	public static void cambiaNomeProdotto (int idProdotto, String nome){
+		que = new Querist();
+		String query = "UPDATE Prodotto " +
+					   "SET nome = '" +nome+"' "+
+					   "WHERE idProdotto = "+idProdotto;
+		System.out.println(query);
+		que.eseguiQueryUpdate(query);
+	}
 }

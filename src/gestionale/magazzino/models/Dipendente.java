@@ -201,6 +201,11 @@ public class Dipendente {
 		return dip;
 	}
 	
+	/**
+	 * Questo metodo visualizza un singolo dipendente da visualizzare
+	 * @param idDipendente identificativo del dipendente da visualizzare
+	 * @return un oggetto Dipendente
+	 */
 	static public gestionale.magazzino.Dipendente visualizzaDipendente(int idDipendente){
 		que = new Querist();
 		String query = "SELECT * " +
@@ -219,11 +224,15 @@ public class Dipendente {
 		return dip;
 	}
 	
-	static public void cancellaDipendente(int id){
+	/**
+	 * Questo metodo cancella un dipendente dal database
+	 * @param idDipendente identificativo del dipendente da cancellare
+	 */
+	static public void cancellaDipendente(int idDipendente){
 		que = new Querist();
 		String query = "DELETE " +
 				       "FROM Dipendente " +
-				       "WHERE Dipendente.idDipendente = '"+id+"'";
+				       "WHERE Dipendente.idDipendente = '"+idDipendente+"'";
 		System.out.println(query);
 		que.eseguiQueryUpdate(query);
 	}
@@ -234,4 +243,71 @@ public class Dipendente {
 		que.eseguiQueryUpdate(query);
 	}
 
+	/**
+	 * Questo metodo modificherà il tipo di dipendente in responsabile
+	 * @param idDipendente identificativo del dipendente
+	 */
+	public static void setResponsabile(int idDipendente){
+		que = new Querist();
+		String query = "UPDATE Dipendente " +
+					   "SET tipo = 'responsabile' " +
+					   "WHERE idDipendente = "+idDipendente;
+		System.out.println(query);
+		que.eseguiQueryUpdate(query);
+	}
+	
+	/**
+	 * Questo metodo modificherà il tipo di responsabile in dipendente
+	 * @param idDipendente identificativo del dipendente
+	 */
+	public static void setDipendente(int idDipendente){
+		que = new Querist();
+		String query = "UPDATE Dipendente " +
+					   "SET tipo = 'dipendente' " +
+					   "WHERE idDipendente = "+idDipendente;
+		System.out.println(query);
+		que.eseguiQueryUpdate(query);
+	}
+	
+	/**
+	 * Questo metodo permette di cambiare l'email di un dipendente
+	 * @param idDipendente identificativo del dipendente
+	 * @param email nuova email
+	 */
+	public static void cambiaEmail (int idDipendente, String email){
+		que = new Querist();
+		String query = "UPDATE Dipendente " +
+					   "SET email = '" +email+"' "+
+					   "WHERE idDipendente = "+idDipendente;
+		System.out.println(query);
+		que.eseguiQueryUpdate(query);
+	}
+	
+	/**
+	 * Questo metodo permette di cambiare il cognome di un dipendente
+	 * @param idDipendente identificativo del dipendente
+	 * @param cognome nuovo cognome
+	 */
+	public static void cambiaCognome (int idDipendente, String cognome){
+		que = new Querist();
+		String query = "UPDATE Dipendente " +
+					   "SET cognome = '" +cognome+"' "+
+					   "WHERE idDipendente = "+idDipendente;
+		System.out.println(query);
+		que.eseguiQueryUpdate(query);
+	}
+	
+	/**
+	 * Questo metodo permette di cambiare il nome di un dipendente
+	 * @param idDipendente identificativo del dipendente
+	 * @param nome nuovo nome
+	 */
+	public static void cambiaNome (int idDipendente, String nome){
+		que = new Querist();
+		String query = "UPDATE Dipendente " +
+					   "SET cognome = '" +nome+"' "+
+					   "WHERE idDipendente = "+idDipendente;
+		System.out.println(query);
+		que.eseguiQueryUpdate(query);
+	}
 }
