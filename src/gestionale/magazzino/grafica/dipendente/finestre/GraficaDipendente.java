@@ -74,7 +74,8 @@ public class GraficaDipendente extends JFrame {
 		finestra_Dipendente.setSize(600,500);
 		finestra_Dipendente.setLocation(x,y);
 		finestra_Dipendente.setBackground(Color.white);
-		finestra_Dipendente.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		finestra_Dipendente.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		finestra_Dipendente.addWindowListener(new MyListener());
 		finestra_Dipendente.setResizable(false);
 		finestra_Dipendente.setVisible(true);
 	}

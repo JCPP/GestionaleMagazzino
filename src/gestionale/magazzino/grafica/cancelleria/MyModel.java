@@ -71,6 +71,11 @@ public class MyModel extends AbstractTableModel{
 	public boolean isCellEditable(int row, int col) {
 		//System.out.println("Colonne: "+col);
 		int i = getColumnCount();
+		String s = this.getValueAt(0, 0).toString();
+		if(s.equals(" "))
+		{
+			return false;
+		}
 		System.out.println("Colonne: "+i);
 		if(i == 4)
 		{

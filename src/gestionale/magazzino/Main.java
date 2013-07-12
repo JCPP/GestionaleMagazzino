@@ -227,9 +227,6 @@ public class Main {
 				}
 				controlloreRegistrazione.dispose();
 				break;
-			case "dispose Registrazione":
-
-				break;
 			default:
 				break;
 		}
@@ -252,12 +249,20 @@ public class Main {
 				controlloreDipendente.showCarrello();
 				break;
 			case "Logout":
-				controlloreDipendente.doLogout();
-				controlloreLogin.start();
+				boolean b = controlloreDipendente.controlloCarrello();
+				if(b)
+				{
+					controlloreDipendente.doLogout();
+					controlloreLogin.start();
+				}
 				break;
 			case "Exit":
-				controlloreDipendente.dispose();
-				System.exit(0);
+				boolean b1 = controlloreDipendente.controlloCarrello();
+				if(b1)
+				{
+					controlloreDipendente.dispose();
+					System.exit(0);
+				}
 				break;
 			case "Carrello Dipendente":
 				a = 0;
@@ -268,8 +273,12 @@ public class Main {
 				controlloreDipendente.updateCatalogo(z);
 				break;
 			case "dispose Dipendente":
-				controlloreDipendente.dispose();
-
+				boolean b2 = controlloreDipendente.controlloCarrello();
+				if(b2)
+				{
+					controlloreDipendente.dispose();
+					System.exit(0);
+				}
 				break;
 			default:
 				break;
@@ -346,6 +355,10 @@ public class Main {
 				break;
 			case "Conferma Prodotto":
 				controlloreDipendente.confermaOrdine();
+				break;
+			case "acquista carrello":
+				controlloreDipendente.flushCarrello();
+				break;
 			default:
 				break;
 		}

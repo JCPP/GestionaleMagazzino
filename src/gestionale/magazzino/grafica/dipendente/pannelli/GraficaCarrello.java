@@ -17,12 +17,15 @@ import java.awt.*;
 public class GraficaCarrello extends JFrame  {
 	
 	private JPanel pannello_Carrello;
+	private JPanel pannello_Dati;
+	private JPanel pannello_Opzioni;
 	private JTable tabella_Carrello;
 	private JTableHeader tabella_Colonne;
 	private JScrollPane scroll_Carrello;
 	private ControlloreCarrello controllore;
 	private MyModel model;
 	private Dipendente dipendente;
+	private JButton bottone_Invia;
 	/**
 	 * Costruttore della classe
 	 */
@@ -37,23 +40,35 @@ public class GraficaCarrello extends JFrame  {
 	public void init()
 	{
 		controllore = new ControlloreCarrello();
-		controllore.initCarrello(dipendente);
-		model = controllore.getCarrrello();
+		controllore.initCarrello();
+		model = controllore.getModelCarrelo();
 		tabella_Carrello = new JTable(model);
 		tabella_Carrello.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tabella_Carrello.setAutoCreateRowSorter(true);
 	    tabella_Carrello.setRowHeight( 20 );
 	    tabella_Carrello.addMouseListener(new MyListener());
 		
+	    pannello_Dati = new JPanel();
+	    pannello_Opzioni = new JPanel();
+	    
 		tabella_Colonne = tabella_Carrello.getTableHeader();
 		tabella_Colonne.setReorderingAllowed(false);
 		
 		scroll_Carrello = new JScrollPane(tabella_Carrello);
 		
+		bottone_Invia = new JButton("Acquista");
+		bottone_Invia.setActionCommand("acquista carrello");
+		bottone_Invia.addActionListener(new MyListener());
+		
 		pannello_Carrello = new JPanel();
+		pannello_Carrello.setLayout(new BorderLayout());
 		pannello_Carrello.setBackground(Color.white);
 		
-		pannello_Carrello.add(scroll_Carrello);
+		
+		pannello_Opzioni.add(bottone_Invia);
+		pannello_Dati.add(scroll_Carrello);
+		pannello_Carrello.add("Center",pannello_Dati);
+		pannello_Carrello.add("East",pannello_Opzioni);
 		
 	}
 

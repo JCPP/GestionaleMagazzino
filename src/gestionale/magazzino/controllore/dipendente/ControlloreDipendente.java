@@ -68,6 +68,10 @@ public class ControlloreDipendente{
 		controlloreAccount.showAccount(dipendente,grafica_Dipendente);
 	}
 	//Carrello
+	public void flushCarrello()
+	{
+		controlloreCarrello.flusCarrello(grafica_Dipendente);
+	}
 	public void showCarrello()
 	{
 		controlloreCarrello.setDipendente(dipendente);
@@ -81,13 +85,20 @@ public class ControlloreDipendente{
 	
 	public MyModel getCarrello()
 	{
-		return controlloreCarrello.getCarrrello();
+		return controlloreCarrello.getModelCarrelo();
 	}
 	
 	public void initCarrello()
 	{
-		controlloreCarrello.initCarrello(dipendente);
+		controlloreCarrello.initCarrello();
 	}
+	
+	public boolean controlloCarrello() {
+		Boolean b = true;
+		b = controlloreCarrello.controlloCarrello(grafica_Dipendente);
+		return b;
+	}
+	
 	//Catalogo
 	public void showCatalogo()
 	{
@@ -121,9 +132,9 @@ public class ControlloreDipendente{
 	
 	public void controlloOrdine(int x)
 	{
-		controlloreProdottoVisualizzato.controlloOrdine(controlloreCatalogo,x,grafica_Dipendente,dipendente);
-		controlloreCarrello.initCarrello(dipendente);
-		grafica_Dipendente.updateCarrello(controlloreCarrello.getCarrrello());
+		controlloreProdottoVisualizzato.controlloOrdine(controlloreCatalogo,x,grafica_Dipendente,dipendente,controlloreCarrello);
+		controlloreCarrello.initCarrello();
+		grafica_Dipendente.updateCarrello(controlloreCarrello.getModelCarrelo());
 
 	}
 	
@@ -131,7 +142,7 @@ public class ControlloreDipendente{
 	
 	public void showOrdinato(int x)
 	{
-		controlloreProdottoModificato.showOrdinato(grafica_Dipendente, x);
+		controlloreProdottoModificato.showOrdinato(grafica_Dipendente, x,controlloreCarrello);
 	}
 
 	public void rimuoviProdotto() {
@@ -149,7 +160,8 @@ public class ControlloreDipendente{
 	}
 
 	public void confermaOrdine() {
-		
-		
+		controlloreProdottoModificato.confermaOrdine(controlloreCatalogo,controlloreCarrello,grafica_Dipendente);
 	}
+
+	
 }

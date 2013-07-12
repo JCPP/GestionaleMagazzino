@@ -22,6 +22,7 @@ public class ControlloProdottoModficato {
 	private Date date;
 	private Dipendente dipendente;
 	private Acquisto acquisto;
+	private int quant;
 	
 	public ControlloProdottoModficato(Dipendente dip)
 	{
@@ -32,19 +33,27 @@ public class ControlloProdottoModficato {
 		acquisto = new Acquisto();
 	}
 	
-	public void showOrdinato(GraficaDipendente grafica_Dipendente,int x)
+	public void showOrdinato(GraficaDipendente grafica_Dipendente,int x,ControlloreCarrello controlloreCarrello)
 	{
 		JTable tabella = grafica_Dipendente.getTableCarrello();
-		int id = Integer.parseInt(tabella.getValueAt(x,0).toString());
-		acquisto = gestionale.magazzino.models.Acquisto.visualizzaAcquisto(id);
+		try
+		{
 		String nome = tabella.getValueAt(x,1).toString();
 		int quantita = Integer.parseInt(tabella.getValueAt(x,2).toString());
+		quant = quantita;
 		float spesa = Float.parseFloat(tabella.getValueAt(x, 3).toString());
-		Fondo f = new Fondo();
+		Acquisto acq = new Acquisto();
+		acq = controlloreCarrello.getAcquisto(nome);
 		modifica_Prodotto.init();
 		modifica_Prodotto.setNome(nome);
 		modifica_Prodotto.setQta(quantita);
-		modifica_Prodotto.setPrezzo(spesa);
+		modifica_Prodotto.setSpesa(spesa);
+		modifica_Prodotto.setFondoScelto(acq.getNomeFondo());
+		}catch(NumberFormatException e)
+		{
+			
+		}
+		
 		grafica_Dipendente.setState(false);
 	}
 
@@ -62,9 +71,9 @@ public class ControlloProdottoModficato {
 		int i = JOptionPane.showConfirmDialog(modifica_Prodotto, "Sicuro di voler eliminare il prodotto Ordinato?",null,JOptionPane.YES_NO_OPTION);
 		if(i == 0)
 		{
-			gestionale.magazzino.models.Acquisto.cancellaAcquisto(acquisto.getIdAcquisto());
-			controlloreCarrello.initCarrello(dip);
-			grafica_Dipendente.updateCarrello(controlloreCarrello.getCarrrello());
+			controlloreCarrello.remAcquisto(nome);
+			controlloreCarrello.initCarrello();
+			grafica_Dipendente.updateCarrello(controlloreCarrello.getModelCarrelo());
 			modifica_Prodotto.doClose();
 		}
 	}
@@ -74,9 +83,22 @@ public class ControlloProdottoModficato {
 		modifica_Prodotto.setModificable();
 	}
 	
-	public void confermaOrdine()
+	public void confermaOrdine(ControlloreCatalogo controlloreCatalogo,ControlloreCarrello controlloreCarrello,GraficaDipendente grafica_Dipendente)
 	{
-		
+		String nome = modifica_Prodotto.getNome();
+		int qta = modifica_Prodotto.getQuantita();
+		String fondo = modifica_Prodotto.getFondoScelto();
+		if(qta > quant)
+		{
+			qta = -qta;
+			qta += quant;
+			controlloreCarrello.modOrdine(controlloreCatalogo,grafica_Dipendente,this.modifica_Prodotto,nome,-qta,quant,fondo);
+		}
+		else
+		{
+			qta -= quant;
+			controlloreCarrello.modOrdine(controlloreCatalogo,grafica_Dipendente,this.modifica_Prodotto,nome,qta,quant,fondo);
+		}
 	}
 	
 }

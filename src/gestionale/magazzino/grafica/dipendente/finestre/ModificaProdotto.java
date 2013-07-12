@@ -87,9 +87,9 @@ public class ModificaProdotto extends JFrame {
 		while(i < fondi.size())
 		{
 			combo_Fondi.addItem(fondi.get(i).getNome());
-			combo_Fondi.setActionCommand("Fondi");
 			i++;
 		}
+		combo_Fondi.setActionCommand("Fondi");
 		combo_Fondi.addActionListener(new MyListener());
 		
 		
@@ -178,7 +178,6 @@ public class ModificaProdotto extends JFrame {
 	{
 		buttonChangeState();
 		this.text_Quantita.setEditable(true);
-		this.text_Spesa.setEditable(true);
 		this.pannello_Dati.remove(text_Fondo);
 		this.pannello_Dati.add(combo_Fondi, dati_Constraints, -1);
 	}
@@ -188,9 +187,9 @@ public class ModificaProdotto extends JFrame {
 		text_Quantita.setText(""+q);
 	}
 	
-	public void setPrezzo(float p)
+	public void setFondoScelto(String s)
 	{
-		this.text_Spesa.setText(""+p);
+		text_Fondo.setText(s);
 	}
 	
 	public void setNome(String n)
@@ -234,6 +233,15 @@ public class ModificaProdotto extends JFrame {
 	public String getFondoScelto()
 	{
 		return combo_Fondi.getSelectedItem().toString();
+	}
+	
+	public void setFondo(int n)
+	{
+		combo_Fondi.setSelectedIndex(n);
+	}
+	public void setSpesa(float s) {
+		this.text_Spesa.setText(""+s);
+		
 	}
 	
 }

@@ -57,7 +57,7 @@ public class ControlloreProdottoVisualizzato{
 		controlloreCatalogo.updateCatalogo(grafica_Dipendente,x);
 	}
 	
-	public void controlloOrdine(ControlloreCatalogo controlloreCatalogo,int x,GraficaDipendente grafica_Dipendente,Dipendente dip)
+	public void controlloOrdine(ControlloreCatalogo controlloreCatalogo,int x,GraficaDipendente grafica_Dipendente,Dipendente dip,ControlloreCarrello controlloreCarrello)
 	{
 		dipendente = dip;
 		int q = visualizza_Prodotto.getQuantitaProdotto();
@@ -87,6 +87,7 @@ public class ControlloreProdottoVisualizzato{
 				f.setImporto(f.getImporto()-z);
 				gestionale.magazzino.models.Fondo.cancellaFondo(f.getNome());
 				gestionale.magazzino.models.Fondo.inserisciFondo(f.getNome(),f.getImporto()); //editable
+				gestionale.magazzino.models.Fondo.reindexTable();
 				gestionale.magazzino.models.Prodotto.modificaQuantitaProdotto(visualizza_Prodotto.getNomeProdotto(), -qins);
 				Acquisto acq = new Acquisto();
 				acq.setIdDipendente(dipendente.getIdDipendente());
@@ -100,7 +101,7 @@ public class ControlloreProdottoVisualizzato{
 				date = new Date();
 				String data = dateFormat.format(date);
 				acq.setDataAcquisto(data);
-				gestionale.magazzino.models.Acquisto.inserisciAcquisto(acq.getIdDipendente(), acq.getIdProdotto(), acq.getIdFondo(),qins);
+				controlloreCarrello.addAcquisto(acq);
 				JOptionPane.showMessageDialog(visualizza_Prodotto, "Prodotto aggiunto al carrello");
 				controlloreCatalogo.initCatalogo();
 				grafica_Dipendente.updateCatalogo(controlloreCatalogo.getCatalogo());
