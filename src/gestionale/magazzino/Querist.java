@@ -9,7 +9,6 @@ import java.sql.Connection;
 
 public class Querist {
 	private static Connection conn;
-	//private static Connettore connettore;
 
 public Querist(){
 		super();
@@ -20,7 +19,6 @@ public Querist(){
  * @return ResultSet, l'insieme di record risultati della query al database
  */
 public void eseguiQueryUpdate(String query){
-	//connettore = new Connettore();
 	try{
 		Connettore.stat.executeUpdate(query);
 		Connettore.stat.close();
