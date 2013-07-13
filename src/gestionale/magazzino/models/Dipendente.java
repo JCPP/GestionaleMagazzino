@@ -305,7 +305,7 @@ public class Dipendente {
 	public static void cambiaNome (int idDipendente, String nome){
 		que = new Querist();
 		String query = "UPDATE Dipendente " +
-					   "SET cognome = '" +nome+"' "+
+					   "SET nome = '" +nome+"' "+
 					   "WHERE idDipendente = "+idDipendente;
 		System.out.println(query);
 		que.eseguiQueryUpdate(query);

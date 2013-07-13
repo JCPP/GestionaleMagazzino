@@ -1,22 +1,18 @@
 package gestionale.magazzino.models;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
-import java.util.ArrayList;
-
+import static org.junit.Assert.*;
 import gestionale.magazzino.Connettore;
 import gestionale.magazzino.models.utils.Utils;
 import gestionale.magazzino.utils.RandomString;
 
+import java.util.ArrayList;
+
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- * Test per la classe Acquisto.
- * @author <a href="https://github.com/DavidePastore">Davide Pastore</a>
+ * @author <a reef="https://github.com/DavidePastore">DavidePastore</a>
  *
  */
 public class AcquistoTest {
@@ -30,7 +26,7 @@ public class AcquistoTest {
 	private static ArrayList<gestionale.magazzino.Acquisto> acquisti;
 	private int dimensione;
 	private static RandomString randomString;
-	
+
 	/**
 	 * Setup del test.
 	 * @throws Exception
@@ -84,9 +80,23 @@ public class AcquistoTest {
 		dimensione = acquisti.size();
 		Acquisto.inserisciAcquisto(idDipendente, idProdotto, idFondo, qta); //Inserisce l'acquisto
 		
-		acquisti = null;
 		acquisti = Acquisto.visualizzaAcquisti();
 		assertEquals("visualizzaAcquisti() non funziona correttamente", dimensione + 1, acquisti.size());
+	}
+
+	/**
+	 * Verifica che la dimensione aumenti di uno quando si aggiunge un acquisto di un dipendente.
+	 * Test method for {@link gestionale.magazzino.models.Acquisto#visualizzaAcquistiDaDipendente(int)}.
+	 */
+	@Test
+	public void testVisualizzaAcquistiDaDipendente() {
+		acquisti = Acquisto.visualizzaAcquistiDaDipendente(idDipendente);
+		dimensione = acquisti.size();
+		Acquisto.inserisciAcquisto(idDipendente, idProdotto, idFondo, qta); //Inserisce l'acquisto
+		
+		acquisti = null;
+		acquisti = Acquisto.visualizzaAcquistiDaDipendente(idDipendente);
+		assertEquals("visualizzaAcquistiDaDipendente() non funziona correttamente", dimensione + 1, acquisti.size());
 	}
 
 	/**
@@ -105,7 +115,7 @@ public class AcquistoTest {
 			acquisto.getQta() == qta
 		);
 	}
-	
+
 	/**
 	 * Verifica che l'elemento inserito corrisponda con quello letto successivamente.
 	 */
@@ -124,6 +134,14 @@ public class AcquistoTest {
 			prodotto.getNome(),
 			Prodotto.visualizzaProdotto(idProdotto).getNome()
 		);
+	}
+
+	/**
+	 * Test method for {@link gestionale.magazzino.models.Acquisto#reindexTable()}.
+	 */
+	@Test
+	public void testReindexTable() {
+		fail("Not yet implemented");
 	}
 
 }

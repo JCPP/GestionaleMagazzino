@@ -126,5 +126,33 @@ public class FondoTest {
 		Fondo.cancellaFondo(nome);
 		assertNull("cancellaFondo() non funziona correttamente", Fondo.visualizzaFondo(nome));
 	}
+	
+	/**
+	 * Test method for {@link gestionale.magazzino.models.Fondo#reindexTable()}.
+	 */
+	@Test
+	public void testReindexTable() {
+		fail("Not yet implemented");
+	}
+	
+	/**
+	 * Verifica che l'importo venga cambiato dopo la sua modifica.
+	 */
+	@Test
+	public void testCambiaImporto() {
+		float nuovoImporto = 15.678f;
+		Fondo.inserisciFondo(nome, importo);
+		idFondo = Utils.lastInsertID();
+		
+		Fondo.cambiaImporto(idFondo, nuovoImporto);
+		fondo = Fondo.visualizzaFondo(idFondo);
+		assertTrue("cambiaImporto() non funziona correttamente", 
+				fondo.getNome().equals(nome) &&
+				fondo.getImporto() == nuovoImporto &&
+				fondo.getId_Fondo() == idFondo
+		);
+	}
+	
+	
 
 }

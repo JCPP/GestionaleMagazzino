@@ -17,7 +17,7 @@ public class Acquisto {
 	 * @param idFondo
 	 * @param qta quantità del prodotto comprata
 	 */
-	static public void inserisciAcquisto(int idDipendente, int idProdotto, int idFondo, int qta){
+	public static void inserisciAcquisto(int idDipendente, int idProdotto, int idFondo, int qta){
 		que = new Querist();
 		String query = "INSERT INTO Acquisto(idDipendente,idProdotto,idFondo,qta) VALUES"+
 				"("+idDipendente+","+idProdotto+","+idFondo+","+qta+")";
@@ -28,7 +28,7 @@ public class Acquisto {
 	 * Questo metodo cancella dal database un acquisto fatto
 	 * @param idAcquisto identificativo dell'acquisto
 	 */
-	static public void cancellaAcquisto (int idAcquisto){
+	public static void cancellaAcquisto (int idAcquisto){
 		que = new Querist();
 		String query = "DELETE FROM Acquisto WHERE idAcquisto = "+idAcquisto;
 		que.eseguiQueryUpdate(query);
@@ -38,7 +38,7 @@ public class Acquisto {
 	 * Questo metodo visualizza tutti gli acquisti dei dipendenti
 	 * @return un arrayList di acquisti
 	 */
-	static public ArrayList<gestionale.magazzino.Acquisto> visualizzaAcquisti(){
+	public static ArrayList<gestionale.magazzino.Acquisto> visualizzaAcquisti(){
 		que = new Querist();
 		ArrayList<gestionale.magazzino.Acquisto> risultato = new ArrayList<gestionale.magazzino.Acquisto>();
 		String query = "SELECT A.idAcquisto, D.nome AS dipendente, P.nome AS prodotto, F.nome AS fondo, A.qta, A.qta * P.prezzoUnita AS spesa, A.dataAcquisto " +
@@ -65,14 +65,14 @@ public class Acquisto {
 	
 	/**
 	 * Questo metodo visualizza tutti gli acquisti di un dipendente
-	 * @param idDipendete identificativo del dipendente
+	 * @param idDipendente identificativo del dipendente
 	 * @return un arrayList di acquisti
 	 */
-	public static ArrayList<gestionale.magazzino.Acquisto> visualizzaAcquistiDaDipendente(int idDipendete){
+	public static ArrayList<gestionale.magazzino.Acquisto> visualizzaAcquistiDaDipendente(int idDipendente){
 		que = new Querist();
 		String query = "SELECT A.idAcquisto, A.idDipendente, A.idProdotto, A.idFondo, A.qta, A.dataAcquisto " +
 				       "FROM Acquisto A " +
-				       "WHERE A.idDipendente = "+idDipendete;
+				       "WHERE A.idDipendente = "+idDipendente;
 		ArrayList<gestionale.magazzino.Acquisto> risultato = new ArrayList<gestionale.magazzino.Acquisto>();
 		System.out.println(query);
 		ResultSet rs = que.eseguiQuery(query);

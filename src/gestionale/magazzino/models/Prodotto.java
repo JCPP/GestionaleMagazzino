@@ -15,7 +15,7 @@ public class Prodotto {
 	 * @param qta quantità del prodotto
 	 * @param prezzoUnita prezzo unitario del prodotto
 	 */
-	static public void inserisciProdotto(String nome, int qta, float prezzoUnita){
+	public static void inserisciProdotto(String nome, int qta, float prezzoUnita){
 		que = new Querist();
 		String query = "INSERT INTO Prodotto(nome,qta,prezzoUnita) VALUES"+
 						"('"+nome+"',"+qta+","+prezzoUnita+")";
@@ -26,7 +26,7 @@ public class Prodotto {
 	 * Questo metodo cancella un prodotto in base al nome
 	 * @param nome nome del prodotto da cancellare
 	 */
-	static public void cancellaProdotto(String nome){
+	public static void cancellaProdotto(String nome){
 		que = new Querist();
 		String query = "DELETE " +
 				       "FROM Prodotto " +
@@ -39,7 +39,7 @@ public class Prodotto {
 	 * Questo metodo restituisce tutti i prodotti in database
 	 * @return ritorna un arraylist di prodotti, in caso di errore un null
 	 */
-	static public ArrayList<gestionale.magazzino.Prodotto> visualizzaProdotti(){
+	public static ArrayList<gestionale.magazzino.Prodotto> visualizzaProdotti(){
 		que = new Querist();
 		ArrayList<gestionale.magazzino.Prodotto> risultato = new ArrayList<gestionale.magazzino.Prodotto>();
 		String query = "SELECT * FROM Prodotto";
@@ -62,7 +62,7 @@ public class Prodotto {
 	 * @param nome il nome del prodotto di cui si vuole modificare la quantità
 	 * @param qta quantità da aggiungere
 	 */
-	static public void modificaQuantitaProdotto (String nome, int qta){
+	public static void modificaQuantitaProdotto (String nome, int qta){
 		que = new Querist();
 		int vecchiaQta = 0;
 		String query = "SELECT P.qta AS vecchiaQta " +
@@ -84,7 +84,7 @@ public class Prodotto {
 		que.eseguiQueryUpdate(query1);
 	}
 
-	static public void modificaPrezzoProdotto (String nome, float prezzo){
+	public static void modificaPrezzoProdotto (String nome, float prezzo){
 		que = new Querist();
 		
 		String query1 = "UPDATE Prodotto " +
@@ -94,7 +94,7 @@ public class Prodotto {
 		que.eseguiQueryUpdate(query1);
 	}
 	
-	static public gestionale.magazzino.Prodotto visualizzaProdotto(int idProdotto){
+	public static gestionale.magazzino.Prodotto visualizzaProdotto(int idProdotto){
 		que = new Querist();
 		String query = "SELECT P.idProdotto, P.nome, P.qta, P.prezzoUnita " +
 				"FROM Prodotto P " +

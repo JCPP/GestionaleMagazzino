@@ -224,5 +224,13 @@ public class NotificaTest {
 				notifica.getIdNotifica() == idNotifica
 		);
 	}
+	
+	/**
+	 * Test method for {@link gestionale.magazzino.models.Notifica#reindexTable()}.
+	 */
+	@Test
+	public void testReindexTable() {
+		fail("Not yet implemented");
+	}
 
 }

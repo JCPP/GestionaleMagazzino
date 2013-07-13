@@ -173,5 +173,13 @@ public class AggiornamentoTest {
 				aggiornamento.getQta() == qta
 		);
 	}
+	
+	/**
+	 * Test method for {@link gestionale.magazzino.models.Aggiornamento#reindexTable()}.
+	 */
+	@Test
+	public void testReindexTable() {
+		fail("Not yet implemented");
+	}
 
 }

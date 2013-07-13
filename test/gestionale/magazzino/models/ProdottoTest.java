@@ -149,5 +149,35 @@ public class ProdottoTest {
 				prodotto.getQuantità() == qta
 		);
 	}
+	
+	/**
+	 * Test method for {@link gestionale.magazzino.models.Prodotto#reindexTable()}.
+	 */
+	@Test
+	public void testReindexTable() {
+		fail("Not yet implemented");
+	}
+	
+	/**
+	 * Test method for {@link gestionale.magazzino.models.Prodotto#cambiaNomeProdotto(int, java.lang.String)}.
+	 * Verifica che un prodotto sia leggibile dopo un inserimento.
+	 */
+	@Test
+	public void testCambiaNomeProdotto() {
+		String nuovoNome = randomString.nextString();
+		Prodotto.inserisciProdotto(nome, qta, prezzoUnita);
+		idProdotto = Utils.lastInsertID();
+		
+		Prodotto.cambiaNomeProdotto(idProdotto, nuovoNome);
+		
+		prodotto = Prodotto.visualizzaProdotto(idProdotto);
+		
+		assertTrue("inserisciProdotto() non funziona correttamente",
+				prodotto.getId_Prodotto() == idProdotto  &&
+				prodotto.getNome().equals(nuovoNome) &&
+				prodotto.getPrezzo() == prezzoUnita &&
+				prodotto.getQuantità() == qta
+		);
+	}
 
 }

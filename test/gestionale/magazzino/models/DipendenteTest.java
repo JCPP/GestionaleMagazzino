@@ -6,6 +6,8 @@ import gestionale.magazzino.models.utils.Utils;
 import gestionale.magazzino.utils.RandomString;
 
 import java.util.ArrayList;
+
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -27,6 +29,7 @@ public class DipendenteTest {
 	private static String tipo;
 	private static String password;
 	private static String email;
+	private String emailGenerata;
 	
 	private int dimensione;
 
@@ -34,14 +37,18 @@ public class DipendenteTest {
 	public static void setUpBeforeClass() throws Exception {
 		nome = "Ping us";
 		cognome = "Robotnik";
-		tipo = "responsabile";
+		tipo = "dipendente";
 		password = "ping";
 		email = "%s@%s.com";
 		
 		randomString = new RandomString(10);
-		//connettore = new Connettore();
 		Connettore.caricadriver();
 		Connettore.collegati();
+	}
+	
+	@Before
+	public void setUp() throws Exception {
+		emailGenerata = String.format(email, randomString.nextString(), randomString.nextString());
 	}
 	
 	/**
@@ -49,7 +56,6 @@ public class DipendenteTest {
 	 */
 	@Test
 	public void testInserisciDipendente() {
-		String emailGenerata = String.format(email, randomString.nextString(), randomString.nextString());
 		Dipendente.inserisciDipendente(nome, cognome, password, emailGenerata, tipo);
 		idDipendente = Utils.lastInsertID();
 		
@@ -70,7 +76,6 @@ public class DipendenteTest {
 	 */
 	@Test
 	public void testValidateEmail() {
-		String emailGenerata = String.format(email, randomString.nextString(), randomString.nextString());
 		Dipendente.inserisciDipendente(nome, cognome, password, emailGenerata, tipo);
 		assertTrue("validateEmail() non funziona correttamente", Dipendente.validateEmail(emailGenerata));
 	}
@@ -80,7 +85,6 @@ public class DipendenteTest {
 	 */
 	@Test
 	public void testValidatePassword() {
-		String emailGenerata = String.format(email, randomString.nextString(), randomString.nextString());
 		Dipendente.inserisciDipendente(nome, cognome, password, emailGenerata, tipo);
 		assertTrue("validatePassword() non funziona correttamente.", Dipendente.validatePassword(emailGenerata, password));
 		assertFalse("validatePassword() non funziona correttamente.", Dipendente.validatePassword(emailGenerata, randomString.nextString()));
@@ -91,8 +95,7 @@ public class DipendenteTest {
 	 */
 	@Test
 	public void testValidateResponsabile() {
-		String emailGenerata = String.format(email, randomString.nextString(), randomString.nextString());
-		Dipendente.inserisciDipendente(nome, cognome, password, emailGenerata, tipo);
+		Dipendente.inserisciDipendente(nome, cognome, password, emailGenerata, "responsabile");
 		assertTrue("validateResponsabile() non funziona correttamente.", Dipendente.validateResponsabile(emailGenerata, password));
 	}
 
@@ -101,7 +104,6 @@ public class DipendenteTest {
 	 */
 	@Test
 	public void testDisattivaDipendente() {
-		String emailGenerata = String.format(email, randomString.nextString(), randomString.nextString());
 		Dipendente.inserisciDipendente(nome, cognome, password, emailGenerata, tipo);
 		idDipendente = Utils.lastInsertID();
 		
@@ -114,7 +116,6 @@ public class DipendenteTest {
 	 */
 	@Test
 	public void testAttivaDipendente() {
-		String emailGenerata = String.format(email, randomString.nextString(), randomString.nextString());
 		Dipendente.inserisciDipendente(nome, cognome, password, emailGenerata, tipo);
 		idDipendente = Utils.lastInsertID();
 		
@@ -127,7 +128,6 @@ public class DipendenteTest {
 	 */
 	@Test
 	public void testVisualizzaDipendenti() {
-		String emailGenerata = String.format(email, randomString.nextString(), randomString.nextString());
 		dipendenti = Dipendente.visualizzaDipendenti();
 		dimensione = dipendenti.size();
 		Dipendente.inserisciDipendente(nome, cognome, password, emailGenerata, tipo);
@@ -141,7 +141,6 @@ public class DipendenteTest {
 	 */
 	@Test
 	public void testIsActive() {
-		String emailGenerata = String.format(email, randomString.nextString(), randomString.nextString());
 		Dipendente.inserisciDipendente(nome, cognome, password, emailGenerata, tipo);
 		idDipendente = Utils.lastInsertID();
 		
@@ -154,7 +153,6 @@ public class DipendenteTest {
 	 */
 	@Test
 	public void testVisualizzaDipendenteStringString() {
-		String emailGenerata = String.format(email, randomString.nextString(), randomString.nextString());
 		Dipendente.inserisciDipendente(nome, cognome, password, emailGenerata, tipo);
 		idDipendente = Utils.lastInsertID();
 		
@@ -175,7 +173,6 @@ public class DipendenteTest {
 	 */
 	@Test
 	public void testVisualizzaDipendenteInt() {
-		String emailGenerata = String.format(email, randomString.nextString(), randomString.nextString());
 		Dipendente.inserisciDipendente(nome, cognome, password, emailGenerata, tipo);
 		idDipendente = Utils.lastInsertID();
 		
@@ -196,11 +193,125 @@ public class DipendenteTest {
 	 */
 	@Test
 	public void testCancellaDipendente() {
-		String emailGenerata = String.format(email, randomString.nextString(), randomString.nextString());
 		Dipendente.inserisciDipendente(nome, cognome, password, emailGenerata, tipo);
 		idDipendente = Utils.lastInsertID();
 		Dipendente.cancellaDipendente(idDipendente);
 		assertNull("cancellaDipendente() non funziona correttamente", Dipendente.visualizzaDipendente(idDipendente));
+	}
+	
+	/**
+	 * Test method for {@link gestionale.magazzino.models.Dipendente#reindexTable()}.
+	 */
+	@Test
+	public void testReindexTable() {
+		fail("Not yet implemented");
+	}
+	
+	/**
+	 * Verifica che un dipendente diventi responsabile.
+	 */
+	@Test
+	public void testSetResponsabile() {
+		Dipendente.inserisciDipendente(nome, cognome, password, emailGenerata, tipo);
+		idDipendente = Utils.lastInsertID();
+		Dipendente.setResponsabile(idDipendente);
+		dipendente = Dipendente.visualizzaDipendente(idDipendente);
+		
+		assertTrue("setResponsabile() non funziona correttamente",
+				dipendente.getNome().equals(nome)  &&
+				dipendente.getCognome().equals(cognome) &&
+				dipendente.getPassword().equals(password) &&
+				dipendente.getEmail().equals(emailGenerata) &&
+				dipendente.getTipo().equals("responsabile") &&
+				dipendente.getIdDipendente() == idDipendente
+		);
+	}
+	
+	
+	/**
+	 * Verifica che un responsabile diventi dipendente.
+	 */
+	@Test
+	public void testSetDipendente() {
+		Dipendente.inserisciDipendente(nome, cognome, password, emailGenerata, tipo);
+		idDipendente = Utils.lastInsertID();
+		Dipendente.setDipendente(idDipendente);
+		dipendente = Dipendente.visualizzaDipendente(idDipendente);
+		
+		assertTrue("setDipendente() non funziona correttamente",
+				dipendente.getNome().equals(nome)  &&
+				dipendente.getCognome().equals(cognome) &&
+				dipendente.getPassword().equals(password) &&
+				dipendente.getEmail().equals(emailGenerata) &&
+				dipendente.getTipo().equals("dipendente") &&
+				dipendente.getIdDipendente() == idDipendente
+		);
+	}
+	
+	/**
+	 * Verifica che l'email venga cambiata.
+	 */
+	@Test
+	public void testCambiaEmail() {
+		Dipendente.inserisciDipendente(nome, cognome, password, emailGenerata, tipo);
+		idDipendente = Utils.lastInsertID();
+		emailGenerata = String.format(email, randomString.nextString(), randomString.nextString());
+		
+		Dipendente.cambiaEmail(idDipendente, emailGenerata);
+		dipendente = Dipendente.visualizzaDipendente(idDipendente);
+		
+		assertTrue("cambiaEmail() non funziona correttamente",
+				dipendente.getNome().equals(nome)  &&
+				dipendente.getCognome().equals(cognome) &&
+				dipendente.getPassword().equals(password) &&
+				dipendente.getEmail().equals(emailGenerata) &&
+				dipendente.getTipo().equals(tipo) &&
+				dipendente.getIdDipendente() == idDipendente
+		);
+	}
+	
+	/**
+	 * Verifica che il cognome venga cambiato.
+	 */
+	@Test
+	public void testCambiaCognome() {
+		Dipendente.inserisciDipendente(nome, cognome, password, emailGenerata, tipo);
+		idDipendente = Utils.lastInsertID();
+		cognome = randomString.nextString();
+		
+		Dipendente.cambiaCognome(idDipendente, cognome);
+		dipendente = Dipendente.visualizzaDipendente(idDipendente);
+		
+		assertTrue("cambiaCognome() non funziona correttamente",
+				dipendente.getNome().equals(nome)  &&
+				dipendente.getCognome().equals(cognome) &&
+				dipendente.getPassword().equals(password) &&
+				dipendente.getEmail().equals(emailGenerata) &&
+				dipendente.getTipo().equals(tipo) &&
+				dipendente.getIdDipendente() == idDipendente
+		);
+	}
+	
+	/**
+	 * Verifica che il nome venga cambiato.
+	 */
+	@Test
+	public void testCambiaNome() {
+		Dipendente.inserisciDipendente(nome, cognome, password, emailGenerata, tipo);
+		idDipendente = Utils.lastInsertID();
+		nome = randomString.nextString();
+		
+		Dipendente.cambiaNome(idDipendente, nome);
+		dipendente = Dipendente.visualizzaDipendente(idDipendente);
+		
+		assertTrue("cambiaNome() non funziona correttamente",
+				dipendente.getNome().equals(nome)  &&
+				dipendente.getCognome().equals(cognome) &&
+				dipendente.getPassword().equals(password) &&
+				dipendente.getEmail().equals(emailGenerata) &&
+				dipendente.getTipo().equals(tipo) &&
+				dipendente.getIdDipendente() == idDipendente
+		);
 	}
 
 }
