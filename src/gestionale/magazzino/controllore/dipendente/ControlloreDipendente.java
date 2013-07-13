@@ -4,6 +4,7 @@ import javax.swing.JTable;
 
 import gestionale.magazzino.Dipendente;
 import gestionale.magazzino.Prodotto;
+import gestionale.magazzino.grafica.cancelleria.CustomTableModel;
 import gestionale.magazzino.grafica.cancelleria.MyModel;
 import gestionale.magazzino.grafica.dipendente.finestre.GraficaDipendente;
 
@@ -83,7 +84,7 @@ public class ControlloreDipendente{
 		controlloreCarrello.updateCarrello(grafica_Dipendente, x);
 	}
 	
-	public MyModel getCarrello()
+	public CustomTableModel getCarrello()
 	{
 		return controlloreCarrello.getModelCarrelo();
 	}

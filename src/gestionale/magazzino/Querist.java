@@ -11,8 +11,8 @@ public class Querist {
 	private static Connection conn;
 
 	public Querist(){
-			super();
-		}
+		super();
+	}
 
 	/**
 	 * @param query rappresenta la query che gli passiamo

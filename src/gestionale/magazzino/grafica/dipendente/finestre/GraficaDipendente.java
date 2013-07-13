@@ -5,6 +5,7 @@ package gestionale.magazzino.grafica.dipendente.finestre;
  */
 import gestionale.magazzino.Dipendente;
 import gestionale.magazzino.MyListener;
+import gestionale.magazzino.grafica.cancelleria.CustomTableModel;
 import gestionale.magazzino.grafica.cancelleria.MyModel;
 import gestionale.magazzino.grafica.dipendente.pannelli.GraficaAccount;
 import gestionale.magazzino.grafica.dipendente.pannelli.GraficaCarrello;
@@ -117,9 +118,9 @@ public class GraficaDipendente extends JFrame {
 		return grafica_Prodotti.getTable();
 	}
 	
-	public void updateCarrello(MyModel modello)
+	public void updateCarrello(CustomTableModel customTableModel)
 	{
-		grafica_Carrello.updateModel(modello);
+		grafica_Carrello.updateModel(customTableModel);
 	}
 	
 	public void updateCatalogo(MyModel modello)

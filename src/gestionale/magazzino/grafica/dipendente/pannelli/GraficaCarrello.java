@@ -6,6 +6,7 @@ import gestionale.magazzino.Dipendente;
 import gestionale.magazzino.MyListener;
 import gestionale.magazzino.controllore.Controllore;
 import gestionale.magazzino.controllore.dipendente.ControlloreCarrello;
+import gestionale.magazzino.grafica.cancelleria.CustomTableModel;
 import gestionale.magazzino.grafica.cancelleria.MyModel;
 
 import javax.swing.*;
@@ -23,7 +24,7 @@ public class GraficaCarrello extends JFrame  {
 	private JTableHeader tabella_Colonne;
 	private JScrollPane scroll_Carrello;
 	private ControlloreCarrello controllore;
-	private MyModel model;
+	private CustomTableModel model;
 	private Dipendente dipendente;
 	private JButton bottone_Invia;
 	/**
@@ -92,7 +93,7 @@ public class GraficaCarrello extends JFrame  {
 		dipendente = dip;
 	}
 	
-	public void updateModel(MyModel modello) {
+	public void updateModel(CustomTableModel modello) {
 		model = modello;
 		tabella_Carrello.setModel(model);
 	}

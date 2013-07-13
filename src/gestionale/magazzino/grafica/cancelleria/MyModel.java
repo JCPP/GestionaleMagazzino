@@ -1,16 +1,18 @@
 package gestionale.magazzino.grafica.cancelleria;
+
+import javax.swing.table.AbstractTableModel;
+
 /**
  * La classe MyModel si occupa di creare un modello astratto personalizzato per una JTable
  * In questo modo possiamo creare un modello unico per tutte le tabelle del programma
  * ed evitare errori causati da dati nulli
  */
-import javax.swing.table.AbstractTableModel;
-
 public class MyModel extends AbstractTableModel{
 	protected int row;
 	protected int column;
 	protected Object[][] rowData;
 	protected String[] columnNames;
+
 	/**
 	 * Costruttore della classe,inizializza la tabella
 	 * @param r
@@ -48,8 +50,9 @@ public class MyModel extends AbstractTableModel{
 
 	@Override
 	public Object getValueAt(int row, int column) {
-		 return this.rowData[row][column];
+		return this.rowData[row][column];
 	}
+	
 	/**
 	 * restituisce la "classe" della colonna
 	 * questa funzione permette di visualizzare nella tabella dati non primitivi
@@ -58,13 +61,13 @@ public class MyModel extends AbstractTableModel{
 	 */
 	@Override
 	public Class getColumnClass(int column) {
-		 return (getValueAt(0, column).getClass());
+		return (getValueAt(0, column).getClass());
 	}
 
 	@Override
 	public void setValueAt(Object value, int row, int column) {
-		 this.rowData[row][column] = value;
-		 //fireTableCellUpdated(row,column);
+		this.rowData[row][column] = value;
+		//fireTableCellUpdated(row,column);
 	}
 
 	@Override

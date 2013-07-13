@@ -4,6 +4,7 @@ import gestionale.magazzino.Acquisto;
 import gestionale.magazzino.Dipendente;
 import gestionale.magazzino.MyListener;
 import gestionale.magazzino.Prodotto;
+import gestionale.magazzino.grafica.cancelleria.CustomTableModel;
 import gestionale.magazzino.grafica.cancelleria.MyModel;
 import gestionale.magazzino.grafica.dipendente.finestre.GraficaDipendente;
 import gestionale.magazzino.grafica.dipendente.finestre.ModificaProdotto;
@@ -16,7 +17,7 @@ import javax.swing.table.AbstractTableModel;
 
 public class ControlloreCarrello{
 
-	private MyModel modelloCarrello;
+	private CustomTableModel modelloCarrello;
 	private MyListener listener;
 	private ArrayList<Acquisto> carrello;
 	private Dipendente dipendente;
@@ -24,7 +25,7 @@ public class ControlloreCarrello{
 	public ControlloreCarrello()
 	{
 		dipendente = new Dipendente();
-		modelloCarrello = new MyModel();
+		modelloCarrello = new CustomTableModel();
 		listener = new MyListener();
 		carrello = new ArrayList<Acquisto>();
 	}
@@ -60,7 +61,7 @@ public class ControlloreCarrello{
 	public void updateCarrello(GraficaDipendente grafica_Dipendente,int x)
 	{
 		grafica_Dipendente.setState(true);
-		modelloCarrello = (MyModel) grafica_Dipendente.getTableCarrello().getModel();
+		modelloCarrello = (CustomTableModel) grafica_Dipendente.getTableCarrello().getModel();
 		if(modelloCarrello.getRowCount() > 0)
 		{
 			modelloCarrello.setValueAt(Boolean.FALSE, x, 4);
@@ -68,12 +69,8 @@ public class ControlloreCarrello{
 		grafica_Dipendente.setPannelloSelezionato("carrello");
 	}
 	
-	public MyModel getModelCarrelo()
+	public CustomTableModel getModelCarrelo()
 	{
-		if(modelloCarrello == null){
-			System.out.println("Sembra null!");
-		}
-		
 		return modelloCarrello;
 	}
 	
@@ -183,7 +180,7 @@ public class ControlloreCarrello{
 		
 		if(carrello.size() > 0)
 		{
-			MyModel model = new MyModel(carrello.size(),5,colonne);
+			CustomTableModel model = new CustomTableModel(colonne, carrello.size());
 			for(int i = 0;i < carrello.size(); i++)
 			{
 				IDP = carrello.get(i).getIdProdotto();
@@ -196,20 +193,25 @@ public class ControlloreCarrello{
 				model.setValueAt(QTA, i, 2);
 				model.setValueAt(spesa, i, 3);
 				model.setValueAt(Boolean.FALSE, i, 4);
-				modelloCarrello = model;
 			}
+			modelloCarrello = model;
 		}
 		else
 		{
-			MyModel model = new MyModel(1,5,colonne);
+			/*
+			MyModel model = new MyModel(0, 5, colonne);
 			model.setValueAt(" ", 0, 0);
 			model.setValueAt(" ", 0, 1);
 			model.setValueAt(" ", 0, 2);
 			model.setValueAt(" ", 0, 3);
 			model.setValueAt(" ", 0, 4);
 			
+			modelloCarrello = model;*/
+			CustomTableModel model = new CustomTableModel(colonne, 0);
 			modelloCarrello = model;
 		}
+		
+		System.out.println("Model settato!");
 		
 	}
 
@@ -219,7 +221,7 @@ public class ControlloreCarrello{
 		boolean b = true;
 		if(carrello.size() > 0)
 		{
-			int i = JOptionPane.showConfirmDialog(grafica_Dipendente, "Sono presenti elementi nel carrello,siete sicuri di voler chiudere il programma?",null,JOptionPane.YES_NO_OPTION);
+			int i = JOptionPane.showConfirmDialog(grafica_Dipendente, "Sono presenti elementi nel carrello, siete sicuri di voler chiudere il programma?",null,JOptionPane.YES_NO_OPTION);
 			if(i == 1)
 			{
 				b = false;
