@@ -64,14 +64,14 @@ public class ControlloProdottoModficato {
 		controlloreCarrello.updateCarrello(grafica_Dipendente,x);
 	}
 	
-	public void cancellaOrdine(ControlloreCarrello controlloreCarrello,GraficaDipendente grafica_Dipendente,Dipendente dip)
+	public void cancellaOrdine(ControlloreCarrello controlloreCarrello,GraficaDipendente grafica_Dipendente,Dipendente dip,ControlloreCatalogo controlloreCatalogo)
 	{
 		String nome = modifica_Prodotto.getNome();
 		
 		int i = JOptionPane.showConfirmDialog(modifica_Prodotto, "Sicuro di voler eliminare il prodotto Ordinato?",null,JOptionPane.YES_NO_OPTION);
 		if(i == 0)
 		{
-			controlloreCarrello.remAcquisto(nome);
+			controlloreCarrello.remAcquisto(nome,controlloreCatalogo,grafica_Dipendente);
 			controlloreCarrello.initCarrello();
 			grafica_Dipendente.updateCarrello(controlloreCarrello.getModelCarrelo());
 			modifica_Prodotto.doClose();

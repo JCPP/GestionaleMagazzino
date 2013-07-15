@@ -84,16 +84,25 @@ public class ControlloreCarrello{
 		carrello.add(acq);
 	}
 	
-	public void remAcquisto(String n)
+	public void remAcquisto(String n,ControlloreCatalogo controlloreCatalogo,GraficaDipendente grafica_Dipendente)
 	{
 		for(int i = 0; i < carrello.size(); i++)
 		{
 			if(n.equals(carrello.get(i).getNomeProdotto()))
 			{
+				int qta = carrello.get(i).getQta();
+				String nome = carrello.get(i).getNomeProdotto();
+				float spesa = carrello.get(i).getSpesa();
+				int idF = carrello.get(i).getIdFondo();
+				gestionale.magazzino.Fondo fondo = gestionale.magazzino.models.Fondo.visualizzaFondo(idF);
+				fondo.setImporto(fondo.getImporto()+spesa);
+				gestionale.magazzino.models.Prodotto.modificaQuantitaProdotto(nome, +qta);
+				gestionale.magazzino.models.Fondo.cambiaImporto(idF, fondo.getImporto());
 				carrello.remove(i);
+				controlloreCatalogo.initCatalogo();
+				grafica_Dipendente.updateCatalogo(controlloreCatalogo.getCatalogo());
 			}
 		}
-		System.out.println(carrello.size());
 	}
 	
 	public Acquisto getAcquisto(String n)
@@ -150,9 +159,10 @@ public class ControlloreCarrello{
 				p = gestionale.magazzino.models.Prodotto.visualizzaProdotto(carrello.get(i).getIdProdotto());
 				gestionale.magazzino.Fondo fon = new gestionale.magazzino.Fondo();
 				fon = gestionale.magazzino.models.Fondo.visualizzaFondo(f);
-				gestionale.magazzino.models.Fondo.cancellaFondo(f);
-				fon.setImporto(fon.getImporto() -(Math.abs(q)*p.getPrezzo()));
-				gestionale.magazzino.models.Fondo.inserisciFondo(f, fon.getImporto());
+				//gestionale.magazzino.models.Fondo.cancellaFondo(f);
+				//fon.setImporto(fon.getImporto() -(Math.abs(q)*p.getPrezzo()));
+				gestionale.magazzino.models.Fondo.cambiaImporto(fon.getId_Fondo(), fon.getImporto());
+				//gestionale.magazzino.models.Fondo.inserisciFondo(f, fon.getImporto());
 				acq.setSpesa(Math.abs(q)*p.getPrezzo());
 				acq.setQta(quant+q);
 				acq.setIdFondo(fon.getId_Fondo());
@@ -225,6 +235,22 @@ public class ControlloreCarrello{
 			if(i == 1)
 			{
 				b = false;
+			}
+			else
+			{
+				for(int j = 0; j < carrello.size(); j++)
+				{
+					String nome = carrello.get(i).getNomeProdotto();
+					int qta = carrello.get(i).getQta();
+					float spesa = carrello.get(i).getSpesa();
+					int idF = carrello.get(i).getIdFondo();
+					gestionale.magazzino.Fondo fondo = gestionale.magazzino.models.Fondo.visualizzaFondo(idF);
+					fondo.setImporto(fondo.getImporto()+spesa);
+					gestionale.magazzino.models.Prodotto.modificaQuantitaProdotto(nome, +qta);
+					gestionale.magazzino.models.Fondo.cambiaImporto(idF, fondo.getImporto());
+					
+					
+				}
 			}
 		}
 		return b;

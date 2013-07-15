@@ -147,7 +147,7 @@ public class ControlloreDipendente{
 	}
 
 	public void rimuoviProdotto() {
-		controlloreProdottoModificato.cancellaOrdine(controlloreCarrello,grafica_Dipendente,dipendente);
+		controlloreProdottoModificato.cancellaOrdine(controlloreCarrello,grafica_Dipendente,dipendente,controlloreCatalogo);
 		
 	}
 
