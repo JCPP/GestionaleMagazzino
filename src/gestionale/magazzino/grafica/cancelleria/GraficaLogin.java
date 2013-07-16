@@ -1,8 +1,4 @@
 package gestionale.magazzino.grafica.cancelleria;
-/**
- * Classe che si occupa di visualizzare una finestra grafica per l'inserimento dei dati
- * di accesso,il controllo degli stessi,e da la possibilita all'utente di potersi registrare
- */
 
 import gestionale.magazzino.MyListener;
 
@@ -10,6 +6,10 @@ import javax.swing.*;
 
 import java.awt.*;
 
+/**
+ * Classe che si occupa di visualizzare una finestra grafica per l'inserimento dei dati
+ * di accesso, il controllo degli stessi e da la possibilita all'utente di potersi registrare.
+ */
 public class GraficaLogin extends JFrame {
 	
 	private JFrame finestra_Login;
