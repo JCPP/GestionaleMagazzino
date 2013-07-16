@@ -62,7 +62,7 @@ public class ControlloreCarrello{
 	{
 		grafica_Dipendente.setState(true);
 		modelloCarrello = (CustomTableModel) grafica_Dipendente.getTableCarrello().getModel();
-		if(modelloCarrello.getRowCount() > 0)
+		if(modelloCarrello.getRowCount() > 0 && modelloCarrello.getRowCount() <= x)
 		{
 			modelloCarrello.setValueAt(Boolean.FALSE, x, 4);
 		}

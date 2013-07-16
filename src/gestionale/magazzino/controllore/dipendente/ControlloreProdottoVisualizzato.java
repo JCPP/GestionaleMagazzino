@@ -85,9 +85,10 @@ public class ControlloreProdottoVisualizzato{
 			{
 				visualizza_Prodotto.doClose();
 				f.setImporto(f.getImporto()-z);
-				gestionale.magazzino.models.Fondo.cancellaFondo(f.getNome());
-				gestionale.magazzino.models.Fondo.inserisciFondo(f.getNome(),f.getImporto()); //editable
-				gestionale.magazzino.models.Fondo.reindexTable();
+				//gestionale.magazzino.models.Fondo.cancellaFondo(f.getNome());
+				//gestionale.magazzino.models.Fondo.inserisciFondo(f.getNome(),f.getImporto()); //editable
+				//gestionale.magazzino.models.Fondo.reindexTable();
+				gestionale.magazzino.models.Fondo.cambiaImporto(f.getId_Fondo(), f.getImporto());
 				gestionale.magazzino.models.Prodotto.modificaQuantitaProdotto(visualizza_Prodotto.getNomeProdotto(), -qins);
 				Acquisto acq = new Acquisto();
 				acq.setIdDipendente(dipendente.getIdDipendente());
