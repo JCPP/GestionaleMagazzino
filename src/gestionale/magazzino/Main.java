@@ -14,7 +14,6 @@ import javax.swing.SwingWorker;
 
 public class Main {
 	
-	private static Connettore conn;
 	private static int a;
 	private static int z;
 	private static ControlloreDipendente controlloreDipendente;
@@ -34,7 +33,6 @@ public class Main {
             public void run() 
             {
             	
-    			//conn = new Connettore();
             	a = 1;
     			z = 0;
     			Connettore.caricadriver();
