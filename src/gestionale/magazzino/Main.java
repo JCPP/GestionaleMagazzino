@@ -42,7 +42,7 @@ public class Main {
         		controlloreResponsabile = new ControlloreResponsabile();
         		controlloreLogin = new ControlloreLogin(controlloreDipendente,controlloreRegistrazione,controlloreResponsabile);
         		/**
-        		 * Overridding del metodo worker,qui vengono eseguiti i thread secondari
+        		 * Overridding della classe SwingWorker, qui vengono eseguiti i thread secondari
         		 */
                 SwingWorker<Boolean, Void> worker = new SwingWorker<Boolean, Void>()
                 {
@@ -60,7 +60,7 @@ public class Main {
   			        
                 	/**
                 	 * simile alla funzione doInBackground ma meno performante,potrebbe causare il freeze del programma
-                	 * i risultati elaborati in questa funzione devono poi essere gestiti in un altra (non ricordo il nome xD,comunque provando in passato,non funzionava bene il passaggio di parametri tra queste due funzioni,i risultati non venivano elaborati)
+                	 * i risultati elaborati in questa funzione devono poi essere gestiti in un altra (non ricordo il nome xD, comunque provando in passato, non funzionava bene il passaggio di parametri tra queste due funzioni, i risultati non venivano elaborati)
                 	 */
                 	protected void process() 
                 	{
@@ -78,19 +78,19 @@ public class Main {
                 			status = get();
                 		} catch (InterruptedException e) {
                 		} catch (ExecutionException e) {
-                		}catch(NullPointerException awt){
+                		} catch(NullPointerException awt){
                         }
                 		
                 	}
   				   
                 };
-                /**
-                 * worker.execute() fa partire il metodo worker presente in run()
-                 * puo essere richiamato per far rieseguire il metodo worker e le funzioni al suo interno
-                 */
-  		worker.execute();
-		}
-      });
+	        /**
+	         * worker.execute() fa partire il metodo worker presente in run()
+	         * puo essere richiamato per far rieseguire il metodo worker e le funzioni al suo interno
+	         */
+	  		worker.execute();
+            }
+        });
 	}
 	
 	/**
